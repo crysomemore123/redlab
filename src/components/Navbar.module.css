@@ -1,0 +1,72 @@
+/* Navbar.module.css */
+
+.mainNav {
+    display: flex;
+    justify-content: center;
+    background-color: #fff;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .navContainer {
+    display: flex;
+    max-width: 1200px;
+    width: 100%;
+  }
+  
+  /* Main menu items */
+  .navItem {
+    position: relative;
+    padding: 15px 0;
+  }
+  
+  .navLink {
+    padding: 15px;
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    white-space: nowrap;
+    transition: background-color 0.3s;
+    cursor: pointer;
+    display: block;
+  }
+  
+  .navItem:hover .navLink {
+    background-color: #e50000;
+    color: white;
+  }
+  
+  .active {
+    background-color: #e50000;
+    color: white;
+  }
+  
+  /* Dropdown styles */
+  .dropdownMenu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #000;
+    min-width: 200px;
+    display: none;
+    z-index: 999;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  }
+  
+  .navItem:hover .dropdownMenu {
+    display: block;
+  }
+  
+  .dropdownLink {
+    display: block;
+    padding: 12px 15px;
+    color: #e50000;
+    border-bottom: 1px solid #222;
+    font-weight: normal;
+    transition: background-color 0.3s;
+    cursor: pointer;
+  }
+  
+  .dropdownLink:hover {
+    background-color: #222;
+    color: #ff6666;
+  }

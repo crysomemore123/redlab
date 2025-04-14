@@ -6,6 +6,49 @@ import Link from 'next/link';
 import styles from './about.module.css';
 
 export default function About() {
+  const links = [
+    {
+      label: 'ABOUT THE FESTIVAL',
+      href: 'http://localhost:3000/georgian-american-theatrical-feast/about-the-festival',
+    },
+    {
+      label: 'PRESS',
+      href: '/georgian-american-theatrical-feast/press',
+    },
+    {
+      label: 'GALLERY',
+      href: '/georgian-american-theatrical-feast/gallery',
+    },
+    {
+      label: 'FULL PRODUCTIONS',
+      href: '/georgian-american-theatrical-feast/full-productions',
+    },
+    {
+      label: 'READINGS',
+      href: '/georgian-american-theatrical-feast/readings',
+    },
+    {
+      label: 'SPECIAL EVENTS',
+      href: '/georgian-american-theatrical-feast/special-events',
+    },
+    {
+      label: 'PLAYWRIGHTS',
+      href: '/georgian-american-theatrical-feast/playwrights',
+    },
+    {
+      label: 'CAST AND CREATIVE',
+      href: '/georgian-american-theatrical-feast/cast-and-creative',
+    },
+    {
+      label: 'ABOUT GEORGIA',
+      href: '/georgian-american-theatrical-feast/about-georgia',
+    },
+    {
+      label: 'DONATE',
+      href: '/georgian-american-theatrical-feast/donate',
+    },
+  ];
+
   return (
     <div className={styles.aboutContainer}>
       {/* Page title */}
@@ -119,3 +162,14 @@ export default function About() {
     </div>
   );
 }
+
+module.exports = {
+  async rewrites() {
+    return [
+      {
+        source: '/georgian-american-theatrical-feast/:path*',
+        destination: '/georgian-american-theatrical-feast/:path*',
+      },
+    ];
+  },
+};

@@ -31,7 +31,7 @@ pages.forEach((pagePath) => {
   const fullDir = path.join(basePath, pagePath);
   fs.mkdirSync(fullDir, { recursive: true });
 
-  const filePath = path.join(fullDir, "page.tsx");
+  const filePath = path.join(fullDir, "01_page.tsx");
 
   const content = `export default function Page() {
   return (
@@ -46,4 +46,4 @@ pages.forEach((pagePath) => {
   fs.writeFileSync(filePath, content, "utf8");
 });
 
-console.log("✅ All page.tsx files created!");
+console.log("✅ All 01_page.tsx files created!");

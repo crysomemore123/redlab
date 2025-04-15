@@ -1,18 +1,31 @@
-"use client"; // Add this to mark as a client component
+"use client";
 
 import React from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation'; // Changed from useRouter
-import { NavLink, NavLinkWithDropdown } from './navLink';
+import { usePathname } from 'next/navigation';
 import styles from './Navbar.module.css';
 
-// Define navigation data with paths matching your actual folder structure
+// Define type interfaces for navigation links
+interface NavLink {
+  label: string;
+  href: string;
+}
+
+interface NavLinkWithDropdown {
+  label: string;
+  href: string;
+  dropdownItems?: NavLink[];
+}
+
+// Define navigation data with clean URLs
 const navigationLinks: (NavLink | NavLinkWithDropdown)[] = [
   { label: 'HOME', href: '/' },
   { label: 'OPERA IN REGIONS', href: '/opera-in-regions' },
+  
+  // OPTION 1: WITH DROPDOWN MENUS - Comment out if not using
   {
     label: 'GEORGIAN-AMERICAN THEATRICAL FEAST',
-    href: '/georgian-american-theatrical-feast',
+    href: '#',
     dropdownItems: [
       { label: 'ABOUT THE FESTIVAL', href: '/georgian-american-theatrical-feast/01_about-the-festival' },
       { label: 'PRESS', href: '/georgian-american-theatrical-feast/02_press' },
@@ -28,7 +41,7 @@ const navigationLinks: (NavLink | NavLinkWithDropdown)[] = [
   },
   {
     label: 'HAMLET. A VERSION',
-    href: '/hamlet-a-version',
+    href: '#',
     dropdownItems: [
       { label: 'ABOUT', href: '/hamlet-a-version/01_about' },
       { label: 'PRESS', href: '/hamlet-a-version/02_press' },
@@ -37,7 +50,7 @@ const navigationLinks: (NavLink | NavLinkWithDropdown)[] = [
   },
   {
     label: 'PAST PRODUCTIONS',
-    href: '/past-productions',
+    href: '#',
     dropdownItems: [
       { label: 'DON GIOVANNI', href: '/past-productions/01_don-giovanni' },
       { label: 'EUGENE ONEGIN', href: '/past-productions/02_eugene-onegin' },
@@ -46,36 +59,40 @@ const navigationLinks: (NavLink | NavLinkWithDropdown)[] = [
       { label: 'RUT', href: '/past-productions/05_rut' },
     ]
   },
+  
+  // OPTION 2: WITHOUT DROPDOWN MENUS - Uncomment if removing dropdown menus
+  // { label: 'GEORGIAN-AMERICAN THEATRICAL FEAST', href: '/georgian-american-theatrical-feast' },
+  // { label: 'HAMLET. A VERSION', href: '/hamlet-a-version' },
+  // { label: 'PAST PRODUCTIONS', href: '/past-productions' },
+  
   { label: 'CONTACT', href: '/contact' },
   { label: 'ABOUT', href: '/about' },
 ];
 
 const Navbar: React.FC = () => {
-  const pathname = usePathname(); // Changed from useRouter
+  const pathname = usePathname();
 
   return (
     <nav className={styles.mainNav}>
       <div className={styles.navContainer}>
         {navigationLinks.map((link, index) => {
-          // Updated isActive to match numbered paths
-          const isActive = pathname === link.href || 
-                          (link.dropdownItems && link.dropdownItems.some(item => pathname === item.href));
+          const isActive = 
+            pathname === link.href || 
+            ('dropdownItems' in link && link.dropdownItems?.some(item => pathname === item.href));
 
-          // Check if this link has dropdown items
           if ('dropdownItems' in link && link.dropdownItems) {
             return (
-              <div key={index} className={styles.navItem}>
-                <Link href={link.href}>
-                  <span className={`${styles.navLink} ${isActive ? styles.active : ''}`}>
-                    {link.label}
-                  </span>
-                </Link>
+              <div
+                key={index}
+                className={styles.navItem}
+              >
+                <span className={`${styles.navLink} ${isActive ? styles.active : ''}`}>
+                  {link.label}
+                </span>
                 <div className={styles.dropdownMenu}>
                   {link.dropdownItems.map((dropdownItem, dropdownIndex) => (
                     <Link key={dropdownIndex} href={dropdownItem.href}>
-                      <span className={styles.dropdownLink}>
-                        {dropdownItem.label}
-                      </span>
+                      <span className={styles.dropdownLink}>{dropdownItem.label}</span>
                     </Link>
                   ))}
                 </div>
@@ -83,7 +100,6 @@ const Navbar: React.FC = () => {
             );
           }
 
-          // Regular link without dropdown
           return (
             <div key={index} className={styles.navItem}>
               <Link href={link.href}>

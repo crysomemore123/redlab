@@ -1,0 +1,52 @@
+.productionsContainer {
+  padding: 2rem;
+  color: black;
+  max-width: 700px;
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+}
+
+/* REUSED EXACTLY FROM ABOUT PAGE */
+.banner {
+  background-color: black;
+  padding: 0.5rem 1rem;
+  margin-bottom: 1.5rem;
+  width: fit-content;
+}
+
+.bannerText {
+  color: #ff5a00; /* Matches the screenshot's orange */
+  font-weight: 600;
+  font-size: 1.125rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+/* END REUSED STYLES */
+
+.production {
+  margin-bottom: 2rem;
+}
+
+.productionTitle {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #b30000;
+}
+
+.productionInfo {
+  margin-top: 0.25rem;
+  font-style: italic;
+}
+
+.productionDescription {
+  margin: 1rem 0;
+  text-align: justify;
+  line-height: 1.6;
+}
+
+.footerNote {
+  font-style: italic;
+  margin-top: 2rem;
+  text-align: center;
+}

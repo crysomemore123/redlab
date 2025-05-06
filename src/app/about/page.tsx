@@ -8,7 +8,7 @@ import styles from './about.module.css';
 export default function About() {
   return (
     <div className={styles.aboutContainer}>
-      {/* Page title */}
+      {/* Namdvili gverdi Page title */}
       <div className={styles.titleContainer}>
         <h1 className={styles.title}>ABOUT</h1>
       </div>

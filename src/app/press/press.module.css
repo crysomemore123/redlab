@@ -1,0 +1,88 @@
+/* src/app/press/press.module.css */
+
+.pressContainer {
+    padding: 2rem;
+    color: black;
+    max-width: 900px;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+  }
+  
+  .banner {
+    background-color: black;
+    padding: 0.5rem 1rem;
+    margin-bottom: 1.5rem;
+    width: 100%;
+    text-align: center;
+  }
+  
+  .bannerText {
+    color: #ff6600; /* Orange color as seen in the screenshot */
+    font-weight: 600;
+    font-size: 1.125rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin: 0;
+  }
+  
+  .contentWrapper {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+  
+  .imageWrapper {
+    flex: 1;
+    min-width: 300px;
+    max-width: 350px;
+  }
+  
+  .festivalImage {
+    max-width: 100%;
+    height: auto;
+    border: 1px solid #ddd;
+  }
+  
+  .reviewsBlock {
+    flex: 2;
+    min-width: 300px;
+  }
+  
+  .review {
+    margin-bottom: 1.5rem;
+  }
+  
+  .reviewTitle {
+    font-weight: bold;
+    margin-bottom: 0.75rem;
+    font-size: 1rem;
+  }
+  
+  .quote {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+    font-size: 0.95rem;
+  }
+  
+  .otherPress {
+    margin-bottom: 0.75rem;
+    line-height: 1.6;
+    font-size: 0.95rem;
+  }
+  
+  .textLink {
+    color: #0066cc;
+    text-decoration: underline;
+  }
+  
+  /* Media query for smaller screens */
+  @media (max-width: 768px) {
+    .contentWrapper {
+      flex-direction: column;
+    }
+    
+    .imageWrapper {
+      margin: 0 auto 1.5rem;
+    }
+  }

@@ -1,52 +1,87 @@
 .productionsContainer {
   padding: 2rem;
-  color: black;
-  max-width: 700px;
+  max-width: 900px;
   margin: 0 auto;
   font-family: Arial, sans-serif;
+  background-color: #fff;
+  line-height: 1.5;
+}
+
+.header {
   background-color: #f4f4f4;
+  padding: 1rem;
+  margin-bottom: 2rem;
+  text-align: center;
 }
 
-/* REUSED EXACTLY FROM ABOUT PAGE */
-.banner {
-  background-color: black;
-  padding: 0.5rem 1rem;
-  margin-bottom: 1.5rem;
-  width: fit-content;
-}
-
-.bannerText {
-  color: #ff5a00; /* Matches the screenshot's orange */
-  font-weight: 600;
-  font-size: 1.125rem;
-  letter-spacing: 0.2em;
+.header h1 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0;
   text-transform: uppercase;
 }
-/* END REUSED STYLES */
 
 .production {
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px dotted #ccc;
+}
+
+.production:last-of-type {
+  border-bottom: none;
 }
 
 .productionTitle {
   font-size: 1.25rem;
   font-weight: bold;
-  color: #b30000;
+  color: #000;
+  margin-bottom: 0.3rem;
 }
 
-.productionInfo {
-  margin-top: 0.25rem;
+.premiereType {
+  font-weight: bold;
+  margin-bottom: 0.2rem;
+  font-size: 0.95rem;
+}
+
+.creativeTeam {
+  margin-bottom: 0.2rem;
+  font-size: 0.95rem;
+}
+
+.dates {
   font-style: italic;
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
 }
 
 .productionDescription {
-  margin: 1rem 0;
-  text-align: justify;
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  text-align: left;
+}
+
+.castCrew {
+  font-size: 0.95rem;
   line-height: 1.6;
 }
 
-.footerNote {
-  font-style: italic;
+.venueInfo {
   margin-top: 2rem;
+  padding-top: 1rem;
+  font-size: 0.95rem;
+  font-style: italic;
   text-align: center;
+}
+
+/* Media query for smaller screens */
+@media (max-width: 768px) {
+  .productionsContainer {
+    padding: 1rem;
+  }
+  
+  .production {
+    padding-bottom: 1.5rem;
+  }
 }

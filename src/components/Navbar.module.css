@@ -1,4 +1,5 @@
 /* Navbar.module.css */
+
 /* Main navbar container */
 .mainNav {
   display: flex;
@@ -31,51 +32,64 @@
   display: block;
 }
 
-.navItem:hover .navLink {
+.navItem:hover .navLink,
+.hasDropdown:hover > a {
   background-color: #e50000;
   color: white;
 }
 
 .active {
   background-color: #e50000;
-  color: white;
+  color: white !important;
 }
 
 /* ========== DROPDOWN STYLES ========== */
-/* You can remove the styles below if not using dropdown menus */
+
+/* Has dropdown indicator */
+.hasDropdown {
+  position: relative;
+}
 
 /* Dropdown menu */
 .dropdownMenu {
   position: absolute;
   top: 100%;
   left: 0;
-  background-color: black;
+  background-color: #e50000;
   min-width: 200px;
-  display: none; /* initially hidden */
+  display: none;
   z-index: 999;
-  padding: 0.5rem 0;
+  padding: 0;
   flex-direction: column;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  box-shadow: none;
+  width: 100%;
+  border: none;
+  margin: 0;
 }
 
-.navItem:hover .dropdownMenu {
+/* Show dropdown only when JS sets the .show class */
+.dropdownMenu.show {
   display: flex;
 }
 
 /* Dropdown links */
-.dropdownLink {
+.dropdownMenu a {
   display: block;
-  padding: 0.5rem 1rem;
-  color: #ff0000;
+  padding: 10px 15px;
+  color: white;
   white-space: nowrap;
-  border-bottom: 1px solid #222;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
   font-weight: normal;
   transition: background-color 0.3s;
-  cursor: pointer;
+  text-decoration: none;
 }
 
-.dropdownLink:hover {
-  background-color: #222;
-  color: #ff6666;
-  text-decoration: underline;
+.dropdownMenu a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+/* Only show dropdown when JS adds .show class */
+.hasDropdown.active .dropdownMenu.show {
+  display: flex;
 }

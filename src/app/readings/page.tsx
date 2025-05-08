@@ -117,12 +117,8 @@ export default function Page() {
               Readings will take place at Teatro Circulo, 64 East 4th Street (between 2nd and Bowery).
             </p>
           </div>
-
-          <div className={styles.footer}>
-            <p className={styles.copyright}>© Red Lab Productions 2017 | ALL RIGHTS RESERVED</p>
-          </div>
         </div>
       </div>
     </main>
   );
-}
+} 

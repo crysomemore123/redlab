@@ -1,0 +1,184 @@
+/* src/app/hamlet-a-version-press/hamlet-press.module.css */
+.pageContainer {
+    padding: 0;
+    color: black;
+    max-width: 1200px;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+    position: relative;
+  }
+  
+  .mainContent {
+    width: 100%;
+    padding: 0;
+    margin: 0 auto;
+    max-width: 800px;
+  }
+  
+  .banner {
+    background-color: black;
+    padding: 0.75rem;
+    margin-bottom: 1.5rem;
+    width: 100%;
+    text-align: center;
+  }
+  
+  .bannerText {
+    color: #ff6600;
+    font-weight: 400;
+    font-size: 1.25rem;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    margin: 0;
+  }
+  
+  .contentWrapper {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    background-color: #ffffff;
+    padding: 0;
+    box-shadow: none;
+  }
+  
+  .posterContainer {
+    flex: 0 0 auto;
+    width: 300px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+  
+  .poster {
+    width: 100%;
+    height: auto;
+    border: none;
+  }
+  
+  .reviewsContainer {
+    flex: 1;
+    min-width: 300px;
+  }
+  
+  .review {
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: none;
+  }
+  
+  .review:last-child {
+    border-bottom: none;
+  }
+  
+  .quote {
+    font-style: italic;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    margin-bottom: 0;
+    color: #333;
+  }
+  
+  .source {
+    font-style: normal;
+    color: #9a0000;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .source:hover {
+    text-decoration: underline;
+  }
+  
+  .callToAction {
+    margin-top: 1.5rem;
+    text-align: center;
+  }
+  
+  .moreInfoButton {
+    display: inline-block;
+    background-color: #9a0000;
+    color: white;
+    padding: 0.5rem 1.5rem;
+    text-decoration: none;
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: background-color 0.3s;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .moreInfoButton:hover {
+    background-color: #b30000;
+  }
+  
+  .footer {
+    margin-top: 3rem;
+    padding: 1rem 0;
+    text-align: center;
+    font-size: 0.8rem;
+    color: #666;
+    border-top: none;
+  }
+  
+  .copyright {
+    margin-bottom: 0.5rem;
+    font-size: 0.75rem;
+  }
+  
+  .socialLinks {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 0.5rem;
+  }
+  
+  .socialLink {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 3px;
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 16px;
+  }
+  
+  .facebookIcon {
+    background-color: #3b5998;
+    padding: 2px 10px;
+  }
+  
+  .twitterIcon {
+    background-color: #1da1f2;
+    padding: 2px 8px;
+  }
+  
+  .instagramIcon {
+    background-color: #e1306c;
+    padding: 2px 10px;
+  }
+  
+  /* Media query for smaller screens */
+  @media (max-width: 768px) {
+    .pageContainer {
+      padding: 0;
+    }
+    
+    .mainContent {
+      padding: 0;
+    }
+    
+    .contentWrapper {
+      flex-direction: column;
+      align-items: center;
+      padding: 1rem;
+    }
+    
+    .posterContainer {
+      margin-bottom: 1.5rem;
+    }
+  }

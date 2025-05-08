@@ -1,59 +1,63 @@
-export default function OperaInRegions() {
+import React from 'react';
+import './opera-in-regions.css';
+
+const OperaInRegions: React.FC = () => {
   return (
-    <main className="max-w-3xl mx-auto px-4 py-10 text-black font-serif leading-relaxed">
-      <section className="mb-8">
-        <div className="flex justify-center">
-          <img 
-            src="/images/telephone-banner.png" 
-            alt="Opera Telephone Banner with Georgian Text" 
-            className="max-w-lg"
-          />
-        </div>
+    <>
+      {/* Banner Section */}
+      <section className="banner-section">
+        <img 
+          src="/images/telephone-banner.png" 
+          alt="Opera Telephone Banner with Georgian Text" 
+          className="banner-image"
+        />
       </section>
 
-      <section className="mb-10 space-y-4">
+      {/* Georgian Content */}
+      <section className="georgian-section">
         <p>11-დან 24 სექტემბრის ჩათვლით, საქართველოს რეგიონებში მოსახლეობას საოპერო წარმოდგენების ადგილზე მოსმენის შესაძლებლობა ექნება.</p>
-        <p>პროექტი "ოპერა რეგიონებში" მიზნად ისახავს  საქართველოს რეგიონებში კლასიკური მუსიკის პოპულარიზაციას. პროექტი ემსახურება საოპერო ხელოვნების გაცნობას იმ მოსახლეობისთვის,  ვისაც დედაქალაქში  ჩამოსვლის  და ოპერის თეატრში სპექტაკლებზე დასწრების საშუალება არ აქვს.</p>
-        <p>კამერული, ე.წ. სალონური ოპერა საქართველოში სიახლეა. აჭარის, სამეგრელოს, იმერეთის, კახეთის, ქართლის, სამცხე-ჯავახეთის მოსახლეობას საშუალება ექნება ნახოს რეჟისორ ირინა გაჩეჩილაძის მიერ დადგმული კამერული ოპერა - ჯან კარლო მენოტის „ტელეფონი". ეს ოპერა ახალგაზრდა ქართველმა რეჟისორმა ვენის "ფოლქსთეატრის" მცირე სცენაზე დადგა, მანამდე კი ირინა გაჩეჩილაძის სპექტაკლი ლონდონში "სალონურ ოპერაში" და ბრატისლავაში "ზიჩი პალასში" იყო წარმოდგენილი. სპექტაკლში რამდენიმე მუსიკოსი მონაწილეობს, მათ შორის არიან უცხოეთში მოღვაწე ქართველი მსახიობები და მომღერლები: ვენიდან (ავსტრია) სოპრანო რუსუდან ბარბაქაძე და პიანისტი გიორგი კაჩინსკი, აგრეთვე ჩელისტი ჰეზერ ლესლი ჰოლანდიიდან. საქართველოდან მონაწილეობენ ბარიტონი დიმიტრი შაფაქიძე, მსახიობი ფილიპე გრეჩულევიჩი და ჩელისტი გიორგი კიკაბიძე. </p>
-        <p>კამერული ოპერის გარდა, სპექტაკლის მეორე ნაწილში მუსიკოსები ასევე შეასრულებენ საოპერო და კლასიკურ ნაწარმოებებს.</p>
-        <p>საოპერო წარმოდგენები რეგიონებში 11 სექტემბრიდან დაიწყება და პირველი სპექტაკლი იქნება ქალაქ ბათუმში, ზაქარია ფალიაშვილის სამუსიკო სკოლის დიდ საკონცერტო დარბაზში. 14 სექტემბერს მუსიკოსები ზუგდიდში გადაინაცვლებენ და ადგილობრივი მოსახლეობის წინაშე მოსწავლე ახალგაზრდობის სასახლეში წარმოადგენენ სალონურ ოპერას. 15 სექტემბერს სპექტაკლი გაიმართება ჭიათურაში, ა. წერეთლის სახელობის დრამატულ თეატრში. შემდეგი ჩვენება 18 სექტემბერს დუისის (პანკისის ხეობა) კულტურის სახლში იქნება. 19 სექტემბერს მუსიკოსები ნიქოზში ჩავლენ და შიდა ქართლის სოფლებიდან დევნილი მოსახლეობისთვის გამართავენ წარმოდგენას კულტურის ცენტრში. კამერული ოპერის ტური რეგიონებში დასრულდება  24 სექტემბერს ახალქალაქში, კულტურის სახლში.</p>
+        <p>პროექტი "ოპერა რეგიონებში" მიზნად ისახავს საქართველოს რეგიონებში კლასიკური მუსიკის პოპულარიზაციას. პროექტი ემსახურება საოპერო ხელოვნების გაცნობას იმ მოსახლეობისთვის, ვისაც დედაქალაქში ჩამოსვლის და ოპერის თეატრში სპექტაკლებზე დასწრების საშუალება არ აქვს.</p>
+        <p>კამერული, ე.წ. სალონური ოპერა საქართველოში სიახლეა. აჭარის, სამეგრელოს, იმერეთის, კახეთის, ქართლის, სამცხე-ჯავახეთის მოსახლეობას საშუალება ექნება ნახოს რეჟისორ ირინა გაჩეჩილაძის მიერ დადგმული კამერული ოპერა - ჯან კარლო მენოტის <span className="opera-title">"ტელეფონი"</span>. ეს ოპერა ახალგაზრდა ქართველმა რეჟისორმა ვენის "ფოლქსთეატრის" მცირე სცენაზე დადგა, მანამდე კი ირინა გაჩეჩილაძის სპექტაკლი ლონდონში "სალონურ ოპერაში" და ბრატისლავაში "ზიჩი პალასში" იყო წარმოდგენილი. სპექტაკლში რამდენიმე მუსიკოსი მონაწილეობს, მათ შორის არიან უცხოეთში მოღვაწე ქართველი მსახიობები და მომღერლები: ვენიდან (ავსტრია) სოპრანო რუსუდან ბარბაქაძე და პიანისტი გიორგი კაჩინსკი, აგრეთვე ჩელისტი ჰეზერ ლესლი ჰოლანდიიდან. საქართველოდან მონაწილეობენ ბარიტონი დიმიტრი შაფაქიძე, მსახიობი ფილიპე გრეჩულევიჩი და ჩელისტი გიორგი კიკაბიძე.</p>
+        <p>კამერული ოპერის გარდა, სპექტაკლის მეორე ნაწილში შემსრულებლები ასევე შეასრულებენ საოპერო და კლასიკურ ნაწარმოებებს.</p>
+        <p>საოპერო წარმოდგენები რეგიონებში 11 სექტემბრიდან დაიწყება და პირველი სპექტაკლი იქნება ქალაქ ბათუმში, ზაქარია ფალიაშვილის სამუსიკო სკოლის დიდ საკონცერტო დარბაზში. 14 სექტემბერს მუსიკოსები ზუგდიდში გადაინაცვლებენ და ადგილობრივი მოსახლეობის წინაშე მოსწავლე ახალგაზრდობის სასახლეში წარმოადგენენ სალონურ ოპერას. 15 სექტემბერს სპექტაკლი გაიმართება ჭიათურაში, ა. წერეთლის სახელობის დრამატულ თეატრში. შემდეგი ჩვენება 18 სექტემბერს დუისის (პანკისის ხეობა) კულტურის სახლში იქნება. 19 სექტემბერს მუსიკოსები ნიქოზში ჩავლენ და შიდა ქართლის სოფლებიდან დევნილი მოსახლეობისთვის გამართავენ წარმოდგენას კულტურის ცენტრში. კამერული ოპერის ტური რეგიონებში დასრულდება 24 სექტემბერს ახალქალაქში, კულტურის სახლში.</p>
         <p>
-          პროექტის ორგანიზატორია "ფონდი რედლაბი"{" "}
+          პროექტის ორგანიზატორია <span className="foundation-name">"ფონდი რედლაბი"</span>{" "}
           <a
             href="https://www.redlabproductions.org/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-blue-700 underline"
           >
             redlabproductions.org
           </a>
         </p>
-        <p>ჯან კარლო მენოტის კომიკური ოპერა „ტელეფონი" (The Telephone, L'amour à Trois), პირველად დაიდგა ნიუ იორკში 1947 წელს. ის ტექნოლოგიის მზარდი როლის წინასწარმეტყველი აღმოჩნდა. 
-
-ბენი ესტუმრება თავის მეგობარ გოგონას, ლუსის, იმ განზრახვით, რომ ცოლობა სთხოვოს, მაგრამ მისი ყველა მცდელობა როგორმე ჩამოაგდოს ლაპარაკი ამ თემაზე წარუმატებლად მთავრდება, რადგან ლუსი განუწყვეტლივ ლაპარაკობს ტელეფონზე. ბენი ყველაფერს აკეთებს, რომ მიიპყროს ლუსის ყურადღება, მაგრამ ამაოდ. ერთხელ ის ცდილობს „შეებრძოლოს" ტელეფონს, როგორც თვითონ ამბობს „თავდაცვის მიზნით". ბოლოს და ბოლოს ის ტოვებს ბინას, გარედან ურეკავს ლუსის და სთხოვს მას ხელს, რაზეც ლუსი თანხმდება.
-
-რეჟისორის მიერ შემოტანილი ინოვაციაა, რომ ტელეფონის როლს ცოცხალი მსახიობი ასრულებს. ასეთი სახით ლონდონში, ვენასა და ბრატისლავაში მის მიერ დადგმულ ოპერას დიდი წარმატება ხვდა წილად.</p>
+        <p>ჯან კარლო მენოტის კომიკური ოპერა <span className="opera-title">"ტელეფონი"</span> (The Telephone, L'amour à Trois), პირველად დაიდგა ნიუ იორკში 1947 წელს. ის ტექნოლოგიის მზარდი როლის წინასწარმეტყველი აღმოჩნდა. 
+        <br /><br />
+        ბენი ესტუმრება თავის მეგობარ გოგონას, ლუსის, იმ განზრახვით, რომ ცოლობა სთხოვოს, მაგრამ მისი ყველა მცდელობა როგორმე ჩამოაგდოს ლაპარაკი ამ თემაზე წარუმატებლად მთავრდება, რადგან ლუსი განუწყვეტლივ ლაპარაკობს ტელეფონზე. ბენი ყველაფერს აკეთებს, რომ მიიპყროს ლუსის ყურადღება, მაგრამ ამაოდ. ერთხელ ის ცდილობს „შეებრძოლოს" ტელეფონს, როგორც თვითონ ამბობს „თავდაცვის მიზნით". ბოლოს და ბოლოს ის ტოვებს ბინას, გარედან ურეკავს ლუსის და სთხოვს მას ხელს, რაზეც ლუსი თანხმდება.
+        <br /><br />
+        რეჟისორის მიერ შემოტანილი ინოვაციაა, რომ ტელეფონის როლს ცოცხალი მსახიობი ასრულებს. ასეთი სახით ლონდონში, ვენასა და ბრატისლავაში მის მიერ დადგმულ ოპერას დიდი წარმატება ხვდა წილად.</p>
       </section>
 
-      <section className="space-y-4">
+      {/* English Content */}
+      <section className="english-section">
         <p>From 11 to 24 September the people in several regions of Georgia will have an ability to listen to an opera production in situ.</p>
         <p>The project "Opera in Regions" aims to popularize classical music in regions of Georgia, in several towns and rural areas, especially among those who are unable to come to Tbilisi and attend a performance in the Opera House.</p>
-        <p>They will have an opportunity to listen to Gian Carlo Menotti's comic opera "The Telephone" (L'amour a Trois) staged by a young Georgian director Irina Gachechildze which she already staged in Volkstheater (Vienna, Austria), and earlier in "Saloon opera" (London) and "Zichy Palace" (Bratislava, Slovakia). Participants are young Georgian artists – Rusudan Barbakadze (soprano) and George Kachinsky who are performing in Vienna, Dimitri Shapakidze (Baritone), Philip Grechulevich (artist), Giorgi Kikabidze (cellist) from Georgia and Heather Leslie (cellist) from the Netherlands.</p>
+        <p>They will have an opportunity to listen to Gian Carlo Menotti's comic opera <span className="opera-title">"The Telephone"</span> (L'amour a Trois) staged by a young Georgian director Irina Gachechildze which she already staged in Volkstheater (Vienna, Austria), and earlier in "Saloon opera" (London) and "Zichy Palace" (Bratislava, Slovakia). Participants are young Georgian artists – Rusudan Barbakadze (soprano) and George Kachinsky who are performing in Vienna, Dimitri Shapakidze (Baritone), Philip Grechulevich (artist), Giorgi Kikabidze (cellist) from Georgia and Heather Leslie (cellist) from the Netherlands.</p>
         <p>Apart of opera in the second part the musicians will perform opera and classic pieces.</p>
-        <p>Opera performances will start from  September 11, 2019 in Batumi; on September 14 it will be performed in Zugdidi, on September 15 – in Chiatura, on September 18 – in Duisi (Pankisi Gorge), on September 19 – in Nikozi in front of the IDPs from Shida Kartli region and the project will be finished in Akhalkalaki on September 24.</p>
+        <p>Opera performances will start from September 11, 2019 in Batumi; on September 14 it will be performed in Zugdidi, on September 15 – in Chiatura, on September 18 – in Duisi (Pankisi Gorge), on September 19 – in Nikozi in front of the IDPs from Shida Kartli region and the project will be finished in Akhalkalaki on September 24.</p>
         <p>
-          The organizer of the Project is RedLab Foundation{" "}
+          The organizer of the Project is <span className="foundation-name">RedLab Foundation</span>{" "}
           <a
             href="https://www.redlabproductions.org/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-blue-700 underline"
           >
             redlabproductions.org
           </a>
         </p>
-        <p>Gian Carlo Menotti's comic opera "The Telephone" (L'amour a Trois) first performed in 1947, hilariously predicts the increasing role of technology in modern life. Ben visits Lucy at her apartment on a mission to propose to her before he departs on a trip. His attempts to pop the question are foiled by Lucy's obsession with talking on her telephone. He tries everything to get her attention for long enough to ask for her hand in marriage, including an attempt to cut the phone line, until he decides to beat the telephone at its own game.</p>
+        <p>Gian Carlo Menotti's comic opera <span className="opera-title">"The Telephone"</span> (L'amour a Trois) first performed in 1947, hilariously predicts the increasing role of technology in modern life. Ben visits Lucy at her apartment on a mission to propose to her before he departs on a trip. His attempts to pop the question are foiled by Lucy's obsession with talking on her telephone. He tries everything to get her attention for long enough to ask for her hand in marriage, including an attempt to cut the phone line, until he decides to beat the telephone at its own game.</p>
       </section>
-    </main>
+    </>
   );
-}
+};
+
+export default OperaInRegions;

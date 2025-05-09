@@ -1,95 +1,138 @@
 /* Navbar.module.css */
 
-/* Main navbar container */
+/* Assuming .header-content is the flex container from your TSX */
+/* If header-content is a global class, style it in navbar-global.css or its own sheet */
+/* For this example, let's assume you can add a module class to it or style it globally */
+
+/* Styles for the overall header area if controlled within Navbar.tsx's scope */
+/* This would apply to a div wrapping logo and nav if you modify Navbar.tsx structure */
+.siteHeaderWrapper { /* Add this class to the top-level div in Navbar.tsx if you centralize layout */
+  display: flex;
+  flex-direction: column; /* Stack logo and nav vertically */
+  align-items: center; /* Center logo and nav block */
+  padding-bottom: 20px; /* Space below navbar */
+}
+
+.logoContainer {
+  margin-bottom: 15px; /* Space between logo and navbar */
+  /* Centering the logo image itself if it's an inline-block or block inside a flex centered container */
+  display: block; /* Or inline-block for margin auto to work if parent is text-align:center */
+  margin-left: auto;
+  margin-right: auto;
+  width: fit-content; /* To make margin auto work for block element */
+}
+
+/* Main navbar container - applied to the <nav> element */
 .mainNav {
+  display: flex; /* Use flex to center the <ul> inside */
+  justify-content: center; /* Center the <ul> */
+  background-color: #FFFFFF;
+  border-bottom: 1px solid #e0e0e0;
+  width: 100%; /* Make the nav bar take full width of its container */
+  padding: 0; /* Reset padding if ul handles item spacing */
+}
+
+.mainNav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
   display: flex;
-  justify-content: center;
-  background-color: #fff;
-  border-bottom: 1px solid #ccc;
+  /* justify-content: center; /* This will center items if ul itself doesn't take full width */
 }
 
-.navContainer {
-  display: flex;
-  max-width: 1200px;
-  width: 100%;
-}
-
-/* Main menu items */
-.navItem {
-  position: relative;
-  padding: 1rem;
-}
-
-/* Top-level nav links */
+/* Default styling for top-level navigation links (<a> tags) */
 .navLink {
-  padding: 15px;
-  text-decoration: none;
-  color: #000;
-  font-weight: bold;
-  white-space: nowrap;
-  transition: background-color 0.3s;
-  cursor: pointer;
   display: block;
+  padding: 20px 18px; /* Increased vertical padding, adjusted horizontal */
+  text-decoration: none;
+  color: #4A4A4A; /* Slightly lighter black/dark grey for non-active */
+  background-color: transparent;
+  font-weight: 700; /* Changed from 400 to 700 for bold text */
+  font-size: 13px; /* RedLab font size is small */
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+  cursor: pointer;
+  border: none;
+  line-height: 1.4; /* Adjust for vertical centering of text */
+  letter-spacing: 0.5px; /* Slight letter spacing */
 }
 
-.navItem:hover .navLink,
-.hasDropdown:hover > a {
-  background-color: #e50000;
-  color: white;
+/* Hover state for top-level navigation links */
+.navLink:hover {
+  background-color: #CC0000; /* Slightly less bright red for hover to distinguish from active */
+  color: #FFFFFF;
 }
 
-.active {
-  background-color: #e50000;
-  color: white !important;
+/* Active state for top-level navigation links (current page) */
+.activeLink {
+  composes: navLink;
+  background-color: #e50000; /* Original bright red for active */
+  color: #FFFFFF !important; /* Ensure white text */
+  font-weight: 700; /* Changed from 500 to 700 for consistent bold text */
 }
 
-/* ========== DROPDOWN STYLES ========== */
-
-/* Has dropdown indicator */
+/* Styles for list items that contain dropdowns */
 .hasDropdown {
   position: relative;
 }
 
-/* Dropdown menu */
+.activeDropdownParent > .navLink,
+.activeDropdownParent > .activeLink {
+  /* Keep consistent with activeLink or hover state */
+   background-color: #e50000;
+   color: #FFFFFF;
+}
+
+/* Dropdown menu itself */
 .dropdownMenu {
   position: absolute;
   top: 100%;
   left: 0;
-  background-color: #e50000;
-  min-width: 200px;
+  background-color: #e50000; /* Red background */
+  min-width: 240px; /* Adjusted width */
   display: none;
-  z-index: 999;
-  padding: 0;
+  z-index: 1000;
+  padding: 8px 0; /* Vertical padding for the dropdown box */
   flex-direction: column;
-  box-shadow: none;
-  width: 100%;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.15); /* Slightly more defined shadow */
   border: none;
-  margin: 0;
+  margin-top: 0;
 }
 
-/* Show dropdown only when JS sets the .show class */
 .dropdownMenu.show {
   display: flex;
 }
 
-/* Dropdown links */
 .dropdownMenu a {
   display: block;
-  padding: 10px 15px;
-  color: white;
+  padding: 12px 20px; /* Adjusted padding for dropdown items */
+  color: #FFFFFF;
+  background-color: transparent;
   white-space: nowrap;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-  font-weight: normal;
-  transition: background-color 0.3s;
+  font-weight: 700; /* Changed from 400 to 700 for bold text */
+  font-size: 12px; /* Smaller font for dropdown */
   text-decoration: none;
+  text-transform: uppercase;
+  transition: background-color 0.2s ease-in-out;
+  border: none;
+  letter-spacing: 0.5px;
 }
 
 .dropdownMenu a:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-  color: white;
+  background-color: rgba(0, 0, 0, 0.2); /* Darken effect on hover */
+  color: #FFFFFF;
 }
 
-/* Only show dropdown when JS adds .show class */
-.hasDropdown.active .dropdownMenu.show {
-  display: flex;
+/* This .active class was from your original code, ensure it's not conflicting
+   or remove if .activeLink and .activeDropdownParent cover all cases.
+   If it's still used on <li> for non-dropdown active states, it needs to target the child <a>
+*/
+.active > a { /* If .active is on an li */
+  background-color: #e50000;
+  color: white !important;
+}
+.active { /* If .active is directly on an a (covered by .activeLink now) */
+  /* background-color: #e50000;
+  color: white !important; */
 }

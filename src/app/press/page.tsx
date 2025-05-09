@@ -16,7 +16,7 @@ export default function Page() {
         {/* Festival Image */}
         <div className={styles.imageWrapper}>
           <Image
-            src="/images/festival-poster.png"
+            src="/images/festival-poster.jpg"
             alt="Georgian-American Theatrical Feast Poster featuring playwrights"
             width={500}
             height={600}

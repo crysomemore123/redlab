@@ -2,46 +2,53 @@
 
 .aboutContainer {
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 40px auto;
   padding: 20px;
   color: #333;
 }
 
 .titleContainer {
-  background-color: #000;
-  display: inline-block;
+  background-color: #e50000;
   padding: 10px 30px;
   margin-bottom: 30px;
+  text-align: left; /* Force left alignment */
 }
 
 .title {
   color: #fff;
-  font-size: 24px;
-  font-weight: normal;
+  font-size: 2.2em;
+  font-weight: bold;
   text-transform: uppercase;
   margin: 0;
+  letter-spacing: 0.5px;
 }
 
 .description {
   margin-bottom: 40px;
-  line-height: 1.6;
+  line-height: 1.7;
+  max-width: 90%;
+  margin-left: 0;
+  margin-right: auto;
+  text-align: left;
 }
 
 .teamMember {
   display: flex;
-  margin-bottom: 50px;
   gap: 30px;
+  margin-bottom: 50px;
+  align-items: flex-start;
 }
 
 .profileImage {
   flex-shrink: 0;
-  width: 300px;
+  /* width and height are now controlled by the Image component */
+  border-radius: 5px;
+  overflow: hidden; /* To contain any potential overflow */
 }
 
 .profileImage img {
-  width: 100%;
-  height: auto;
-  display: block;
+  display: block; /* Ensure image behaves as a block element */
+  /* width and height are now controlled by the Image component */
 }
 
 .profileInfo {
@@ -51,25 +58,37 @@
 .profileInfo h2 {
   color: #333;
   font-weight: bold;
-  font-size: 18px;
+  font-size: 1.1em;
   margin-top: 0;
-  margin-bottom: 15px;
+  margin-bottom: 8px;
+}
+
+.profileInfo h2 span {
+  font-weight: normal;
+  color: #777;
 }
 
 .profileInfo p {
   line-height: 1.6;
   margin-top: 0;
+  margin-bottom: 12px;
+  font-size: 0.95em;
+}
+
+.profileInfo em {
+  font-style: italic;
 }
 
 .footer {
   margin-top: 60px;
   padding-top: 20px;
-  border-top: 1px solid #eee;
+  border-top: 1px solid #ddd;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  font-size: 14px;
-  color: #666;
+  font-size: 0.9em;
+  color: #777;
+  gap: 20px;
 }
 
 .socialLinks {
@@ -83,28 +102,70 @@
   align-items: center;
   width: 30px;
   height: 30px;
-  background-color: 
-#f5f5f5;
-  border-radius: 3px;
-  color: #666;
-  transition: background-color 0.3s;
+  background-color: #f8f8f8;
+  border-radius: 5px;
+  color: #777;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 .socialIcon:hover {
-  background-color: 
-#e50000;
+  background-color: #e50000;
   color: white;
 }
 
 /* Responsive styles */
 @media (max-width: 768px) {
+  .aboutContainer {
+    padding: 15px;
+  }
+
+  .titleContainer {
+    display: block;
+    text-align: center;
+  }
+
+  .title {
+    font-size: 1.8em;
+  }
+
+  .description {
+    margin-bottom: 30px;
+    font-size: 0.9em;
+    text-align: left;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
   .teamMember {
     flex-direction: column;
+    margin-bottom: 40px;
+    gap: 20px;
   }
 
   .profileImage {
     width: 100%;
-    max-width: 300px;
+    max-width: 250px;
+    height: auto;
     margin: 0 auto 20px;
+  }
+
+  .profileInfo h2 {
+    font-size: 1em;
+  }
+
+  .profileInfo p {
+    font-size: 0.85em;
+  }
+
+  .footer {
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+    padding-bottom: 20px;
+  }
+
+  .socialLinks {
+    margin-top: 10px;
   }
 }

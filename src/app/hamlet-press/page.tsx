@@ -17,7 +17,7 @@ export default function Page() {
         <div className={styles.contentWrapper}>
           <div className={styles.posterContainer}>
             <Image
-              src="/images/hamlet-poster.png"
+              src="/images/hamlet-poster.jpg"
               alt="Hamlet. A Version by Boris Akunin poster"
               width={600}
               height={840}
@@ -97,21 +97,6 @@ export default function Page() {
             </div>
           </div>
         </div>
-        
-        <footer className={styles.footer}>
-          <p className={styles.copyright}>© Red Lab Productions 2025 | ALL RIGHTS RESERVED</p>
-          <div className={styles.socialLinks}>
-            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
-              <img src="/images/facebook-icon.png" alt="Facebook" width={24} height={24} />
-            </a>
-            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
-              <img src="/images/twitter-icon.png" alt="Twitter" width={24} height={24} />
-            </a>
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
-              <img src="/images/instagram-icon.png" alt="Instagram" width={24} height={24} />
-            </a>
-          </div>
-        </footer>
       </div>
     </main>
   );

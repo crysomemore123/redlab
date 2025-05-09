@@ -1,49 +1,35 @@
-/* Global overrides to fix dropdown styling issues */
+/* navbar-global.css */
 
-/* Remove any unwanted box shadows or elements that might be causing the black boxes */
-header nav ul li .dropdownMenu::before,
-header nav ul li .dropdownMenu::after {
-  display: none !important;
-  content: none !important;
+body {
+  margin: 0;
+  font-family: Arial, sans-serif; /* Or your site's default font */
 }
 
-/* Force the dropdown background to be the color we want */
+/* General container for the header content (logo + nav area) */
+/* This should match the class used in your Navbar.tsx on the div wrapping logo and nav */
+/* For example, if <div className="header-content"> wraps logo and nav */
+.header-content { /* Assuming this is the class from your original Navbar.tsx */
+  display: flex;
+  flex-direction: column; /* Stack logo and nav */
+  align-items: center; /* Center them horizontally */
+  /* max-width: 1170px; /* Or your site's standard width */
+  /* margin: 0 auto; /* Center the header content block */
+  padding: 15px 0; /* Padding top/bottom for the header block */
+}
+
+
+/* --- Ensure these !important rules are absolutely necessary --- */
+/* --- Otherwise, remove them to let module styles take precedence --- */
+
+/* Remove these if module CSS is handling them, which it should be */
+/*
 header nav ul li .dropdownMenu {
-  background-color: black !important;
   box-shadow: none !important;
 }
 
-/* Override any global styles that might be causing the issue */
-header nav ul li {
-  position: relative;
-}
-
-/* Ensure dropdown links are visible */
-header nav ul li .dropdownMenu a {
-  color: white !important;
-  display: block !important;
-  width: 100% !important;
-  background-color: transparent !important;
-}
-
-/* Fix dropdown positioning */
-header nav ul li .dropdownMenu.show {
-  display: flex !important;
-  position: absolute !important;
-  top: 100% !important;
-  left: 0 !important;
-  width: 100% !important;
-  z-index: 9999 !important;
-}
-
-/* Remove any unwanted pseudo-elements */
 header nav ul li *::before,
 header nav ul li *::after {
   display: none !important;
+  content: none !important;
 }
-
-/* Fix dropdown menu items */
-.dropdownMenu a:hover {
-  background-color: #222 !important;
-  color: #ff6666 !important;
-}
+*/

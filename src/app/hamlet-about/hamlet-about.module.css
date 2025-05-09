@@ -1,160 +1,184 @@
 /* src/app/specialevents/specialevents.module.css */
 .pageContainer {
-    padding: 1rem 2rem;
-    color: black;
-    max-width: 1200px;
-    margin: 0 auto;
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+  padding: 1rem 2rem;
+  color: black;
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+}
+
+.logoContainer {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.logo {
+  max-width: 100%;
+  height: auto;
+}
+
+.navigation {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  padding: 0.75rem 0;
+}
+
+.navLink {
+  color: #333;
+  text-decoration: none;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  transition: color 0.3s;
+}
+
+.navLink:hover {
+  color: #ff6600;
+}
+
+.banner {
+  background-color: black;
+  padding: 0.5rem 1rem;
+  margin-bottom: 2rem;
+  width: 100%;
+  text-align: center;
+}
+
+.bannerText {
+  color: #ff6600;
+  font-weight: 600;
+  font-size: 1.125rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.contentWrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.eventsList {
+  width: 100%;
+  max-width: 900px;
+}
+
+.event {
+  margin-bottom: 2.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px dotted #ccc;
+}
+
+.event:last-of-type {
+  border-bottom: none;
+}
+
+.eventTitle {
+  font-weight: bold;
+  font-size: 1.3rem;
+  margin-bottom: 0.75rem;
+  color: #333;
+}
+
+.eventDescription {
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.eventFollowup {
+  margin-bottom: 0.75rem;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.eventDate {
+  font-weight: bold;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+
+.venueInfo {
+  margin-top: 2rem;
+  padding-top: 1rem;
+}
+
+.venueDetails {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.boldText {
+  font-weight: bold;
+}
+
+.footer {
+  margin-top: 3rem;
+  text-align: center;
+  padding-top: 1.5rem;
+  border-top: 1px solid #ddd;
+}
+
+.copyright {
+  margin-bottom: 1rem;
+  font-size: 0.8rem;
+  color: #666;
+}
+
+.socialIcons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.socialIcon {
+  display: inline-block;
+}
+
+/* Media query for smaller screens */
+@media (max-width: 768px) {
+  .pageContainer {
+    padding: 1rem;
   }
-  
-  .logoContainer {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 1rem;
-  }
-  
-  .logo {
-    max-width: 100%;
-    height: auto;
-  }
-  
+
   .navigation {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 1rem;
-    margin-bottom: 2rem;
-    border-top: 1px solid #ddd;
-    border-bottom: 1px solid #ddd;
-    padding: 0.75rem 0;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
   }
-  
-  .navLink {
-    color: #333;
-    text-decoration: none;
-    font-size: 0.9rem;
-    text-transform: uppercase;
-    transition: color 0.3s;
-  }
-  
-  .navLink:hover {
-    color: #ff6600;
-  }
-  
-  .banner {
-    background-color: black;
-    padding: 0.5rem 1rem;
-    margin-bottom: 2rem;
-    width: 100%;
-    text-align: center;
-  }
-  
-  .bannerText {
-    color: #ff6600;
-    font-weight: 600;
-    font-size: 1.125rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    margin: 0;
-  }
-  
-  .contentWrapper {
-    display: flex;
-    justify-content: center;
-  }
-  
-  .eventsList {
-    width: 100%;
-    max-width: 900px;
-  }
-  
+
   .event {
-    margin-bottom: 2.5rem;
-    padding-bottom: 1.5rem;
-    border-bottom: 1px dotted #ccc;
+    padding-bottom: 2rem;
   }
-  
-  .event:last-of-type {
-    border-bottom: none;
-  }
-  
-  .eventTitle {
-    font-weight: bold;
-    font-size: 1.3rem;
-    margin-bottom: 0.75rem;
-    color: #333;
-  }
-  
-  .eventDescription {
-    margin-bottom: 1rem;
-    font-size: 1rem;
-    line-height: 1.6;
-  }
-  
-  .eventFollowup {
-    margin-bottom: 0.75rem;
-    font-size: 1rem;
-    line-height: 1.6;
-  }
-  
-  .eventDate {
-    font-weight: bold;
-    margin-bottom: 1rem;
-    font-size: 1rem;
-  }
-  
-  .venueInfo {
-    margin-top: 2rem;
-    padding-top: 1rem;
-  }
-  
-  .venueDetails {
-    font-size: 1rem;
-    line-height: 1.6;
-  }
-  
-  .boldText {
-    font-weight: bold;
-  }
-  
-  .footer {
-    margin-top: 3rem;
-    text-align: center;
-    padding-top: 1.5rem;
-    border-top: 1px solid #ddd;
-  }
-  
-  .copyright {
-    margin-bottom: 1rem;
-    font-size: 0.8rem;
-    color: #666;
-  }
-  
-  .socialIcons {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    margin-top: 0.5rem;
-  }
-  
-  .socialIcon {
-    display: inline-block;
-  }
-  
-  /* Media query for smaller screens */
-  @media (max-width: 768px) {
-    .pageContainer {
-      padding: 1rem;
-    }
-    
-    .navigation {
-      flex-direction: column;
-      align-items: center;
-      gap: 0.5rem;
-    }
-    
-    .event {
-      padding-bottom: 2rem;
-    }
-  }
+}
+
+/* MORE INFO Button Styles */
+.callToAction {
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+.moreInfoButton {
+  display: inline-block;
+  background-color: #9a0000;
+  color: white;
+  padding: 0.5rem 1.5rem;
+  text-decoration: none;
+  font-size: 0.8rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: background-color 0.3s;
+  border: none;
+  cursor: pointer;
+}
+
+.moreInfoButton:hover {
+  background-color: #b30000;
+}

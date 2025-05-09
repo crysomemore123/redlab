@@ -10,8 +10,10 @@ export const metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      {/* ✅ Removed bg-white to allow background image to show */}
-      <body className="text-black font-sans">
+      <body className="text-black font-sans relative min-h-screen">
+        {/* Fixed background div with the dotted pattern */}
+        <div className="fixed inset-0 bg-dotted-pattern bg-repeat z-[-1]" />
+        
         <Navbar />
         <main className="px-4 sm:px-8">{children}</main>
         <Footer />

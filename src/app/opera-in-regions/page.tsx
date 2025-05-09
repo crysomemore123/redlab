@@ -7,7 +7,7 @@ const OperaInRegions: React.FC = () => {
       {/* Banner Section */}
       <section className="banner-section">
         <img 
-          src="/images/telephone-banner.png" 
+          src="/images/telephone-banner.jpg" 
           alt="Opera Telephone Banner with Georgian Text" 
           className="banner-image"
         />

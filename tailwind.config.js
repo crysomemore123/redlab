@@ -6,7 +6,11 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}"
   ],
   theme: {
-    extend: {},
+    extend: {
+      backgroundImage: {
+        'dotted-pattern': "url('/patterns/dotted-background.png')",
+      },
+    },
   },
   plugins: [],
 }

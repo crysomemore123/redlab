@@ -2,177 +2,204 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import styles from './Navbar.module.css';
-import './navbar-global.css'; // Add a global CSS file to override any conflicting styles
+import './navbar-global.css';
 
 export default function Navbar() {
-  // Track which dropdown is currently active
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const router = useRouter();
   const pathname = usePathname();
+  const leaveTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const navRef = useRef<HTMLElement>(null);
 
-  // Define menu structure with paths and their first dropdown items
-  const menuItems = {
+  // Define the default child path for each dropdown parent
+  const defaultChildPaths: Record<string, string> = {
     'georgian-american-theatrical-feast': '/about-the-festival',
     'hamlet-a-version': '/hamlet-about',
-    'past-productions': '/don-giovanni'
+    'past-productions': '/don-giovanni', // Assuming '/don-giovanni' is the default for Past Productions
   };
 
-  // Handle click on a top-level menu item with dropdown
-  const handleDropdownClick = (event: React.MouseEvent, path: string) => {
-    event.preventDefault(); // Prevent default link behavior
-    event.stopPropagation(); // Stop event bubbling
-    
-    // Toggle active dropdown
-    if (activeDropdown === path) {
-      setActiveDropdown(null);
-    } else {
-      // Close any open dropdown first
-      setActiveDropdown(null);
-      
-      // Use setTimeout to ensure the DOM updates before opening the new dropdown
-      setTimeout(() => {
-        setActiveDropdown(path);
-        
-        // Navigate to the first item in the dropdown
-        const firstItemPath = menuItems[path as keyof typeof menuItems];
-        if (firstItemPath) {
-          router.push(firstItemPath);
-        }
-      }, 10);
+  // Click handler for dropdown parent items
+  const handleDropdownParentClick = (event: React.MouseEvent, menuName: string) => {
+    event.preventDefault(); // Prevent default <a> tag behavior (since href="#")
+    event.stopPropagation();
+
+    if (leaveTimeoutRef.current) {
+      clearTimeout(leaveTimeoutRef.current);
     }
+
+    // Navigate to the default child path
+    const targetPath = defaultChildPaths[menuName];
+    if (targetPath) {
+      router.push(targetPath);
+    }
+
+    // Ensure the dropdown menu is shown when its parent is clicked
+    setActiveDropdown(menuName);
   };
-  
-  // Close dropdowns when clicking outside
+
+  const handleMouseEnter = (path: string) => {
+    if (leaveTimeoutRef.current) {
+      clearTimeout(leaveTimeoutRef.current);
+    }
+    setActiveDropdown(path);
+  };
+
+  const handleMouseLeave = () => {
+    leaveTimeoutRef.current = setTimeout(() => {
+      setActiveDropdown(null);
+    }, 150);
+  };
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      // Check if the click is outside any dropdown
-      const dropdowns = document.querySelectorAll(`.${styles.hasDropdown}`);
-      let clickedInside = false;
-      
-      dropdowns.forEach((dropdown) => {
-        if (dropdown.contains(event.target as Node)) {
-          clickedInside = true;
-        }
-      });
-      
-      if (!clickedInside) {
+      if (navRef.current && !navRef.current.contains(event.target as Node)) {
         setActiveDropdown(null);
       }
     };
-
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
+      if (leaveTimeoutRef.current) {
+        clearTimeout(leaveTimeoutRef.current);
+      }
     };
   }, []);
 
-  // Check if a given path is active based on the current pathname
-  const isPathActive = (basePath: string) => {
-    return pathname?.startsWith(basePath);
+  // Updated isPathActive logic
+  const isPathActive = (basePath: string, subPaths: string[] = []) => {
+    const currentPath = pathname || '';
+
+    // 1. Dropdown parent links: active if current path starts with one of their subPaths.
+    if (subPaths.length > 0) {
+      if (subPaths.some(subPath => currentPath.startsWith(subPath))) {
+        return true;
+      }
+    } else {
+      // 2. Non-dropdown links:
+      //    - Exact match for most simple links (e.g., /about, /contact).
+      //    - For section links (e.g., /opera-in-regions), active if current path is exact or starts with basePath + '/'.
+      if (currentPath === basePath) {
+        return true;
+      }
+      // Explicitly define simple links that are also section heads
+      const sectionHeadPaths = ['/opera-in-regions']; // Add other such paths if any
+      if (sectionHeadPaths.includes(basePath) && currentPath.startsWith(basePath + '/')) {
+        return true;
+      }
+    }
+    return false;
+  };
+
+  const getDropdownParentLinkClass = (basePath: string, menuName: string, subPaths: string[] = []) => {
+    return (isPathActive(basePath, subPaths) || activeDropdown === menuName)
+      ? styles.activeLink
+      : styles.navLink;
   };
 
   return (
-    <header>
-      <div className="container">
-        <div className="header-content">
-          <div className="logo-container">
-            <Link href="/">
-              <Image 
-                src="/images/red-lab-logo.png"
-                alt="Red Lab Logo"
-                width={300}
-                height={150}
-                style={{
-                  objectFit: 'contain'
-                }}
-              />
-            </Link>
-          </div>
-          <nav>
-            <ul>
-              <li><Link href="/">HOME</Link></li>
-              <li><Link href="/opera-in-regions">OPERA IN REGIONS</Link></li>
-              <li className={`${styles.hasDropdown} ${activeDropdown === 'georgian-american-theatrical-feast' ? styles.active : ''}`}>
-                <a 
-                  href="/georgian-american-theatrical-feast" 
-                  onClick={(e) => handleDropdownClick(e, 'georgian-american-theatrical-feast')}
-                  className={isPathActive('/about-the-festival') || 
-                            isPathActive('/press') || 
-                            isPathActive('/gallery') ||
-                            isPathActive('/full-productions') ||
-                            isPathActive('/readings') ||
-                            isPathActive('/special-events') ||
-                            isPathActive('/playwrights') ||
-                            isPathActive('/cast-and-creative') ||
-                            isPathActive('/about-georgia') ||
-                            isPathActive('/donate') ? styles.active : ''}
-                >
-                  GEORGIAN-AMERICAN THEATRICAL FEAST
-                </a>
-                {activeDropdown === 'georgian-american-theatrical-feast' && (
-                  <div className={`${styles.dropdownMenu} ${styles.show}`}>
-                    <Link href="/about-the-festival">ABOUT THE FESTIVAL</Link>
-                    <Link href="/press">PRESS</Link>
-                    <Link href="/gallery">GALLERY</Link>
-                    <Link href="/full-productions">FULL PRODUCTIONS</Link>
-                    <Link href="/readings">READINGS</Link>
-                    <Link href="/special-events">SPECIAL EVENTS</Link>
-                    <Link href="/playwrights">PLAYWRIGHTS</Link>
-                    <Link href="/cast-and-creative">CAST AND CREATIVE</Link>
-                    <Link href="/about-georgia">ABOUT GEORGIA</Link>
-                    <Link href="/donate">DONATE</Link>
-                  </div>
-                )}
-              </li>
-              <li className={`${styles.hasDropdown} ${activeDropdown === 'hamlet-a-version' ? styles.active : ''}`}>
-                <a 
-                  href="/hamlet-a-version" 
-                  onClick={(e) => handleDropdownClick(e, 'hamlet-a-version')}
-                  className={isPathActive('/hamlet-about') || 
-                            isPathActive('/hamlet-press') || 
-                            isPathActive('/hamlet-gallery') ? styles.active : ''}
-                >
-                  HAMLET A VERSION
-                </a>
-                {activeDropdown === 'hamlet-a-version' && (
-                  <div className={`${styles.dropdownMenu} ${styles.show}`}>
-                    <Link href="/hamlet-about">ABOUT</Link>
-                    <Link href="/hamlet-press">PRESS</Link>
-                    <Link href="/hamlet-gallery">GALLERY</Link>
-                  </div>
-                )}
-              </li>
-              <li className={`${styles.hasDropdown} ${activeDropdown === 'past-productions' ? styles.active : ''}`}>
-                <a 
-                  href="/past-productions" 
-                  onClick={(e) => handleDropdownClick(e, 'past-productions')}
-                  className={isPathActive('/don-giovanni') || 
-                            isPathActive('/eugene-onegin') || 
-                            isPathActive('/the-seagull') ||
-                            isPathActive('/three-sound-sculptures') ||
-                            isPathActive('/rut') ? styles.active : ''}
-                >
-                  PAST PRODUCTIONS
-                </a>
-                {activeDropdown === 'past-productions' && (
-                  <div className={`${styles.dropdownMenu} ${styles.show}`}>
-                    <Link href="/don-giovanni">DON GIOVANNI</Link>
-                    <Link href="/eugene-onegin">EUGENE ONEGIN</Link>
-                    <Link href="/the-seagull">THE SEAGULL</Link>
-                    <Link href="/three-sound-sculptures">THREE SOUND SCULPTURES</Link>
-                    <Link href="/rut">RUT</Link>
-                  </div>
-                )}
-              </li>
-              <li><Link href="/contact">CONTACT</Link></li>
-              <li><Link href="/about">ABOUT</Link></li>
-            </ul>
-          </nav>
-        </div>
+    <div className={styles.siteHeaderWrapper}>
+      <div className={styles.logoContainer}>
+        <Link href="/">
+          <Image
+            src="/images/red-lab-logo.png"
+            alt="Red Lab Logo"
+            width={280}
+            height={140}
+            style={{ objectFit: 'contain' }}
+            priority
+          />
+        </Link>
       </div>
-    </header>
+      <nav className={styles.mainNav} ref={navRef}>
+        <ul>
+          <li><Link href="/" className={isPathActive('/') ? styles.activeLink : styles.navLink}>HOME</Link></li>
+          <li><Link href="/opera-in-regions" className={isPathActive('/opera-in-regions') ? styles.activeLink : styles.navLink}>OPERA IN REGIONS</Link></li>
+
+          <li
+            className={`${styles.hasDropdown} ${activeDropdown === 'georgian-american-theatrical-feast' ? styles.activeDropdownParent : ''}`}
+            onMouseEnter={() => handleMouseEnter('georgian-american-theatrical-feast')}
+            onMouseLeave={handleMouseLeave}
+          >
+            <a
+              href="#" // href can remain "#" as navigation is handled by onClick
+              onClick={(e) => handleDropdownParentClick(e, 'georgian-american-theatrical-feast')}
+              className={getDropdownParentLinkClass('/georgian-american-theatrical-feast', 'georgian-american-theatrical-feast', [
+                '/about-the-festival', '/press', '/gallery', '/full-productions', '/readings',
+                '/special-events', '/playwrights', '/cast-and-creative', '/about-georgia', '/donate'
+              ])}
+            >
+              GEORGIAN-AMERICAN THEATRICAL FEAST
+            </a>
+            {activeDropdown === 'georgian-american-theatrical-feast' && (
+              <div className={`${styles.dropdownMenu} ${styles.show}`}>
+                <Link href="/about-the-festival">ABOUT THE FESTIVAL</Link>
+                <Link href="/press">PRESS</Link>
+                <Link href="/gallery">GALLERY</Link>
+                <Link href="/full-productions">FULL PRODUCTIONS</Link>
+                <Link href="/readings">READINGS</Link>
+                <Link href="/special-events">SPECIAL EVENTS</Link>
+                <Link href="/playwrights">PLAYWRIGHTS</Link>
+                <Link href="/cast-and-creative">CAST AND CREATIVE</Link>
+                <Link href="/about-georgia">ABOUT GEORGIA</Link>
+                <Link href="/donate">DONATE</Link>
+              </div>
+            )}
+          </li>
+
+          <li
+            className={`${styles.hasDropdown} ${activeDropdown === 'hamlet-a-version' ? styles.activeDropdownParent : ''}`}
+            onMouseEnter={() => handleMouseEnter('hamlet-a-version')}
+            onMouseLeave={handleMouseLeave}
+          >
+            <a
+              href="#"
+              onClick={(e) => handleDropdownParentClick(e, 'hamlet-a-version')}
+              className={getDropdownParentLinkClass('/hamlet-a-version', 'hamlet-a-version', ['/hamlet-about', '/hamlet-press', '/hamlet-gallery'])}
+            >
+              HAMLET. A VERSION
+            </a>
+            {activeDropdown === 'hamlet-a-version' && (
+              <div className={`${styles.dropdownMenu} ${styles.show}`}>
+                <Link href="/hamlet-about">ABOUT</Link>
+                <Link href="/hamlet-press">PRESS</Link>
+                <Link href="/hamlet-gallery">GALLERY</Link>
+              </div>
+            )}
+          </li>
+
+          <li
+            className={`${styles.hasDropdown} ${activeDropdown === 'past-productions' ? styles.activeDropdownParent : ''}`}
+            onMouseEnter={() => handleMouseEnter('past-productions')}
+            onMouseLeave={handleMouseLeave}
+          >
+            <a
+              href="#"
+              onClick={(e) => handleDropdownParentClick(e, 'past-productions')}
+              className={getDropdownParentLinkClass('/past-productions', 'past-productions', [
+                '/don-giovanni', '/eugene-onegin', '/the-seagull', '/three-sound-sculptures', '/rut'
+              ])}
+            >
+              PAST PRODUCTIONS
+            </a>
+            {activeDropdown === 'past-productions' && (
+              <div className={`${styles.dropdownMenu} ${styles.show}`}>
+                <Link href="/don-giovanni">DON GIOVANNI</Link>
+                <Link href="/eugene-onegin">EUGENE ONEGIN</Link>
+                <Link href="/the-seagull">THE SEAGULL</Link>
+                <Link href="/three-sound-sculptures">THREE SOUND SCULPTURES</Link>
+                <Link href="/rut">RUT</Link>
+              </div>
+            )}
+          </li>
+
+          <li><Link href="/contact" className={isPathActive('/contact') ? styles.activeLink : styles.navLink}>CONTACT</Link></li>
+          {/* The /about link will now use the stricter matching from isPathActive */}
+          <li><Link href="/about" className={isPathActive('/about') ? styles.activeLink : styles.navLink}>ABOUT</Link></li>
+        </ul>
+      </nav>
+    </div>
   );
 }

@@ -15,7 +15,7 @@ export default function Dropdown({ label, items }: DropdownProps) {
     <div className="relative inline-block text-left">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 focus:outline-none"
+        className="inline-flex justify-center w-full px-4 py-2 text-sm font-bold text-gray-700 hover:text-gray-900 focus:outline-none"
       >
         {label}
         <svg
@@ -43,7 +43,7 @@ export default function Dropdown({ label, items }: DropdownProps) {
               <Link
                 key={item.href}
                 href={item.href}
-                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                className="block px-4 py-2 text-sm font-bold text-gray-700 hover:bg-gray-100"
               >
                 {item.label}
               </Link>

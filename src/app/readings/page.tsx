@@ -4,7 +4,8 @@ import styles from './readings.module.css';
 
 export default function Page() {
   return (
-    <main className={styles.readingsContainer}>
+    // Root container, changed from <main> to <div>
+    <div className={styles.readingsContainer}>
       {/* Banner Title */}
       <div className={styles.banner}>
         <h1 className={styles.bannerText}>READINGS</h1>
@@ -117,8 +118,8 @@ export default function Page() {
               Readings will take place at Teatro Circulo, 64 East 4th Street (between 2nd and Bowery).
             </p>
           </div>
-        </div>
-      </div>
-    </main>
+        </div> {/* Closing div for styles.readingsList */}
+      </div> {/* Closing div for styles.contentWrapper */}
+    </div> /* Closing div for styles.readingsContainer */
   );
 }

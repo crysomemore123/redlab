@@ -1,8 +1,11 @@
-import styles from './specialevents.module.css'; // Assuming the path in Vercel log was special-events.module.css
+// src/app/special-events/page.tsx
+
+import styles from './specialevents.module.css'; // Assuming the path is correct
 
 export default function Page() {
   return (
-    <main className={styles.pageContainer}>
+    // Root container, changed from <main> to <div>
+    <div className={styles.pageContainer}>
       {/* Banner Title */}
       <div className={styles.banner}>
         <h1 className={styles.bannerText}>SPECIAL EVENTS</h1>
@@ -50,8 +53,8 @@ export default function Page() {
               All performances at <span className={styles.boldText}>Teatro Circulo</span>, 64 East 4th Street (between 2nd and Bowery).
             </p>
           </div>
-        </div>
-      </div>
-    </main>
+        </div> {/* Closing div for styles.eventsList */}
+      </div> {/* Closing div for styles.contentWrapper */}
+    </div> /* Closing div for styles.pageContainer */
   );
 }

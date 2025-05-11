@@ -1,6 +1,7 @@
+// src/app/page.tsx
 'use client';
 
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useCallback } from 'react'; // Added useCallback
 import Image from 'next/image';
 
 export default function Home() {
@@ -20,7 +21,7 @@ export default function Home() {
     '/images/image7.jpg',
   ];
 
-  const startAutoSlide = () => {
+  const startAutoSlide = useCallback(() => {
     // Clear existing timer to prevent multiple intervals
     if (autoSlideTimerRef.current) {
       clearInterval(autoSlideTimerRef.current);
@@ -32,7 +33,7 @@ export default function Home() {
     autoSlideTimerRef.current = setInterval(() => {
       setCurrentIndex(prevIndex => (prevIndex + 1) % images.length);
     }, 3000); // Slide every 3 seconds
-  };
+  }, [isPaused, images.length]); // Added dependencies for useCallback
 
   // Initial start of auto-slide and cleanup
   useEffect(() => {
@@ -41,7 +42,7 @@ export default function Home() {
       if (autoSlideTimerRef.current) clearInterval(autoSlideTimerRef.current);
       if (pauseTimerRef.current) clearTimeout(pauseTimerRef.current);
     };
-  }, []); // Empty dependency array: run once on mount and cleanup on unmount
+  }, [startAutoSlide]); // Added startAutoSlide to dependency array
 
   // Update carousel position when currentIndex changes
   useEffect(() => {
@@ -77,7 +78,7 @@ export default function Home() {
         clearTimeout(pauseTimerRef.current);
       }
     };
-  }, [isPaused]); // Re-run when isPaused changes
+  }, [isPaused, startAutoSlide]); // Added startAutoSlide to dependency array
 
   const handleNavClick = (direction: number) => {
     // Clear auto-slide timer immediately
@@ -245,14 +246,7 @@ export default function Home() {
             height: 40px;
           }
           .carousel-arrow::before {
-             padding: 5px; /* Adjust chevron size for smaller button */
-             border-width: 2px 2px 0 0;
-          }
-          .carousel-arrow-left {
-            left: 10px;
-          }
-          .carousel-arrow-right {
-            right: 10px;
+            padding: 5px; /* Adjust chevron */
           }
         }
       `}</style>

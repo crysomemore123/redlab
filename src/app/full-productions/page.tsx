@@ -1,3 +1,4 @@
+// src/app/full-productions/page.tsx
 // Ensure this component is treated as a Client Component
 // If you are using Next.js App Router, this should be at the top of the file.
 'use client';
@@ -50,7 +51,7 @@ export default function FullProductionsPage() {
         <p className={styles.creativeTeam}>Written by Lasha Bugadze, Directed by Adam Knight</p>
         <p className={styles.dates}>July 13 - August 6</p>
         <p className={styles.productionDescription}>
-          Rostom just got a promotion – and a company car equipped with the latest GPS technology. But when the automated directions veer off the map and into the holes in Rostom's personal life, he must choose between stark reality and virtual intimacy. A love story – for tomorrow. Winner of the 2012 BBC World Drama Award for Best International Play. Directed by Adam Knight <em>Naperville</em> with Slant Theatre Project; Lawrence Dial's <em>In The Room</em>.
+          Rostom just got a promotion – and a company car equipped with the latest GPS technology. But when the automated directions veer off the map and into the holes in Rostom&apos;s personal life, he must choose between stark reality and virtual intimacy. A love story – for tomorrow. Winner of the 2012 BBC World Drama Award for Best International Play. Directed by Adam Knight <em>Naperville</em> with Slant Theatre Project; Lawrence Dial&apos;s <em>In The Room</em>.
         </p>
         <p className={styles.castCrew}>
           Featuring Alan Altschuler*, Masha Dakic*, Ross DeGraw*, Brett Epstein, Lauren Riddle, and Owen Scott* (AEA Member).

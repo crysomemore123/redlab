@@ -1,5 +1,4 @@
-// src/app/hamlet-a-version-about/page.tsx
-
+// src/app/hamlet-about/page.tsx
 import styles from './hamlet-about.module.css';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -32,21 +31,21 @@ export default function Page() {
 
           <div className={styles.quotes}>
             <p className={styles.quote}>
-              "Full of intrigue... lush and fantastical." - <span className={styles.source}>The New York Times</span>
+              &quot;Full of intrigue... lush and fantastical.&quot; - <span className={styles.source}>The New York Times</span>
             </p>
             <p className={styles.quote}>
-              "Probably the most intriguing version of Hamlet I have ever seen!" - <span className={styles.source}>Times Square Chronicles</span>
+              &quot;Probably the most intriguing version of Hamlet I have ever seen!&quot; - <span className={styles.source}>Times Square Chronicles</span>
             </p>
           </div>
 
           <div className={styles.description}>
             <p>
               Red Lab, in association with Roust Theatre Company and executive
-              producer Mark Mullen, presents Boris Akunin's HAMLET. A VERSION.
+              producer Mark Mullen, presents Boris Akunin&apos;s HAMLET. A VERSION.
               This world premiere by the celebrated Georgian-born writer and
-              dissident of Putin's Russia, internationally famous for the cycle of
+              dissident of Putin&apos;s Russia, internationally famous for the cycle of
               fictional detective novels <span className={styles.italic}>The Adventures of Erast Fandorin</span>, re-
-              engineers Shakespeare's classic tragedy in an ingeniously innovative
+              engineers Shakespeare&apos;s classic tragedy in an ingeniously innovative
               vein. Directed by Irina Gachechiladze, with compositions by Giya
               Kancheli.
             </p>
@@ -57,14 +56,14 @@ export default function Page() {
               intrigue, opportunism, and political scheming of a burgeoning
               police state. This starkly realized new world order, insidiously
               ushered in by murderous and destabilizing tactics, provides a whole
-              new meaning to the phrase "something is rotten in the state of
-              Denmark."
+              new meaning to the phrase &quot;something is rotten in the state of
+              Denmark.&quot;
             </p>
 
             <p>
               From a curiously flat-footed Hamlet and a self-aggrandizing
-              "Polonius the First", to the questionable death of the old king and a
-              torrid affair between Gertrude and Claudius, Boris Akunin's
+              &quot;Polonius the First&quot;, to the questionable death of the old king and a
+              torrid affair between Gertrude and Claudius, Boris Akunin&apos;s
               HAMLET. A VERSION provides a radically prescient perspective on a
               contemporary political issue: how to eradicate the old to make way
               for the new. But who gets caught in the crossfire?

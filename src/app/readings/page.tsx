@@ -21,7 +21,7 @@ export default function Page() {
               Monday, July 17 @ 4pm
             </p>
             <p className={styles.castInfo}>
-              Featuring Mary Ellen Toomey, Lori Vega, Conor Wright, Nicole M. Out, and W'Tre Davis
+              Featuring Mary Ellen Toomey, Lori Vega, Conor Wright, Nicole M. Out, and W&apos;Tre Davis
             </p>
             <p className={styles.description}>
               A family finds themselves watching war on their living room tv return home, but the home itself is a shelter for the conflict residing within each character in this dark exploration of human nature.
@@ -39,7 +39,7 @@ export default function Page() {
               Featuring Therese Plaehn, Nicole M. Out, Natalie Hegg, and Owen Scott
             </p>
             <p className={styles.description}>
-              Nana and Nene look old pets as things for which it only they're stuck taking care of a bedridden woman together, both with buried hurts hoping showing up and a beach offers a chance for a playboy -- what are two friends to do?
+              Nana and Nene look old pets as things for which it only they&apos;re stuck taking care of a bedridden woman together, both with buried hurts hoping showing up and a beach offers a chance for a playboy -- what are two friends to do?
             </p>
           </div>
 
@@ -54,7 +54,7 @@ export default function Page() {
               Featuring Chase Coleman-Rice, Phil Estrera, Jacqueline Jarrold, Katie Rose Krueger, Natalie Rich, and Richard Taddeukhnam
             </p>
             <p className={styles.description}>
-              A convicted murderer and successful children's tale & prison trustee is demanding to be considered for having committed no crime. A satirical look at guilt and suspicion when living in a police state as freedom its own prison?
+              A convicted murderer and successful children&apos;s tale & prison trustee is demanding to be considered for having committed no crime. A satirical look at guilt and suspicion when living in a police state as freedom its own prison?
             </p>
           </div>
 
@@ -69,12 +69,12 @@ export default function Page() {
               Featuring Roger Casey, Kevin Delano, Ariel Estrada, Lauren Lubow, Tiffany May McRae, and Natalie Rich
             </p>
             <p className={styles.description}>
-              A graveyard in suburban California holds a secret of a soldier's past – one that demands a pilgrimage to the Caucasus. A new interpretation of George Saunders's novel Tenth of December, seen through the prism of magical realism.
+              A graveyard in suburban California holds a secret of a soldier&apos;s past – one that demands a pilgrimage to the Caucasus. A new interpretation of George Saunders&apos;s novel Tenth of December, seen through the prism of magical realism.
             </p>
           </div>
 
           <div className={styles.reading}>
-            <h2 className={styles.readingTitle}>On The Eagle's Wings</h2>
+            <h2 className={styles.readingTitle}>On The Eagle&apos;s Wings</h2> {/* Escaped apostrophe in title */}
             <p className={styles.readingInfo}>
               Written by Guram Batiashvili<br />
               Monday, July 31 @ 4pm
@@ -121,4 +121,4 @@ export default function Page() {
       </div>
     </main>
   );
-} 
+}

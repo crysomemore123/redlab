@@ -1,6 +1,4 @@
-// src/app/specialevents/page.tsx
-
-import styles from './specialevents.module.css';
+import styles from './specialevents.module.css'; // Assuming the path in Vercel log was special-events.module.css
 
 export default function Page() {
   return (
@@ -17,9 +15,9 @@ export default function Page() {
             <h2 className={styles.eventTitle}>Launch Event: Georgian-American Theatrical Feast</h2>
             <p className={styles.eventDescription}>
               A special event, replete with Georgian wine and treats from Oda House! With a reading of Lasha
-              Bugadze's short play "Putin's Mother." Directed by Irina Gachechiladze, featuring actor Khris
-              Lewin ("Hamlet. A Version"). What if the mother of Russia's most powerful man is simply a poor
-              soul from the Caucasus? Putin's Mother is a solo piece about a forgotten woman with a
+              Bugadze&apos;s short play &quot;Putin&apos;s Mother.&quot; Directed by Irina Gachechiladze, featuring actor Khris
+              Lewin (&quot;Hamlet. A Version&quot;). What if the mother of Russia&apos;s most powerful man is simply a poor
+              soul from the Caucasus? Putin&apos;s Mother is a solo piece about a forgotten woman with a
               remarkable claim. But can a mother unconditionally love a monster? Based on true events.
             </p>
             <p className={styles.eventFollowup}>
@@ -35,7 +33,7 @@ export default function Page() {
             <h2 className={styles.eventTitle}>Special Event: Diary of a Dress + Concert</h2>
             <p className={styles.eventDescription}>
               A special event, with Georgian wine and treats from Oda House! With a reading of Tamar
-              Bartaia's short play "Diary of a Dress," directed by Masha Dakic. The secret life of a beautiful
+              Bartaia&apos;s short play &quot;Diary of a Dress,&quot; directed by Masha Dakic. The secret life of a beautiful
               object – revered and caressed, then tossed and left in the closet. A memoir filled with music and
               sensation propelled by the women who wear her. What remains, and what is gone with time?
             </p>

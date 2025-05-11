@@ -20,7 +20,8 @@ export default function FullProductionsPage() {
   // This provides a more consistent DOM structure for hydration.
   if (!isClient) {
     return (
-      <main className={styles.productionsContainer}>
+      // Root container, changed from <main> to <div>
+      <div className={styles.productionsContainer}>
         <div className={styles.header}>
           {/* Use a generic loading text or a more structured skeleton */}
           <h1>Loading Productions...</h1>
@@ -34,13 +35,14 @@ export default function FullProductionsPage() {
           <p style={{ backgroundColor: '#eee', color: '#eee', height: '3rem', marginBottom: '1rem' }}>Placeholder description</p>
         </section>
         */}
-      </main>
+      </div> // Closing div for styles.productionsContainer (skeleton)
     );
   }
 
   // Once isClient is true, render the actual page content
   return (
-    <main className={styles.productionsContainer}>
+    // Root container, changed from <main> to <div>
+    <div className={styles.productionsContainer}>
       <div className={styles.header}>
         <h1>FULL PRODUCTIONS</h1>
       </div>
@@ -76,6 +78,6 @@ export default function FullProductionsPage() {
       <div className={styles.venueInfo}>
         <p>All performances at <strong>Teatro Circulo</strong>, 64 East 4th Street (between 2nd and Bowery).</p>
       </div>
-    </main>
+    </div> // Closing div for styles.productionsContainer (main content)
   );
 }

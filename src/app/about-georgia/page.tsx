@@ -31,11 +31,13 @@ export default function Page() {
         </p>
         
         <p>
-          Georgian culture goes back to ancient times. Ancient Greeks called the western part of the region bordering the Black Sea "Colchis," where according to legend Medea was from and where the Argonauts sought the Golden Fleece. (In fact, archeological excavations showed that gold was in abundance there.) Georgia is considered one of the oldest wine-producing lands in the world: archeologists have discovered wine-vessels there eight thousand years old.
+          {/* Fixed: "Colchis," changed to &quot;Colchis,&quot; */}
+          Georgian culture goes back to ancient times. Ancient Greeks called the western part of the region bordering the Black Sea &quot;Colchis,&quot; where according to legend Medea was from and where the Argonauts sought the Golden Fleece. (In fact, archeological excavations showed that gold was in abundance there.) Georgia is considered one of the oldest wine-producing lands in the world: archeologists have discovered wine-vessels there eight thousand years old.
         </p>
         
         <p>
-          The Georgian language is one of the oldest in the world. Connected to neither Slavic (Russian), nor Turkic or Semitic languages, the language has used its own alphabet since at least 4th century A.D. with literature going back 16 centuries or more. Iakob Tsurtaveli's novel about Saint Shushanik was written in 476 and its text is still easily understood by modern Georgians.
+          {/* Fixed: Tsurtaveli's changed to Tsurtaveli&apos;s */}
+          The Georgian language is one of the oldest in the world. Connected to neither Slavic (Russian), nor Turkic or Semitic languages, the language has used its own alphabet since at least 4th century A.D. with literature going back 16 centuries or more. Iakob Tsurtaveli&apos;s novel about Saint Shushanik was written in 476 and its text is still easily understood by modern Georgians.
         </p>
 
         <p>

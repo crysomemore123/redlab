@@ -1,0 +1,162 @@
+/* playwrights.module.css */
+
+.pageContainer {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px 15px;
+}
+
+.banner {
+  width: 100%;
+  padding: 40px 20px; /* Increased top/bottom padding for more space */
+  text-align: center;
+  margin-bottom: 50px;
+  /* border-bottom: 1px solid #e0e0e0; */
+}
+
+.bannerText {
+  display: inline-block;
+  font-family: 'Oswald', sans-serif;
+  font-size: 3em;
+  font-weight: 500;
+  color: #222;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #333;
+  line-height: 1.2;
+}
+
+.playwrightsList {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.playwrightEntry {
+  display: flex;
+  flex-direction: row;
+  gap: 25px;
+  align-items: flex-start;
+  /* border-bottom: 1px solid #e0e0e0; */
+  /* padding-bottom: 25px; */
+}
+
+.playwrightImageWrapper {
+  position: relative;
+  width: 200px; /* Corrected typo from 200x to 200px */
+  height: 213px;
+  min-width: 200px;
+  background-color: #f0f0f0;
+  /* overflow: hidden; */
+  /* border: 1px solid #ddd; */
+}
+
+.playwrightImage {
+  /* border-radius: 4px; */
+}
+
+.playwrightInfo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.playwrightName {
+  font-size: 1.6em;
+  font-weight: bold;
+  color: #000;
+  margin: 0 0 5px 0;
+  text-transform: uppercase;
+}
+
+.playwrightQuote {
+  font-size: 1.1em;
+  font-style: italic;
+  color: #333;
+  margin: 0 0 15px 0;
+  line-height: 1.4;
+}
+
+.playwrightBio {
+  font-size: 0.95em;
+  color: #444;
+  line-height: 1.6;
+  margin: 0;
+  /* white-space: pre-line; */
+}
+
+/* Skeleton Loader Styles */
+.animate-pulse { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: .5; }
+}
+.bg-gray-300 { background-color: #d1d5db; }
+.rounded { border-radius: 0.25rem; }
+.h-6 { height: 1.5rem; }
+.w-3\/4 { width: 75%; }
+.mb-2 { margin-bottom: 0.5rem; }
+.h-4 { height: 1rem; }
+.w-1\/2 { width: 50%; }
+.mb-4 { margin-bottom: 1rem; }
+.space-y-2 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(0.5rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(0.5rem * var(--tw-space-y-reverse));
+}
+.w-full { width: 100%; }
+.w-5\/6 { width: 83.333333%; }
+.w-4\/5 { width: 80%; }
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .playwrightEntry {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .playwrightImageWrapper {
+    width: 100%;
+    max-width: 250px;
+    height: 280px;
+    margin-bottom: 20px;
+  }
+
+  .playwrightInfo {
+    text-align: center;
+  }
+
+  .playwrightName,
+  .playwrightQuote,
+  .playwrightBio {
+    text-align: left;
+  }
+
+  .bannerText {
+    font-size: 2.5em;
+    padding-bottom: 10px;
+    letter-spacing: 0.5px;
+  }
+}
+
+@media (max-width: 480px) {
+  .bannerText {
+    font-size: 2em;
+    letter-spacing: 0px;
+  }
+
+  .playwrightName {
+    font-size: 1.3em;
+  }
+
+  .playwrightQuote {
+    font-size: 1em;
+  }
+
+  .playwrightBio {
+    font-size: 0.9em;
+  }
+}

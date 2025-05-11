@@ -6,7 +6,8 @@ import Link from 'next/link';
 
 export default function Page() {
   return (
-    <main className={styles.pageContainer}>
+    // Root container, changed from <main> to <div>
+    <div className={styles.pageContainer}>
       {/* Banner Title */}
       <div className={styles.banner}>
         <h1 className={styles.bannerText}>WORLD PREMIERE</h1>
@@ -21,6 +22,7 @@ export default function Page() {
             width={500}
             height={700}
             className={styles.poster}
+            priority // Consider adding priority if this is an important LCP image
           />
         </div>
 
@@ -75,8 +77,8 @@ export default function Page() {
               MORE INFO
             </Link>
           </div>
-        </div>
-      </div>
-    </main>
+        </div> {/* Closing div for styles.infoContainer */}
+      </div> {/* Closing div for styles.contentWrapper */}
+    </div> /* Closing div for styles.pageContainer */
   );
 }

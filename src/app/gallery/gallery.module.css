@@ -1,0 +1,108 @@
+/* gallery.module.css */
+
+.pageContainer {
+  padding: 2rem;
+  color: black;
+  max-width: 900px; /* Or your preferred max-width */
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
+  background-color: #ffffff; /* White background as per screenshot */
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.banner {
+  background-color: black;
+  padding: 0.5rem 1rem;
+  margin-bottom: 1.5rem;
+  width: 100%;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.bannerText {
+  color: #ff6600; /* Orange color */
+  font-weight: 600;
+  font-size: 1.125rem; /* 18px */
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.introText {
+  font-size: 0.8rem; /* Approx 12-13px */
+  line-height: 1.5;
+  color: #333;
+  margin-bottom: 2rem;
+  max-width: 600px; /* Limit width of text block */
+  margin-left: auto;  /* Center the text block if pageContainer is wider */
+  margin-right: auto; /* Center the text block */
+  text-align: center; /* Center the text within its block */
+}
+
+.introText p {
+  margin-bottom: 0.25em; /* Little space between lines of the address-like block */
+}
+
+.galleryGrid {
+  display: grid;
+  /* Adjust columns for different screen sizes for responsiveness */
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Basic responsive grid */
+  gap: 10px; /* Space between images */
+  width: 100%;
+}
+
+/*
+  For a layout closer to the original, you might need a more specific grid setup.
+  The original image has a distinct layout:
+  - Row 1: Wide image, then two stacked smaller images
+  - Row 2: Two medium images
+  - etc.
+
+  If you want to replicate that specific layout, you'd need to:
+  1. Group your `galleryImagesData` by rows or sections.
+  2. Use more specific CSS Grid properties (grid-column-start/end, grid-row-start/end)
+     OR use a JavaScript masonry library.
+
+  This is a simplified example using auto-fill which will create a somewhat uniform grid.
+*/
+
+.galleryItem {
+  width: 100%;
+  overflow: hidden; /* Ensures images don't break out of the item box */
+}
+
+.galleryImage {
+  display: block;
+  width: 100%;
+  height: auto; /* Maintain aspect ratio by default */
+  object-fit: cover; /* Cover the area, might crop if aspect ratios differ wildly from item box */
+  border: 1px solid #eee; /* Optional border like in original */
+}
+
+.skeletonImage {
+  width: 100%;
+  padding-bottom: 66%; /* Aspect ratio for skeleton (e.g., 3:2). Adjust as needed. */
+  height: 0; /* For padding-bottom technique */
+  border-radius: 4px; /* Optional */
+}
+
+
+/* Basic pulse animation for skeleton (if not using Tailwind) */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: .5;
+  }
+}
+
+/* Ensure these are available if not using Tailwind for skeleton elsewhere */
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+.bg-gray-300 {
+  background-color: #d1d5db;
+}

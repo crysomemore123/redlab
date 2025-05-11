@@ -1,4 +1,4 @@
-/* src/app/specialevents/specialevents.module.css */
+/* hamlet-about.module.css (or the correct CSS file for your Hamlet page) */
 .pageContainer {
   padding: 1rem 2rem;
   color: black;
@@ -6,48 +6,25 @@
   margin: 0 auto;
   font-family: Arial, sans-serif;
   background-color: #f4f4f4;
-}
 
-.logoContainer {
+  /* Added for robustness */
+  min-height: 70vh; /* Adjust as needed */
   display: flex;
-  justify-content: center;
-  margin-bottom: 1rem;
+  flex-direction: column; /* To stack banner and contentWrapper vertically */
 }
 
-.logo {
-  max-width: 100%;
-  height: auto;
-}
-
-.navigation {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 1rem;
-  margin-bottom: 2rem;
-  border-top: 1px solid #ddd;
-  border-bottom: 1px solid #ddd;
-  padding: 0.75rem 0;
-}
-
-.navLink {
-  color: #333;
-  text-decoration: none;
-  font-size: 0.9rem;
-  text-transform: uppercase;
-  transition: color 0.3s;
-}
-
-.navLink:hover {
-  color: #ff6600;
-}
+/* Styles like .logoContainer, .navigation, etc., might be from a different context (specialevents)
+   Ensure this CSS file only contains styles relevant to hamlet-a-version-about/page.tsx
+   or adjust if these are indeed used by the Hamlet page structure.
+   I'm focusing on .banner and .contentWrapper as they are clearly used. */
 
 .banner {
   background-color: black;
   padding: 0.5rem 1rem;
-  margin-bottom: 2rem;
+  margin-bottom: 2rem; /* Was 2rem, kept it */
   width: 100%;
   text-align: center;
+  flex-shrink: 0; /* Prevent banner from shrinking */
 }
 
 .bannerText {
@@ -59,126 +36,129 @@
   margin: 0;
 }
 
+/* This is the main content area for the Hamlet page based on your TSX */
 .contentWrapper {
-  display: flex;
-  justify-content: center;
+  display: flex; /* Your TSX shows posterContainer and infoContainer as direct children */
+  /* justify-content: center; */ /* You might want space-between or gap depending on layout */
+  gap: 2rem; /* Added for spacing between poster and info */
+  flex-wrap: wrap; /* Allow items to wrap on smaller screens */
+  flex-grow: 1; /* Allow contentWrapper to grow */
+
+  /* Added to ensure this specific section has a minimum height */
+  min-height: 300px; /* Adjust as needed */
+  /* For debugging: border: 2px dashed blue; */
 }
 
-.eventsList {
-  width: 100%;
-  max-width: 900px;
+/* Assuming .posterContainer and .infoContainer are direct children of .contentWrapper
+   and you want them side-by-side, taking up space. */
+.posterContainer {
+  flex: 1; /* Adjust flex basis as needed, e.g., flex: 0 0 40%; */
+  min-width: 300px; /* Example minimum width */
+  /* max-width: 500px; /* As per your Image width */
 }
 
-.event {
-  margin-bottom: 2.5rem;
-  padding-bottom: 1.5rem;
-  border-bottom: 1px dotted #ccc;
+.poster {
+  max-width: 100%;
+  height: auto; /* Maintain aspect ratio */
+  display: block;
 }
 
-.event:last-of-type {
-  border-bottom: none;
+.infoContainer {
+  flex: 2; /* Adjust flex basis as needed, e.g., flex: 1 1 60%; */
+  min-width: 300px; /* Example minimum width */
 }
 
-.eventTitle {
+/* Styles for .title, .author, .quotes, .description, .callToAction etc. from your Hamlet TSX */
+.title {
+  /* Your existing styles or add new ones */
+  font-size: 2rem; /* Example */
   font-weight: bold;
-  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+}
+
+.author {
+  /* Your existing styles or add new ones */
+  font-size: 1.2rem; /* Example */
+  margin-bottom: 1rem;
+}
+
+.quotes {
+  margin-bottom: 1.5rem;
+}
+
+.quote {
   margin-bottom: 0.75rem;
-  color: #333;
+  font-style: italic;
 }
 
-.eventDescription {
-  margin-bottom: 1rem;
-  font-size: 1rem;
-  line-height: 1.6;
-}
-
-.eventFollowup {
-  margin-bottom: 0.75rem;
-  font-size: 1rem;
-  line-height: 1.6;
-}
-
-.eventDate {
-  font-weight: bold;
-  margin-bottom: 1rem;
-  font-size: 1rem;
-}
-
-.venueInfo {
-  margin-top: 2rem;
-  padding-top: 1rem;
-}
-
-.venueDetails {
-  font-size: 1rem;
-  line-height: 1.6;
-}
-
-.boldText {
+.source {
+  font-style: normal;
   font-weight: bold;
 }
 
-.footer {
-  margin-top: 3rem;
-  text-align: center;
-  padding-top: 1.5rem;
-  border-top: 1px solid #ddd;
+.description {
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
 }
 
-.copyright {
-  margin-bottom: 1rem;
-  font-size: 0.8rem;
-  color: #666;
+.description p {
+  margin-bottom: 1em;
 }
 
-.socialIcons {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  margin-top: 0.5rem;
+.italic {
+  font-style: italic;
 }
 
-.socialIcon {
-  display: inline-block;
-}
-
-/* Media query for smaller screens */
-@media (max-width: 768px) {
-  .pageContainer {
-    padding: 1rem;
-  }
-
-  .navigation {
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  .event {
-    padding-bottom: 2rem;
-  }
-}
-
-/* MORE INFO Button Styles */
 .callToAction {
   margin-top: 1.5rem;
-  text-align: center;
+  text-align: left; /* Or center/right as per design */
 }
 
 .moreInfoButton {
   display: inline-block;
   background-color: #9a0000;
   color: white;
-  padding: 0.5rem 1.5rem;
+  padding: 0.75rem 1.5rem; /* Slightly increased padding */
   text-decoration: none;
-  font-size: 0.8rem;
+  font-size: 0.9rem; /* Slightly increased font size */
   font-weight: bold;
   text-transform: uppercase;
   transition: background-color 0.3s;
   border: none;
   cursor: pointer;
+  border-radius: 4px; /* Optional: for rounded corners */
 }
 
 .moreInfoButton:hover {
   background-color: #b30000;
+}
+
+
+/* The following styles might be from the specialevents.module.css context.
+   Remove or adapt if they are not used by the Hamlet page specifically.
+   .eventsList, .event, .eventTitle, .eventDescription, .eventFollowup,
+   .eventDate, .venueInfo, .venueDetails, .boldText, .footer, .copyright,
+   .socialIcons, .socialIcon are not directly referenced in your hamlet-a-version-about/page.tsx */
+
+
+/* Media query for smaller screens (applied to Hamlet's contentWrapper) */
+@media (max-width: 768px) {
+  .contentWrapper {
+    flex-direction: column;
+    align-items: center; /* Center items when stacked */
+  }
+
+  .posterContainer {
+    margin-bottom: 1.5rem; /* Add space when stacked */
+    width: 100%; /* Allow poster to take full width */
+    max-width: 400px; /* Or a suitable max-width for smaller screens */
+  }
+
+  .infoContainer {
+    width: 100%; /* Allow info to take full width */
+  }
+
+  .pageContainer {
+    padding: 1rem; /* Adjust padding for smaller screens */
+  }
 }

@@ -5,7 +5,8 @@ import Image from 'next/image';
 
 export default function Page() {
   return (
-    <main className={styles.aboutContainer}>
+    // Root container, changed from <main> to <div>
+    <div className={styles.aboutContainer}>
       {/* Banner Title */}
       <div className={styles.banner}>
         <h1 className={styles.bannerTitle}>ABOUT GEORGIA</h1>
@@ -19,6 +20,7 @@ export default function Page() {
           width={600}
           height={400}
           className={styles.mapImage}
+          priority // Consider adding priority if this is an important LCP image
         />
       </div>
 
@@ -47,7 +49,7 @@ export default function Page() {
         <p>
           Since that time Georgia has been independent, maintaining a democratic, parliamentary government with free and fair elections. Georgia is a close ally of the United States and participates in military campaigns carried out by Western countries and NATO in the Middle East. In 2016 more than 6 million tourists visited Georgia, lured by marvelous historical monuments, beautiful landscapes, and sunny seashores.
         </p>
-      </div>
-    </main>
+      </div> {/* Closing div for styles.textContent */}
+    </div> /* Closing div for styles.aboutContainer */
   );
 }

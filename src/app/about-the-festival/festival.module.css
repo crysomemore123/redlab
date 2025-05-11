@@ -7,6 +7,11 @@
   margin: 0 auto;
   font-family: Arial, sans-serif;
   background-color: #f4f4f4;
+
+  /* Added for robustness */
+  min-height: 70vh; /* Adjust as needed, ensures container has substantial height */
+  display: flex;
+  flex-direction: column; /* To stack banner and contentWrapper vertically */
 }
 
 .banner {
@@ -15,6 +20,7 @@
   margin-bottom: 1.5rem;
   width: 100%;
   text-align: center;
+  flex-shrink: 0; /* Prevent banner from shrinking if content is sparse */
 }
 
 .bannerText {
@@ -30,18 +36,24 @@
   display: flex;
   gap: 2rem;
   flex-wrap: wrap;
+  flex-grow: 1; /* Allow contentWrapper to grow and fill available space in festivalContainer */
+
+  /* Added to ensure this specific section has a minimum height */
+  min-height: 300px; /* Adjust as needed */
+  /* For debugging: border: 2px dashed red; */
 }
 
 .imageWrapper {
   flex: 1;
   min-width: 300px;
-  max-width: 350px;
+  max-width: 350px; /* Consider removing max-width if you want it to be more responsive within flex */
 }
 
 .festivalImage {
   max-width: 100%;
   height: auto;
   border: 1px solid #ddd;
+  display: block; /* Good practice for images to avoid extra space */
 }
 
 .textBlock {
@@ -67,8 +79,9 @@
   .contentWrapper {
     flex-direction: column;
   }
-  
+
   .imageWrapper {
-    margin: 0 auto 1.5rem;
+    margin: 0 auto 1.5rem; /* Keeps max-width behavior for centering */
+    max-width: 100%; /* Allow image wrapper to be full width on small screens if desired */
   }
 }

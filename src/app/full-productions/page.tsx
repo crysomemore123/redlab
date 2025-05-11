@@ -1,6 +1,43 @@
-import styles from './productions.module.css';
+// Ensure this component is treated as a Client Component
+// If you are using Next.js App Router, this should be at the top of the file.
+'use client';
+
+import { useState, useEffect } from 'react';
+import styles from './productions.module.css'; // Assuming this path is correct
 
 export default function FullProductionsPage() {
+  // State to track if the component has mounted on the client
+  const [isClient, setIsClient] = useState(false);
+
+  // useEffect hook to set isClient to true once the component mounts
+  // The empty dependency array [] ensures this effect runs only once after initial render on the client
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  // If the component has not yet mounted on the client, return a skeleton/placeholder UI.
+  // This provides a more consistent DOM structure for hydration.
+  if (!isClient) {
+    return (
+      <main className={styles.productionsContainer}>
+        <div className={styles.header}>
+          {/* Use a generic loading text or a more structured skeleton */}
+          <h1>Loading Productions...</h1>
+        </div>
+        {/* You can add more skeleton elements for the sections if needed,
+            for example, a simplified version of a 'production' section:
+        <section className={styles.production} aria-hidden="true">
+          <h2 className={styles.productionTitle} style={{ backgroundColor: '#eee', color: '#eee', height: '1.25rem', marginBottom: '0.3rem' }}>Placeholder Title</h2>
+          <p style={{ backgroundColor: '#eee', color: '#eee', height: '0.95rem', marginBottom: '0.2rem' }}>Placeholder</p>
+          <p style={{ backgroundColor: '#eee', color: '#eee', height: '0.95rem', marginBottom: '1rem' }}>Placeholder</p>
+          <p style={{ backgroundColor: '#eee', color: '#eee', height: '3rem', marginBottom: '1rem' }}>Placeholder description</p>
+        </section>
+        */}
+      </main>
+    );
+  }
+
+  // Once isClient is true, render the actual page content
   return (
     <main className={styles.productionsContainer}>
       <div className={styles.header}>

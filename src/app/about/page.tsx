@@ -50,7 +50,8 @@ export default function About() {
         </div>
       </div>
 
-      {/* Executive Director Section */}
+      {/* Executive Director Section - Adam Knight's section has been removed */}
+      {/*
       <div className={styles.teamMember}>
         <div className={styles.profileImage}>
           <Image
@@ -83,6 +84,7 @@ export default function About() {
           </p>
         </div>
       </div>
+      */}
     </div>
   );
 }

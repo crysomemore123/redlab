@@ -8,19 +8,25 @@
 }
 
 .titleContainer {
-  background-color: #e50000;
-  padding: 10px 30px;
-  margin-bottom: 30px;
-  text-align: left; /* Force left alignment */
+  /* The 'background-color' and 'padding' properties were moved to the .title class below. */
+  /* background-color: #e50000; */
+  /* padding: 10px 30px; */
+  margin-bottom: 30px;   /* Kept your original margin */
+  text-align: left;      /* This will left-align the inline-block .title.
+                             Change to 'text-align: center;' if you want the red box itself to be centered. */
 }
 
 .title {
-  color: #fff;
-  font-size: 2.2em;
-  font-weight: bold;
-  text-transform: uppercase;
-  margin: 0;
-  letter-spacing: 0.5px;
+  background-color: #ED1C24; /* UPDATED: Vibrant red color. Change to #e50000 if you prefer your original red. */
+  color: #fff;                /* Kept your original text color */
+  padding: 12px 30px;        /* ADDED: Padding for the red box. Adjust these values to get the desired shape. */
+  font-size: 2.2em;          /* Kept your original font size */
+  font-weight: bold;         /* Kept your original font weight */
+  text-transform: uppercase; /* Kept your original text transform */
+  margin: 0;                 /* Kept your original margin */
+  letter-spacing: 0.5px;     /* Kept your original letter spacing */
+  display: inline-block;     /* ADDED: Makes the background wrap the text + padding. */
+  line-height: 1.2;          /* ADDED: Can help with vertical text alignment within the box. Adjust if needed. */
 }
 
 .description {
@@ -41,14 +47,12 @@
 
 .profileImage {
   flex-shrink: 0;
-  /* width and height are now controlled by the Image component */
   border-radius: 5px;
-  overflow: hidden; /* To contain any potential overflow */
+  overflow: hidden;
 }
 
 .profileImage img {
-  display: block; /* Ensure image behaves as a block element */
-  /* width and height are now controlled by the Image component */
+  display: block;
 }
 
 .profileInfo {
@@ -109,7 +113,7 @@
 }
 
 .socialIcon:hover {
-  background-color: #e50000;
+  background-color: #e50000; /* Consider changing this to #ED1C24 if you want consistency with the title */
   color: white;
 }
 

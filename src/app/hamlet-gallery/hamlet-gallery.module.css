@@ -1,0 +1,100 @@
+/* src/app/hamlet-gallery/hamlet-gallery.module.css */
+
+.pageContainer {
+  max-width: 1200px; /* Adjust as per your site's overall layout */
+  margin: 0 auto;   /* Centers the content if max-width is applied */
+  padding: 20px;    /* Standard padding */
+  font-family: 'Arial', sans-serif; /* Example font, use your site's font */
+  color: #333;
+}
+
+.headerSection {
+  margin-bottom: 40px;
+}
+
+.mainTitle {
+  background-color: #000000; /* Black background */
+  color: #ffffff;           /* White text */
+  padding: 10px 20px;
+  font-size: 1.8em;         /* Adjust size as needed */
+  font-weight: bold;
+  text-transform: uppercase;
+  display: inline-block;    /* Makes background fit text */
+  margin-bottom: 20px;
+  letter-spacing: 1px;
+}
+
+.productionInfo {
+  font-size: 0.95em;
+  line-height: 1.6;
+  color: #444; /* Slightly lighter than default text for distinction */
+}
+
+.productionInfo p {
+  margin-bottom: 8px;
+}
+
+.galleryContainer {
+  display: grid;
+  /* Adjust columns for different screen sizes for responsiveness */
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* Responsive columns */
+  gap: 15px; /* Space between images */
+  margin-top: 30px;
+}
+
+.galleryItem {
+  width: 100%;
+  overflow: hidden; /* Ensures images don't break layout if they are too large before loading */
+  border: 1px solid #ddd; /* Optional: adds a light border around images */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Optional: subtle shadow */
+  border-radius: 4px; /* Optional: slightly rounded corners */
+}
+
+/* The Next/Image component with layout="responsive" will handle aspect ratio.
+   The .galleryImage class is available if you need to add specific styles to the img tag itself. */
+.galleryImage {
+  display: block; /* Ensures the image takes up the full space of its container */
+  width: 100%;
+  height: auto; /* Maintain aspect ratio */
+  object-fit: cover; /* Ensures the image covers the item area, might crop */
+  border-radius: 4px; /* Match item's border-radius if any */
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .mainTitle {
+    font-size: 1.5em;
+    padding: 8px 15px;
+  }
+
+  .productionInfo {
+    font-size: 0.9em;
+  }
+
+  .galleryContainer {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .pageContainer {
+    padding: 15px;
+  }
+  .mainTitle {
+    font-size: 1.3em;
+    width: 100%; /* Make title full width on very small screens */
+    text-align: center;
+    display: block; /* Change from inline-block for centering */
+  }
+  .productionInfo {
+    font-size: 0.85em;
+    text-align: center; /* Center production info on small screens */
+  }
+  .galleryContainer {
+    /* Single column on very small screens */
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+}

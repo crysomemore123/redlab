@@ -1,12 +1,12 @@
-/* gallery.module.css */
+/* src/app/festival-gallery/gallery.module.css */
 
 .pageContainer {
   padding: 2rem;
   color: black;
-  max-width: 900px; /* Or your preferred max-width */
+  max-width: 1000px; /* Slightly increased max-width */
   margin: 0 auto;
   font-family: Arial, sans-serif;
-  background-color: #ffffff; /* White background as per screenshot */
+  background-color: #ffffff;
   min-height: 70vh;
   display: flex;
   flex-direction: column;
@@ -35,74 +35,166 @@
   line-height: 1.5;
   color: #333;
   margin-bottom: 2rem;
-  max-width: 600px; /* Limit width of text block */
-  margin-left: auto;  /* Center the text block if pageContainer is wider */
-  margin-right: auto; /* Center the text block */
-  text-align: center; /* Center the text within its block */
+  max-width: 700px; /* Adjusted width */
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
 }
 
 .introText p {
-  margin-bottom: 0.25em; /* Little space between lines of the address-like block */
+  margin-bottom: 0.25em;
 }
 
 .galleryGrid {
   display: grid;
-  /* Adjust columns for different screen sizes for responsiveness */
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Basic responsive grid */
-  gap: 10px; /* Space between images */
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); /* Adjusted minmax for potentially more items */
+  gap: 15px; /* Increased gap */
   width: 100%;
 }
 
-/*
-  For a layout closer to the original, you might need a more specific grid setup.
-  The original image has a distinct layout:
-  - Row 1: Wide image, then two stacked smaller images
-  - Row 2: Two medium images
-  - etc.
-
-  If you want to replicate that specific layout, you'd need to:
-  1. Group your `galleryImagesData` by rows or sections.
-  2. Use more specific CSS Grid properties (grid-column-start/end, grid-row-start/end)
-     OR use a JavaScript masonry library.
-
-  This is a simplified example using auto-fill which will create a somewhat uniform grid.
-*/
-
 .galleryItem {
   width: 100%;
-  overflow: hidden; /* Ensures images don't break out of the item box */
+  overflow: hidden;
+  cursor: pointer; /* Indicate images are clickable */
+  border: 1px solid #eee;
+  border-radius: 4px; /* Slightly rounded corners for items */
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.galleryItem:hover {
+  transform: scale(1.03); /* Slight zoom effect on hover */
+  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
 }
 
 .galleryImage {
   display: block;
   width: 100%;
-  height: auto; /* Maintain aspect ratio by default */
-  object-fit: cover; /* Cover the area, might crop if aspect ratios differ wildly from item box */
-  border: 1px solid #eee; /* Optional border like in original */
+  height: 100%; /* Make image fill the item */
+  object-fit: cover; /* Cover the area, might crop */
+  border-radius: 3px; /* Match item's border-radius if item has one */
 }
 
 .skeletonImage {
   width: 100%;
-  padding-bottom: 66%; /* Aspect ratio for skeleton (e.g., 3:2). Adjust as needed. */
-  height: 0; /* For padding-bottom technique */
-  border-radius: 4px; /* Optional */
+  /* Maintain aspect ratio for skeleton. e.g., 3:2. Adjust as needed. */
+  /* For a square: padding-bottom: 100%; */
+  padding-bottom: 75%; /* 4:3 aspect ratio */
+  height: 0;
+  background-color: #e0e0e0; /* Lighter gray for skeleton */
+  border-radius: 4px;
 }
 
+.animatePulse {
+  animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
 
-/* Basic pulse animation for skeleton (if not using Tailwind) */
 @keyframes pulse {
   0%, 100% {
     opacity: 1;
   }
   50% {
-    opacity: .5;
+    opacity: 0.6;
   }
 }
 
-/* Ensure these are available if not using Tailwind for skeleton elsewhere */
-.animate-pulse {
-  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+/* Lightbox Styles */
+.lightboxOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.85); /* Darker overlay */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Ensure it's on top */
+  padding: 10px; /* Add some padding for smaller screens */
+  box-sizing: border-box;
 }
-.bg-gray-300 {
-  background-color: #d1d5db;
+
+.lightboxImageContainer {
+  position: relative;
+  display: flex; /* Helps with centering image if needed */
+  justify-content: center;
+  align-items: center;
+  max-width: 90vw; /* Max width of the image container */
+  max-height: 90vh; /* Max height of the image container */
+}
+
+.lightboxImageContainer img { /* Styles for the image inside the lightbox */
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain; /* Ensure whole image is visible */
+  border-radius: 4px; /* Optional: rounded corners for lightbox image */
+  box-shadow: 0 0 25px rgba(0,0,0,0.5);
+}
+
+.lightboxButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(30, 30, 30, 0.7);
+  color: white;
+  border: none;
+  font-size: 2.5rem; /* Larger buttons */
+  padding: 5px 15px; /* Adjust padding */
+  cursor: pointer;
+  z-index: 1001;
+  border-radius: 4px;
+  line-height: 1;
+  transition: background-color 0.2s ease;
+}
+.lightboxButton:hover {
+  background-color: rgba(0, 0, 0, 0.9);
+}
+
+.lightboxCloseButton {
+  top: 20px;
+  right: 20px;
+  font-size: 2rem; /* Adjust size */
+  padding: 5px 12px;
+  transform: none; /* Override transform for close button */
+}
+
+.lightboxPrevButton {
+  left: 20px;
+}
+
+.lightboxNextButton {
+  right: 20px;
+}
+
+/* Responsive adjustments for gallery grid */
+@media (max-width: 768px) {
+  .galleryGrid {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 10px;
+  }
+  .lightboxButton {
+    font-size: 2rem;
+    padding: 5px 10px;
+  }
+  .lightboxPrevButton { left: 10px; }
+  .lightboxNextButton { right: 10px; }
+  .lightboxCloseButton { top: 10px; right: 10px; }
+}
+
+@media (max-width: 480px) {
+  .pageContainer {
+    padding: 1rem;
+  }
+  .galleryGrid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); /* Smaller items on mobile */
+    gap: 8px;
+  }
+   .bannerText {
+    font-size: 1rem;
+  }
+  .introText {
+    font-size: 0.75rem;
+  }
 }

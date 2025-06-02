@@ -3,10 +3,8 @@
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
-import styles from './gallery.module.css'; // Assumes this is your CSS module for this page
+import styles from './gallery.module.css';
 
-// Define your image data - REPLACE WITH YOUR ACTUAL IMAGE DATA AND PATHS
-// Ensure width and height are correct for aspect ratio and Next/Image optimization
 const galleryImagesData = [
   { id: 'img1', src: '/images/gallery/galleryimage1.jpg', alt: 'Gallery image 1', width: 800, height: 533 },
   { id: 'img2', src: '/images/gallery/galleryimage2.jpg', alt: 'Gallery image 2', width: 600, height: 900 },
@@ -23,8 +21,6 @@ const galleryImagesData = [
   { id: 'img13', src: '/images/gallery/galleryimage13.jpg', alt: 'Gallery image 13', width: 600, height: 900 },
   { id: 'img14', src: '/images/gallery/galleryimage14.jpg', alt: 'Gallery image 14', width: 800, height: 533 },
   { id: 'img15', src: '/images/gallery/galleryimage15.jpg', alt: 'Gallery image 15', width: 800, height: 533 },
-  // Add more images as needed. Ensure paths and dimensions are correct.
-  // Example: { id: 'img16', src: '/images/gallery/galleryimage16.jpg', alt: 'Gallery image 16', width: 800, height: 600 },
 ];
 
 interface GalleryImageItem {
@@ -54,48 +50,48 @@ Summer 2017, Teatro Circulo NYC`;
   const openLightbox = (image: GalleryImageItem, index: number) => {
     setSelectedImage(image);
     setCurrentIndex(index);
-    document.body.style.overflow = 'hidden'; // Prevent background scrolling
+    document.body.style.overflow = 'hidden';
   };
 
   const closeLightbox = () => {
     setSelectedImage(null);
-    document.body.style.overflow = 'auto'; // Restore background scrolling
+    document.body.style.overflow = 'auto';
   };
 
-  const showNextImage = (e: React.MouseEvent) => {
-    e.stopPropagation(); // Prevent closing lightbox when clicking arrows
+  const showNextImage = (e?: React.MouseEvent) => {
+    if (e) e.stopPropagation();
     const nextIndex = (currentIndex + 1) % galleryImagesData.length;
     setSelectedImage(galleryImagesData[nextIndex]);
     setCurrentIndex(nextIndex);
   };
 
-  const showPrevImage = (e: React.MouseEvent) => {
-    e.stopPropagation(); // Prevent closing lightbox when clicking arrows
+  const showPrevImage = (e?: React.MouseEvent) => {
+    if (e) e.stopPropagation();
     const prevIndex = (currentIndex - 1 + galleryImagesData.length) % galleryImagesData.length;
     setSelectedImage(galleryImagesData[prevIndex]);
     setCurrentIndex(prevIndex);
   };
 
-  // Handle keyboard navigation for lightbox
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (!selectedImage) return;
       if (event.key === 'Escape') {
         closeLightbox();
       } else if (event.key === 'ArrowRight') {
-        // Create a synthetic event or call directly
-        showNextImage({ stopPropagation: () => {} } as React.MouseEvent);
+        showNextImage();
       } else if (event.key === 'ArrowLeft') {
-        showPrevImage({ stopPropagation: () => {} } as React.MouseEvent);
+        showPrevImage();
       }
     };
 
     window.addEventListener('keydown', handleKeyDown);
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
-      document.body.style.overflow = 'auto'; // Ensure scroll is restored on unmount
+      if (selectedImage) { // Only reset if lightbox was open
+        document.body.style.overflow = 'auto';
+      }
     };
-  }, [selectedImage, currentIndex]);
+  }, [selectedImage, currentIndex]); // Added closeLightbox, showNextImage, showPrevImage to dependencies if they aren't stable
 
 
   return (
@@ -119,24 +115,23 @@ Summer 2017, Teatro Circulo NYC`;
               onClick={() => openLightbox(image, index)}
               role="button"
               tabIndex={0}
-              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') openLightbox(image, index)}}
+              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') openLightbox(image, index); }}
             >
               <Image
                 src={image.src}
                 alt={image.alt}
-                width={image.width}
-                height={image.height}
+                layout="fill"
+                objectFit="contain" // This is for the thumbnail
                 className={styles.galleryImage}
-                priority={index < 6} // Prioritize loading for the first few images
-                sizes="(max-width: 480px) 100vw, (max-width: 768px) 50vw, 33vw" // Example sizes, adjust as needed
+                priority={index < 6}
+                sizes="(max-width: 480px) 100vw, (max-width: 768px) 50vw, 33vw"
               />
             </div>
           ))}
         </div>
       ) : (
-        // Basic Skeleton Loader for Gallery
         <div className={styles.galleryGrid}>
-          {[...Array(9)].map((_, index) => ( // Show a few skeleton items
+          {[...Array(9)].map((_, index) => (
             <div key={index} className={styles.galleryItem}>
               <div className={`${styles.skeletonImage} ${styles.animatePulse}`}></div>
             </div>
@@ -150,9 +145,14 @@ Summer 2017, Teatro Circulo NYC`;
           onClick={closeLightbox}
           role="dialog"
           aria-modal="true"
-          aria-labelledby="lightbox-image"
+          aria-labelledby="lightbox-image-alt"
         >
-          <button className={`${styles.lightboxButton} ${styles.lightboxCloseButton}`} onClick={closeLightbox} aria-label="Close lightbox">
+          <p id="lightbox-image-alt" className={styles.srOnly}>{selectedImage.alt}</p>
+          <button
+            className={`${styles.lightboxButton} ${styles.lightboxCloseButton}`}
+            onClick={(e) => { e.stopPropagation(); closeLightbox(); }}
+            aria-label="Close lightbox"
+          >
             &times;
           </button>
           <button
@@ -164,13 +164,12 @@ Summer 2017, Teatro Circulo NYC`;
           </button>
           <div className={styles.lightboxImageContainer} onClick={(e) => e.stopPropagation()}>
             <Image
-              id="lightbox-image"
               src={selectedImage.src}
-              alt={selectedImage.alt}
-              width={selectedImage.width} // Use original width for quality
-              height={selectedImage.height} // Use original height for quality
-              style={{ maxWidth: '90vw', maxHeight: '85vh', width: 'auto', height: 'auto', objectFit: 'contain' }}
-              // layout="intrinsic" // or "fixed" or "fill" depending on desired behavior within container
+              alt="" // Visually hidden alt, dialog is labelled by #lightbox-image-alt
+              width={selectedImage.width}
+              height={selectedImage.height}
+              objectFit="contain" // <<< KEY CHANGE: Added objectFit prop
+              className={styles.lightboxActualImage}
             />
           </div>
           <button

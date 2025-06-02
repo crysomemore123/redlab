@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { useState, useEffect, useRef } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import styles from './Navbar.module.css';
-import './navbar-global.css';
+import './navbar-global.css'; // Assuming this contains necessary global styles
 
 export default function Navbar() {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
@@ -18,25 +18,28 @@ export default function Navbar() {
   const defaultChildPaths: Record<string, string> = {
     'georgian-american-theatrical-feast': '/about-the-festival',
     'hamlet-a-version': '/hamlet-about',
-    'past-productions': '/don-giovanni', // Assuming '/don-giovanni' is the default for Past Productions
+    'past-productions': '/past-productions', // <--- MODIFIED HERE
   };
 
   // Click handler for dropdown parent items
   const handleDropdownParentClick = (event: React.MouseEvent, menuName: string) => {
-    event.preventDefault(); // Prevent default <a> tag behavior (since href="#")
+    event.preventDefault(); // Prevent default <a> tag behavior
     event.stopPropagation();
 
     if (leaveTimeoutRef.current) {
       clearTimeout(leaveTimeoutRef.current);
     }
 
-    // Navigate to the default child path
+    // Navigate to the default child path (which is now the overview page for past-productions)
     const targetPath = defaultChildPaths[menuName];
     if (targetPath) {
       router.push(targetPath);
     }
 
     // Ensure the dropdown menu is shown when its parent is clicked
+    // You might want to reconsider if clicking the parent should *always* open the dropdown
+    // or if it should only navigate if it's a direct link.
+    // For now, it navigates AND sets the dropdown active.
     setActiveDropdown(menuName);
   };
 
@@ -50,7 +53,7 @@ export default function Navbar() {
   const handleMouseLeave = () => {
     leaveTimeoutRef.current = setTimeout(() => {
       setActiveDropdown(null);
-    }, 150);
+    }, 150); // Adjust delay as needed
   };
 
   useEffect(() => {
@@ -72,15 +75,17 @@ export default function Navbar() {
   const isPathActive = (basePath: string, subPaths: string[] = []) => {
     const currentPath = pathname || '';
 
-    // 1. Dropdown parent links: active if current path starts with one of their subPaths.
-    if (subPaths.length > 0) {
+    if (subPaths.length > 0) { // This is for dropdown parents
+      // Check if current path is the basePath of the dropdown parent itself
+      if (currentPath === basePath) { // <--- MODIFIED HERE
+        return true;
+      }
+      // Check if current path starts with any of the subPaths
       if (subPaths.some(subPath => currentPath.startsWith(subPath))) {
         return true;
       }
     } else {
-      // 2. Non-dropdown links:
-      //    - Exact match for most simple links (e.g., /about, /contact).
-      //    - For section links (e.g., /opera-in-regions), active if current path is exact or starts with basePath + '/'.
+      // Non-dropdown links:
       if (currentPath === basePath) {
         return true;
       }
@@ -94,8 +99,10 @@ export default function Navbar() {
   };
 
   const getDropdownParentLinkClass = (basePath: string, menuName: string, subPaths: string[] = []) => {
-    return (isPathActive(basePath, subPaths) || activeDropdown === menuName)
-      ? styles.activeLink
+    // Check if any sub-path is active OR if the base path itself is active OR if the dropdown is hovered/clicked
+    const isActivePath = isPathActive(basePath, subPaths);
+    return (isActivePath || activeDropdown === menuName)
+      ? styles.activeLink // Or a more specific class like styles.activeDropdownParentLink
       : styles.navLink;
   };
 
@@ -104,7 +111,7 @@ export default function Navbar() {
       <div className={styles.logoContainer}>
         <Link href="/">
           <Image
-            src="/images/red-lab-logo.png"
+            src="/images/red-lab-logo.png" // Ensure this path is correct
             alt="Red Lab Logo"
             width={280}
             height={140}
@@ -119,14 +126,17 @@ export default function Navbar() {
           <li><Link href="/opera-in-regions" className={isPathActive('/opera-in-regions') ? styles.activeLink : styles.navLink}>OPERA IN REGIONS</Link></li>
 
           <li
-            className={`${styles.hasDropdown} ${activeDropdown === 'georgian-american-theatrical-feast' ? styles.activeDropdownParent : ''}`}
+            className={`${styles.hasDropdown} ${(isPathActive('/georgian-american-theatrical-feast', [
+                '/about-the-festival', '/press', '/gallery', '/full-productions', '/readings',
+                '/special-events', '/playwrights', '/cast-and-creative', '/about-georgia', '/donate'
+              ]) || activeDropdown === 'georgian-american-theatrical-feast') ? styles.activeDropdownParent : ''}`}
             onMouseEnter={() => handleMouseEnter('georgian-american-theatrical-feast')}
             onMouseLeave={handleMouseLeave}
           >
             <a
-              href="#" // href can remain "#" as navigation is handled by onClick
+              href="#" // Navigates via onClick
               onClick={(e) => handleDropdownParentClick(e, 'georgian-american-theatrical-feast')}
-              className={getDropdownParentLinkClass('/georgian-american-theatrical-feast', 'georgian-american-theatrical-feast', [
+              className={getDropdownParentLinkClass('/about-the-festival', 'georgian-american-theatrical-feast', [ // Base path for active state logic
                 '/about-the-festival', '/press', '/gallery', '/full-productions', '/readings',
                 '/special-events', '/playwrights', '/cast-and-creative', '/about-georgia', '/donate'
               ])}
@@ -150,14 +160,14 @@ export default function Navbar() {
           </li>
 
           <li
-            className={`${styles.hasDropdown} ${activeDropdown === 'hamlet-a-version' ? styles.activeDropdownParent : ''}`}
+            className={`${styles.hasDropdown} ${(isPathActive('/hamlet-a-version', ['/hamlet-about', '/hamlet-press', '/hamlet-gallery']) || activeDropdown === 'hamlet-a-version') ? styles.activeDropdownParent : ''}`}
             onMouseEnter={() => handleMouseEnter('hamlet-a-version')}
             onMouseLeave={handleMouseLeave}
           >
             <a
-              href="#"
+              href="#" // Navigates via onClick
               onClick={(e) => handleDropdownParentClick(e, 'hamlet-a-version')}
-              className={getDropdownParentLinkClass('/hamlet-a-version', 'hamlet-a-version', ['/hamlet-about', '/hamlet-press', '/hamlet-gallery'])}
+              className={getDropdownParentLinkClass('/hamlet-about', 'hamlet-a-version', ['/hamlet-about', '/hamlet-press', '/hamlet-gallery'])} // Base path for active state
             >
               HAMLET. A VERSION
             </a>
@@ -171,14 +181,16 @@ export default function Navbar() {
           </li>
 
           <li
-            className={`${styles.hasDropdown} ${activeDropdown === 'past-productions' ? styles.activeDropdownParent : ''}`}
+            className={`${styles.hasDropdown} ${(isPathActive('/past-productions', [ // Check against the overview page itself
+                '/don-giovanni', '/eugene-onegin', '/the-seagull', '/three-sound-sculptures', '/rut'
+              ]) || activeDropdown === 'past-productions') ? styles.activeDropdownParent : ''}`}
             onMouseEnter={() => handleMouseEnter('past-productions')}
             onMouseLeave={handleMouseLeave}
           >
             <a
-              href="#"
+              href="#" // Navigates via onClick
               onClick={(e) => handleDropdownParentClick(e, 'past-productions')}
-              className={getDropdownParentLinkClass('/past-productions', 'past-productions', [
+              className={getDropdownParentLinkClass('/past-productions', 'past-productions', [ // Base path for active state
                 '/don-giovanni', '/eugene-onegin', '/the-seagull', '/three-sound-sculptures', '/rut'
               ])}
             >
@@ -196,7 +208,6 @@ export default function Navbar() {
           </li>
 
           <li><Link href="/contact" className={isPathActive('/contact') ? styles.activeLink : styles.navLink}>CONTACT</Link></li>
-          {/* The /about link will now use the stricter matching from isPathActive */}
           <li><Link href="/about" className={isPathActive('/about') ? styles.activeLink : styles.navLink}>ABOUT</Link></li>
         </ul>
       </nav>

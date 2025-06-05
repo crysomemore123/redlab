@@ -5,195 +5,196 @@
 @tailwind components;
 @tailwind utilities;
 
-/* === Keep Base Styles Minimal When Using Tailwind === */
+/* === Base Body Styles === */
+body {
+  /* --- USING YOUR PROVIDED IMAGE AS A REPEATING BACKGROUND --- */
+  background-image: url('/images/wix-background.png'); /* Path to your image */
+  /* If you placed wix-background.png directly in the 'public' folder, use: url('/wix-background.png'); */
+  background-repeat: repeat; /* This tiles the image */
+
+  /*
+    Optional: You can set a fallback background-color.
+    Since your image has a black background, you might set a black fallback.
+    This would show if the image fails to load.
+  */
+  /* background-color: #000000; */
+
+
+  /*
+    IMPORTANT NOTE ABOUT APPEARANCE:
+    The image 'wix-background.png' has a BLACK background with LIGHT dots.
+    This will look different from the WHITE background with DARK, FAINT dots
+    seen on the live redlabproductions.org website in previous screenshots.
+    See further notes below this code block.
+  */
+}
 
 /*
   It's generally recommended to let Tailwind's "preflight" (included in @tailwind base)
-  handle basic resets. You can add minimal body styles here if needed,
-  but avoid defining styles that conflict with Tailwind utilities used elsewhere.
+  handle basic resets. Keep additional global styles minimal and targeted.
 */
 
-body {
-  /* Example: Set a default text color if needed */
-  /* color: #333; */ /* Tailwind's default text-gray-900 might be sufficient */
-
-  /*
-    Background: Your layout.tsx currently applies the dotted pattern using a div.
-    Avoid setting conflicting background styles here on the body directly
-    if you use the div method in layout.tsx.
-    Remove or comment out the conflicting background rules below.
-  */
-  /* background-color: #fff; */
-  /* background-image: radial-gradient(#f0f0f0 1px, transparent 1px); */ /* Conflicts with layout.tsx */
-  /* background-size: 20px 20px; */
-}
-
-/* === COMMENT OUT OR REMOVE CONFLICTING GLOBAL STYLES === */
-/*
-  These styles will likely interfere with Tailwind classes used in
-  your components (ContactSection, Navbar, Footer, etc.).
-  You should ideally refactor those components to use Tailwind utilities
-  instead of relying on these global CSS rules.
-*/
-
+/* === PREVIOUSLY COMMENTED OUT STYLES - KEEP AS IS or REMOVE === */
 /* * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: Arial, Helvetica, sans-serif; // Tailwind handles font-family via theme/utilities
+ margin: 0;
+ padding: 0;
+ box-sizing: border-box;
+ font-family: Arial, Helvetica, sans-serif;
 } */
 
+/* ... (all other previously commented out styles should remain commented or removed as before) ... */
+
 /* .container {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px; // Tailwind's 'container' class handles this
+ width: 100%;
+ max-width: 1200px;
+ margin: 0 auto;
+ padding: 0 20px;
 } */
 
 /* Header Styles */
 /* header {
-  text-align: center;
-  padding: 20px 0;
+ text-align: center;
+ padding: 20px 0;
 } */
 
 /* .logo {
-  display: inline-block;
-  margin: 0 auto 20px;
-  max-width: 300px;
+ display: inline-block;
+ margin: 0 auto 20px;
+ max-width: 300px;
 } */
 
 /* .logo-image {
-  width: 100%;
+ width: 100%;
 } */
 
 /* Navigation Styles */
 /* nav {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
+ display: flex;
+ justify-content: center;
+ margin-bottom: 20px;
 } */
 
 /* nav ul {
-  display: flex;
-  list-style: none;
-  flex-wrap: wrap;
-  justify-content: center;
+ display: flex;
+ list-style: none;
+ flex-wrap: wrap;
+ justify-content: center;
 } */
 
 /* nav ul li {
-  margin: 0 2px;
-  position: relative;
+ margin: 0 2px;
+ position: relative;
 } */
 
 /* nav ul li a {
-  display: block;
-  text-decoration: none;
-  color: #fff;
-  font-weight: bold;
-  text-transform: uppercase;
-  font-size: 12px;
-  background-color: #D22B2B;
-  padding: 8px 15px;
+ display: block;
+ text-decoration: none;
+ color: #fff;
+ font-weight: bold;
+ text-transform: uppercase;
+ font-size: 12px;
+ background-color: #D22B2B;
+ padding: 8px 15px;
 } */
 
 /* nav ul li a:hover {
-  background-color: #FF4500;
+ background-color: #FF4500;
 } */
 
 /* Dropdown Menu */
 /* .dropdown-menu {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  background-color: white;
-  width: 250px;
-  display: none;
-  z-index: 100;
-  border: 1px solid #D22B2B;
+ position: absolute;
+ top: 100%;
+ left: 0;
+ background-color: white;
+ width: 250px;
+ display: none;
+ z-index: 100;
+ border: 1px solid #D22B2B;
 } */
 
 /* nav ul li:hover .dropdown-menu {
-  display: block;
+ display: block;
 } */
 
 /* .dropdown-menu a {
-  background-color: white;
-  color: black;
-  padding: 10px 15px;
-  border-bottom: 1px solid #eee;
-  font-weight: normal;
-  text-transform: none;
+ background-color: white;
+ color: black;
+ padding: 10px 15px;
+ border-bottom: 1px solid #eee;
+ font-weight: normal;
+ text-transform: none;
 } */
 
 /* .dropdown-menu a:hover {
-  background-color: #f0f0f0;
-  color: #D22B2B;
+ background-color: #f0f0f0;
+ color: #D22B2B;
 } */
 
 /* Dropdown toggle indicator */
 /* .has-dropdown > a:after {
-  content: "▼";
-  font-size: 8px;
-  margin-left: 5px;
-  vertical-align: middle;
+ content: "▼";
+ font-size: 8px;
+ margin-left: 5px;
+ vertical-align: middle;
 } */
 
 /* Image Slider */
 /* .slider {
-  display: flex;
-  justify-content: space-between;
-  height: 400px;
-  overflow: hidden;
-  margin-bottom: 40px;
+ display: flex;
+ justify-content: space-between;
+ height: 400px;
+ overflow: hidden;
+ margin-bottom: 40px;
 } */
 
 /* .slide {
-  flex: 1;
-  margin: 0 2px;
-  background-color: #333;
-  overflow: hidden;
-  position: relative;
+ flex: 1;
+ margin: 0 2px;
+ background-color: #333;
+ overflow: hidden;
+ position: relative;
 } */
 
 /* .slide img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+ width: 100%;
+ height: 100%;
+ object-fit: cover;
 } */
 
 /* Footer */
 /* footer {
-  text-align: center;
-  padding: 20px 0;
-  font-size: 12px;
-  color: #666;
+ text-align: center;
+ padding: 20px 0;
+ font-size: 12px;
+ color: #666;
 } */
 
 /* .copyright {
-  margin-bottom: 15px;
-  color: #D22B2B;
+ margin-bottom: 15px;
+ color: #D22B2B;
 } */
 
 /* .social-links {
-  display: flex;
-  justify-content: center;
-  margin-top: 10px;
+ display: flex;
+ justify-content: center;
+ margin-top: 10px;
 } */
 
 /* .social-links a {
-  display: inline-block;
-  margin: 0 5px;
+ display: inline-block;
+ margin: 0 5px;
 } */
 
 /* .social-icon {
-  width: 30px;
-  height: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 5px;
-  color: white;
-  text-decoration: none;
+ width: 30px;
+ height: 30px;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ border-radius: 5px;
+ color: white;
+ text-decoration: none;
 } */
 
 /* .facebook { background-color: #3b5998; } */

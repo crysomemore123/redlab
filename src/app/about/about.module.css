@@ -17,11 +17,11 @@
 }
 
 .title {
-  background-color: #ED1C24; /* UPDATED: Vibrant red color. Change to #e50000 if you prefer your original red. */
-  color: #fff;                /* Kept your original text color */
+  background-color: #0f0f0f; /* UPDATED: Vibrant red color. Change to #e50000 if you prefer your original red. */
+  color: #b62a04;                /* Kept your original text color */
   padding: 12px 30px;        /* ADDED: Padding for the red box. Adjust these values to get the desired shape. */
   font-size: 2.2em;          /* Kept your original font size */
-  font-weight: bold;         /* Kept your original font weight */
+  font-weight: normal;         /* Kept your original font weight */
   text-transform: uppercase; /* Kept your original text transform */
   margin: 0;                 /* Kept your original margin */
   letter-spacing: 0.5px;     /* Kept your original letter spacing */

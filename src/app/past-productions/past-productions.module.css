@@ -18,7 +18,7 @@
 }
 
 .bannerText {
-  color: #ff6600;
+  color: #b62a04;
   font-weight: bold;
   font-size: 1.25rem; /* << INCREASED FONT SIZE HERE (e.g., from 0.9rem to 1.25rem) */
   letter-spacing: 0.15em;
@@ -83,7 +83,7 @@
 .productionTitle {
   font-size: 1.5rem;
   font-weight: normal;
-  color: #ff6600;
+  color: #b62a04;
   margin-top: 0;
   margin-bottom: 0.3rem;
   text-transform: uppercase;

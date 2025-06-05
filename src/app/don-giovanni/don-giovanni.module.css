@@ -16,10 +16,10 @@
 
 .mainTitle {
   background-color: #000000; /* Black background */
-  color: #ffffff;           /* White text */
+  color: #b62a04;           /* White text */
   padding: 8px 15px;       /* Adjust padding to match target */
   font-size: 1.6em;        /* Adjust size as needed */
-  font-weight: bold;
+  font-weight: normal;
   text-transform: uppercase;
   display: inline-block;   /* Makes background fit text */
   margin-bottom: 15px;     /* Space below title */

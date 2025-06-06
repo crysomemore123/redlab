@@ -2,27 +2,32 @@
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import type { Metadata } from 'next'; // Import Metadata type
+import type { Metadata, Viewport } from 'next'; // <-- Make sure Viewport is imported
 
-export const metadata: Metadata = { // Ensure you're using the Metadata type
+// --- UPDATED METADATA ---
+// The viewport property has been removed from here.
+export const metadata: Metadata = {
   title: "Red Lab Productions",
   description: "Opera and Theatre in Cultural Collaboration",
-  icons: {
-    icon: '/images/redlab-favicon.png', // <--- CORRECTED PATH
-    // You can also add other types of icons here if needed:
-    // apple: '/apple-touch-icon.png', // For Apple devices
-    // shortcut: '/shortcut-icon.png' // For older browsers or specific needs
-  },
+  // The 'icons' property is commented out for the failsafe test.
+  // This forces Next.js to look for the default /app/favicon.ico file.
+  // icons: {
+  //   icon: '/images/redlab-favicon.png',
+  // },
 };
+
+// --- NEW VIEWPORT EXPORT ---
+// This is the new, correct way to define viewport settings.
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1.0,
+};
+
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-      </head>
+      {/* The <head> tag is correctly removed. Next.js builds it from metadata. */}
       <body className="font-sans relative min-h-screen flex flex-col">
         <div className="fixed inset-0 bg-dotted-pattern bg-repeat z-[-1]" />
         <Navbar />
@@ -30,6 +35,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           {children}
         </main>
         <Footer />
+        {/* This debug script can stay if you find it useful */}
         {process.env.NODE_ENV === 'development' && (
           <script dangerouslySetInnerHTML={{
             __html: `

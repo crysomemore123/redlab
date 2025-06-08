@@ -1,0 +1,151 @@
+/*
+ * ContactSection.module.css
+ * Styles for the contact page forms and layout.
+ */
+
+.container {
+  max-width: 980px; /* Constrains the width of the contact block */
+  margin: 0 auto; /* Centers the block on the page */
+  padding: 0 20px; /* Adds space on the sides on smaller screens */
+}
+
+.contentBox {
+  background-color: #f0f0f0; /* Light grey background like the reference */
+  padding: 40px;
+}
+
+/* Header section with title and icons */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #dcdcdc; /* Separator line */
+  padding-bottom: 20px;
+  margin-bottom: 40px;
+}
+
+.title {
+  background-color: #000000;
+  color: #ffffff; /* White text looks better on black */
+  font-weight: bold;
+  padding: 4px 12px;
+  font-size: 20px; /* Adjusted for scale */
+  text-transform: uppercase;
+}
+
+.socialIcons {
+  display: flex;
+  align-items: center;
+}
+
+.socialIcons a {
+  color: #000000; /* Black icons */
+  margin-left: 20px; /* Space between icons */
+  transition: color 0.2s ease;
+}
+
+.socialIcons a:hover {
+  color: #e50000; /* Red hover color */
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+}
+
+/* Grid layout for the two forms */
+.formsGrid {
+  display: grid;
+  grid-template-columns: 1fr; /* Default to 1 column on mobile */
+  gap: 40px 60px; /* Row and column gap */
+}
+
+/* Switch to 2 columns on medium screens and up */
+@media (min-width: 768px) {
+  .formsGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.formColumn {
+  /* No specific styles needed unless you want to align content */
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+/* General styling for input fields */
+.inputField {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 16px; /* Space between fields */
+  border: 1px solid #000000;
+  background-color: #ffffff;
+  font-size: 14px;
+  outline: none; /* Removes default browser outline */
+  transition: box-shadow 0.2s ease;
+}
+
+.inputField::placeholder {
+  color: #666666; /* Style for placeholder text */
+}
+
+/* Add a subtle shadow on focus for better accessibility */
+.inputField:focus {
+  box-shadow: 0 0 0 2px rgba(229, 0, 0, 0.4);
+}
+
+.textarea {
+  resize: vertical; /* Allow vertical resizing, but not horizontal */
+  min-height: 120px;
+}
+
+/* Specific styles for the "Subscribe" form inputs */
+.subscribeInput {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.subscribeInput::placeholder {
+  color: #cccccc;
+}
+
+.subscribeTitle {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 24px;
+}
+
+/* Button styles */
+.sendButton,
+.subscribeButton {
+  padding: 12px 20px;
+  border: none;
+  font-weight: bold;
+  font-size: 14px;
+  text-transform: uppercase;
+  color: #ffffff;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.sendButton {
+  background-color: #e50000; /* RedLab Red */
+  align-self: flex-start; /* Aligns button to the left */
+  width: auto;
+}
+
+.sendButton:hover {
+  background-color: #b70000; /* Darker red on hover */
+}
+
+.subscribeButton {
+  background-color: #e50000; /* RedLab Red */
+  width: 100%; /* Full width for subscribe button */
+}
+
+.subscribeButton:hover {
+  background-color: #b70000; /* Darker red on hover */
+}

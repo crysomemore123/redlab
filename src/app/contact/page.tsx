@@ -1,14 +1,12 @@
 // src/app/contact/page.tsx
 import React from 'react';
-import ContactSection from '@/components/ContactSection'; // Adjust path if necessary
+import ContactSection from '@/components/ContactSection';
 
 export default function ContactPage() {
   return (
-    // Add padding around the ContactSection if needed,
-    // or let the ContactSection's container handle it.
-    // The py-8 gives space from header/footer.
-    <main className="py-8">
+    // Change <main> to <div> to avoid nesting <main> tags
+    <div className="py-8">
       <ContactSection />
-    </main>
+    </div>
   );
 }

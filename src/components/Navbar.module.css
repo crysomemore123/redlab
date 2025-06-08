@@ -2,31 +2,23 @@
 
 .siteHeaderWrapper {
   display: flex;
-  flex-direction: row; /* Arrange logo and nav in a row */
-  justify-content: space-between; /* Pushes logo to left, nav to right */
-  align-items: center; /* Vertically aligns logo and nav */
-  padding: 10px 20px; /* Add some padding around the header (adjust as needed) */
-  /* Consider adding a max-width and margin: auto if you want to center the whole header block on very wide screens */
-  /* max-width: 1200px; */
-  /* margin-left: auto; */
-  /* margin-right: auto; */
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  position: relative; 
 }
 
 .logoContainer {
-  /* No longer need auto margins for centering */
-  /* margin-bottom is also not needed if items are in a row */
-  display: flex; /* To help with alignment of the Link/Image inside if needed */
+  display: flex;
   align-items: center;
+  /* Set z-index to ensure it's below the open mobile menu, but above the page content */
+  z-index: 1001; 
 }
 
 /* Main navbar container - applied to the <nav> element */
 .mainNav {
-  display: flex; /* Use flex for the nav itself */
-  /* No longer need justify-content: center; here if you want nav items to start from left of their container */
-  /* background-color: #FFFFFF; */ /* Keep if you want a distinct background for the nav block */
-  /* border-bottom: 1px solid #e0e0e0; */ /* Keep if you want a border */
-  /* width: 100%; */ /* Remove, let it size based on content or flex behavior */
-  padding: 0;
+  display: flex;
 }
 
 .mainNav ul {
@@ -34,11 +26,9 @@
   margin: 0;
   padding: 0;
   display: flex;
-  align-items: center; /* Vertically align nav items */
-  /* justify-content: center; */ /* Remove or change to flex-start if you want links to start from the left of the nav block */
+  align-items: center;
 }
 
-/* Default styling for top-level navigation links (<a> tags) */
 .navLink {
   display: block;
   padding: 20px 18px;
@@ -56,13 +46,11 @@
   letter-spacing: 0.5px;
 }
 
-/* Hover state for top-level navigation links */
 .navLink:hover {
   background-color: #CC0000;
   color: #FFFFFF;
 }
 
-/* Active state for top-level navigation links (current page) */
 .activeLink {
   composes: navLink;
   background-color: #e50000;
@@ -70,7 +58,6 @@
   font-weight: 700;
 }
 
-/* Styles for list items that contain dropdowns */
 .hasDropdown {
   position: relative;
 }
@@ -81,11 +68,10 @@
   color: #FFFFFF;
 }
 
-/* Dropdown menu itself */
 .dropdownMenu {
   position: absolute;
   top: 100%;
-  left: 0; /* Align dropdown with the left of the parent item */
+  left: 0;
   background-color: #e50000;
   min-width: 240px;
   display: none;
@@ -94,7 +80,7 @@
   flex-direction: column;
   box-shadow: 0 3px 6px rgba(0,0,0,0.15);
   border: none;
-  margin-top: 0; /* Adjust if there's a gap, ensure it aligns right under parent */
+  margin-top: 0;
 }
 
 .dropdownMenu.show {
@@ -127,4 +113,129 @@
 }
 .active {
   /* Covered by .activeLink */
+}
+
+/* === MOBILE MENU STYLES START HERE === */
+
+/* Hamburger Button */
+.mobileMenuButton {
+  display: none; 
+  flex-direction: column;
+  justify-content: space-around;
+  width: 30px;
+  height: 24px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  /* z-index must be higher than the logo so it's clickable */
+  z-index: 1002;
+}
+
+.mobileMenuButton span {
+  width: 100%;
+  height: 3px;
+  background-color: #333; 
+  border-radius: 10px;
+  transition: all 0.3s linear;
+}
+
+/* Responsive styles for screens smaller than 1024px */
+@media (max-width: 1024px) {
+  .siteHeaderWrapper {
+    padding: 10px 15px;
+  }
+
+  .logoContainer img {
+    width: 200px; 
+    height: auto;
+  }
+  
+  .mainNav {
+    display: none; 
+    position: fixed; /* Changed from absolute to fixed to cover the whole screen */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.98); 
+    backdrop-filter: blur(5px);
+    /* z-index must be higher than logo and hamburger button */
+    z-index: 1001; 
+  }
+
+  .mainNav.mobileNavOpen {
+    display: flex;
+    flex-direction: column;
+    /* --- FIX FOR SCROLLING --- */
+    justify-content: flex-start; /* Align menu to the top */
+    align-items: center;
+    overflow-y: auto; /* Allow vertical scrolling */
+    padding: 80px 0; /* Add padding to push content below header */
+  }
+
+  .mainNav ul {
+    flex-direction: column; 
+    width: 100%;
+    align-items: center;
+  }
+
+  .mainNav li {
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+  }
+  .mainNav li:last-child {
+    border-bottom: none;
+  }
+
+  .navLink, .activeLink {
+    padding: 20px;
+    font-size: 16px;
+    width: 100%;
+  }
+
+  .mobileMenuButton {
+    display: flex;
+  }
+
+  /* Dropdown on Mobile */
+  .dropdownMenu {
+    position: static;
+    background-color: transparent;
+    box-shadow: none;
+    min-width: 100%;
+    padding: 0;
+    margin-top: 10px;
+  }
+
+  .dropdownMenu a {
+    color: #4A4A4A; 
+    background-color: rgba(0,0,0,0.03); 
+    padding: 15px 20px;
+    font-size: 14px; 
+    border-bottom: 1px solid #ddd;
+  }
+
+  .dropdownMenu a:last-child {
+    border-bottom: none;
+  }
+
+  .dropdownMenu a:hover {
+    background-color: #e50000;
+    color: #FFFFFF;
+  }
+
+  .hasDropdown > .navLink,
+  .hasDropdown > .activeLink {
+    position: relative;
+  }
+
+  .hasDropdown > .navLink::after,
+  .hasDropdown > .activeLink::after {
+    content: '▼';
+    font-size: 10px;
+    margin-left: 8px;
+    display: inline-block;
+  }
 }

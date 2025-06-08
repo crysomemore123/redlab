@@ -26,8 +26,8 @@
 
 .title {
   background-color: #000000;
-  color: #ffffff; /* White text looks better on black */
-  font-weight: bold;
+  color: #b62a04; /* White text looks better on black */
+  font-weight: normal;
   padding: 4px 12px;
   font-size: 20px; /* Adjusted for scale */
   text-transform: uppercase;

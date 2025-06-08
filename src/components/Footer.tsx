@@ -1,3 +1,5 @@
+// src/components/Footer.tsx
+
 import Link from 'next/link';
 
 export default function Footer() {
@@ -5,7 +7,10 @@ export default function Footer() {
     <footer className="bg-neutral-100 text-center text-sm py-6 mt-16 px-4">
       <p className="text-[#C43800]">© Red Lab Productions {new Date().getFullYear()} | ALL RIGHTS RESERVED</p>
       
-      <div className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6 mt-4">
+      {/* --- THIS IS THE UPDATED LINE --- */}
+      {/* We removed the responsive prefixes (sm:) and flex-col to make it always a horizontal row */}
+      <div className="flex flex-row justify-center items-center space-x-6 mt-4">
+        
         {/* Facebook Icon */}
         <Link 
           href="https://www.facebook.com/redlabproductions/" 

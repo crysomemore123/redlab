@@ -8,36 +8,31 @@
 }
 
 .titleContainer {
-  /* The 'background-color' and 'padding' properties were moved to the .title class below. */
-  /* background-color: #e50000; */
-  /* padding: 10px 30px; */
-  margin-bottom: 30px;   /* Kept your original margin */
-  text-align: left;      /* This will left-align the inline-block .title.
-                             Change to 'text-align: center;' if you want the red box itself to be centered. */
+  margin-bottom: 30px;
+  text-align: left;
 }
 
 .title {
-  background-color: #0f0f0f; /* UPDATED: Vibrant red color. Change to #e50000 if you prefer your original red. */
-  color: #b62a04;                /* Kept your original text color */
-  padding: 12px 30px;        /* ADDED: Padding for the red box. Adjust these values to get the desired shape. */
-  font-size: 2.2em;          /* Kept your original font size */
-  font-weight: normal;         /* Kept your original font weight */
-  text-transform: uppercase; /* Kept your original text transform */
-  margin: 0;                 /* Kept your original margin */
-  letter-spacing: 0.5px;     /* Kept your original letter spacing */
-  display: inline-block;     /* ADDED: Makes the background wrap the text + padding. */
-  line-height: 1.2;          /* ADDED: Can help with vertical text alignment within the box. Adjust if needed. */
+  background-color: #0f0f0f;
+  color: #b62a04;
+  padding: 12px 30px;
+  font-size: 2.2em;
+  font-weight: normal;
+  text-transform: uppercase;
+  margin: 0;
+  letter-spacing: 0.5px;
+  display: inline-block;
+  line-height: 1.2;
 }
 
 .description {
   margin-bottom: 40px;
   line-height: 1.7;
-  max-width: 90%;
-  margin-left: 0;
-  margin-right: auto;
+  max-width: 100%; /* Allow description to take full width */
   text-align: left;
 }
 
+/* DESKTOP LAYOUT for Team Member */
 .teamMember {
   display: flex;
   gap: 30px;
@@ -46,13 +41,16 @@
 }
 
 .profileImage {
-  flex-shrink: 0;
+  flex: 0 0 300px; /* Don't grow, don't shrink, base width of 300px */
   border-radius: 5px;
-  overflow: hidden;
+  overflow: hidden; /* This will apply the border-radius to the image inside */
 }
 
-.profileImage img {
-  display: block;
+/* This targets the <Image> component itself */
+.profileImageTag {
+  width: 100%;
+  height: 100%; /* Make image fill the height of the container */
+  object-fit: cover; /* This makes the image cover the area, maintaining aspect ratio */
 }
 
 .profileInfo {
@@ -67,11 +65,6 @@
   margin-bottom: 8px;
 }
 
-.profileInfo h2 span {
-  font-weight: normal;
-  color: #777;
-}
-
 .profileInfo p {
   line-height: 1.6;
   margin-top: 0;
@@ -83,48 +76,14 @@
   font-style: italic;
 }
 
-.footer {
-  margin-top: 60px;
-  padding-top: 20px;
-  border-top: 1px solid #ddd;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 0.9em;
-  color: #777;
-  gap: 20px;
-}
-
-.socialLinks {
-  display: flex;
-  gap: 10px;
-}
-
-.socialIcon {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 30px;
-  height: 30px;
-  background-color: #f8f8f8;
-  border-radius: 5px;
-  color: #777;
-  transition: background-color 0.3s, color 0.3s;
-}
-
-.socialIcon:hover {
-  background-color: #e50000; /* Consider changing this to #ED1C24 if you want consistency with the title */
-  color: white;
-}
-
-/* Responsive styles */
+/* === RESPONSIVE STYLES for screens smaller than 768px === */
 @media (max-width: 768px) {
   .aboutContainer {
     padding: 15px;
+    margin-top: 20px;
   }
 
   .titleContainer {
-    display: block;
     text-align: center;
   }
 
@@ -133,43 +92,33 @@
   }
 
   .description {
-    margin-bottom: 30px;
     font-size: 0.9em;
     text-align: left;
-    max-width: 100%;
-    margin-left: auto;
-    margin-right: auto;
   }
 
+  /* Team member layout becomes a vertical stack */
   .teamMember {
-    flex-direction: column;
-    margin-bottom: 40px;
-    gap: 20px;
+    flex-direction: column; /* Stack image and text */
+    align-items: center; /* Center them horizontally */
+    gap: 25px;
   }
 
   .profileImage {
-    width: 100%;
-    max-width: 250px;
-    height: auto;
-    margin: 0 auto 20px;
+    flex-basis: auto; /* Reset flex-basis for vertical layout */
+    width: 100%; /* Container takes full width of parent */
+    max-width: 280px; /* But cap the size so it's not gigantic */
   }
 
+  .profileInfo {
+    text-align: left; /* Keep text left-aligned on mobile */
+  }
+  
   .profileInfo h2 {
-    font-size: 1em;
+    font-size: 1.2em;
+    text-align: center; /* Center the heading specifically */
   }
 
   .profileInfo p {
-    font-size: 0.85em;
-  }
-
-  .footer {
-    flex-direction: column;
-    text-align: center;
-    gap: 10px;
-    padding-bottom: 20px;
-  }
-
-  .socialLinks {
-    margin-top: 10px;
+    font-size: 0.9em;
   }
 }

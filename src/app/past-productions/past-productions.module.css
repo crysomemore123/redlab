@@ -11,7 +11,7 @@
 
 .banner {
   background-color: black;
-  padding: 0.75rem 1rem; /* Slightly more padding for bigger text */
+  padding: 0.75rem 1rem;
   margin-bottom: 2.5rem;
   width: 100%;
   text-align: left;
@@ -20,7 +20,7 @@
 .bannerText {
   color: #b62a04;
   font-weight: bold;
-  font-size: 1.25rem; /* << INCREASED FONT SIZE HERE (e.g., from 0.9rem to 1.25rem) */
+  font-size: 1.25rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
   margin: 0;
@@ -58,20 +58,16 @@
   flex-shrink: 0;
   width: 280px;
   height: 180px;
-  background-color: #e9e9e9; /* Lighter background for 'contain' visibility */
+  background-color: #cccccc; /* A neutral fallback background */
   overflow: hidden;
-  display: flex; /* For centering if using 'contain' and image is smaller */
-  justify-content: center; /* For centering if using 'contain' */
-  align-items: center;    /* For centering if using 'contain' */
+  /* Removed flex properties as they aren't needed for object-fit: cover */
 }
 
 .productionImage {
-  display: block;
-  max-width: 100%;  /* Ensure it doesn't overflow wrapper with 'contain' */
-  max-height: 100%; /* Ensure it doesn't overflow wrapper with 'contain' */
-  width: auto;      /* Adjust width based on height to maintain aspect ratio */
-  height: auto;     /* Adjust height based on width to maintain aspect ratio */
-  object-fit: contain; /* << CHANGED FROM 'cover' TO 'contain' */
+  /* --- CHANGED PROPERTIES --- */
+  width: 100%;       /* Fill the container's width */
+  height: 100%;      /* Fill the container's height */
+  object-fit: cover; /* Fill container and crop, maintaining aspect ratio */
 }
 
 .itemTextContent {
@@ -128,4 +124,3 @@
 .mb-3 { margin-bottom: 0.75rem; }
 .h-5 { height: 1.25rem; }
 .w-1\/2 { width: 50%; }
-

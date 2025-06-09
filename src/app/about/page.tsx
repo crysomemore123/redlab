@@ -3,7 +3,6 @@
 
 import React from 'react';
 import Image from 'next/image';
-// Link import fully removed as it was unused
 import styles from './about.module.css';
 
 export default function About() {
@@ -29,9 +28,10 @@ export default function About() {
           <Image
             src="/images/irina-gachechiladze.avif"
             alt="Irina Gachechiladze"
-            width={400} // Adjust based on actual image width
-            height={400} // Adjust based on actual image height
-            style={{ objectFit: 'initial' }} // Prevent scaling
+            width={400} // This is used for the aspect ratio
+            height={400} // This is used for the aspect ratio
+            className={styles.profileImageTag} // Class for responsive styling
+            sizes="(max-width: 768px) 90vw, (max-width: 1200px) 33vw, 300px" // Helps Next.js serve the right image size
           />
         </div>
         <div className={styles.profileInfo}>
@@ -49,42 +49,6 @@ export default function About() {
           </p>
         </div>
       </div>
-
-      {/* Executive Director Section - Adam Knight's section has been removed */}
-      {/*
-      <div className={styles.teamMember}>
-        <div className={styles.profileImage}>
-          <Image
-            src="/images/adam-knight.avif"
-            alt="Adam Knight"
-            width={400} // Adjust based on actual image width
-            height={400} // Adjust based on actual image height
-            style={{ objectFit: 'initial' }} // Prevent scaling
-          />
-        </div>
-        <div className={styles.profileInfo}>
-          <h2>ADAM KNIGHT | Executive Director</h2>
-          <p>
-            Is a director and producer. He has directed new works by Mat
-            Smart, Lucy Alibar, Bekah Brunstetter, Matt Dellapina,
-            Lawrence Dial, Michele Lowe, and David Lee Nelson, among
-            others, at venues such as Rattlestick, Cherry Lane, 59E59,
-            Poetry Project, PS 122, and The Tank. Recent credits: <em>Navigator
-            in Love</em> (Red Lab), Lark Theatre&apos;s Russia-US Exchange, <em>In The
-            Event You&apos;re Sinking</em> (Stable Cable), <em>Four Dogs and a Bone</em>
-            (Compost Heap, A Drilling Company), <em>Brief Candle, Pleasant
-            Stories</em> (Stonestreet), <em>We No We Is</em> (Art Nova, ATL Fest),
-            Regional: <em>Topdog/Underdog</em> (Kitchen Theatre), <em>PURE
-            Theatre</em>, <em>The Festival at My House</em> (Water Tower
-            Theatre), <em>Hamlet</em> (College of Charleston), <em>The 13th of
-            Paris</em> (Warehouse Theatre). Came from Austin&apos;s groundbreaking
-            Frontera, Assistant credits: ART, Pittsburgh Theatre, Manhattan
-            Theatre Club, Williamstown, Folger Shakespeare Theatre. He is
-            co-Artistic Director of Silent Theatre Project.
-          </p>
-        </div>
-      </div>
-      */}
     </div>
   );
 }

@@ -4,14 +4,6 @@ import { useEffect, useState, useRef, useCallback, useMemo } from 'react';
 import Image from 'next/image';
 
 export default function Home() {
-  const [displayIndex, setDisplayIndex] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
-  const [transitionEnabled, setTransitionEnabled] = useState(true);
-  const isJumpingLock = useRef(false); // Lock to prevent interactions during jump
-  const carouselRef = useRef<HTMLDivElement>(null);
-  const autoSlideTimerRef = useRef<NodeJS.Timeout | null>(null);
-  const pauseTimerRef = useRef<NodeJS.Timeout | null>(null);
-
   const baseImages = useMemo(() => [
     '/images/image1.jpg',
     '/images/image2.jpg',
@@ -22,149 +14,119 @@ export default function Home() {
     '/images/image7.jpg',
   ], []);
 
-  const renderedSlides = useMemo(() => {
-    if (baseImages.length === 0) return [];
-    if (baseImages.length < 3) {
-      let tempSlides = [...baseImages];
-      while (tempSlides.length < 3 && baseImages.length > 0) {
-        tempSlides = [...tempSlides, ...baseImages];
-      }
-      if (tempSlides.length === 0) return [];
-      return [
-        tempSlides[tempSlides.length - 1],
-        ...tempSlides,
-        tempSlides[0]
-      ];
-    }
-    return [
-      baseImages[baseImages.length - 1],
-      ...baseImages,
-      baseImages[0]
-    ];
-  }, [baseImages]);
-
-  const numRenderedSlides = renderedSlides.length;
   const numBaseImages = baseImages.length;
 
-  const startAutoSlide = useCallback(() => {
-    if (autoSlideTimerRef.current) {
-      clearInterval(autoSlideTimerRef.current);
-    }
-    if (isPaused || numBaseImages === 0 || isJumpingLock.current) { // Check lock
-      return;
-    }
-    autoSlideTimerRef.current = setInterval(() => {
-      if (isJumpingLock.current) return; // Check lock at the moment of execution
-      setTransitionEnabled(true);
-      setDisplayIndex(prevDisplayIndex => prevDisplayIndex + 1);
-    }, 3000);
-  }, [isPaused, numBaseImages]);
+  const renderedSlides = useMemo(() => {
+    if (numBaseImages === 0) return [];
+    return [
+      baseImages[numBaseImages - 1], // Clone of the last image
+      ...baseImages,
+      baseImages[0]                 // Clone of the first image
+    ];
+  }, [baseImages, numBaseImages]);
 
-  useEffect(() => {
-    startAutoSlide();
-    return () => {
-      if (autoSlideTimerRef.current) clearInterval(autoSlideTimerRef.current);
-      if (pauseTimerRef.current) clearTimeout(pauseTimerRef.current);
-    };
-  }, [startAutoSlide]);
+  const numRenderedSlides = renderedSlides.length;
 
+  // --- REWRITTEN STATE AND LOGIC ---
+
+  // Start at index 1 (the first real image)
+  const [displayIndex, setDisplayIndex] = useState(1);
+  // State to lock interactions during an animation
+  const [isSliding, setIsSliding] = useState(false);
+  // State to manage auto-play pausing
+  const [isPaused, setIsPaused] = useState(false);
+  
+  const carouselRef = useRef<HTMLDivElement>(null);
+  const autoSlideTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const pauseTimerRef = useRef<NodeJS.Timeout | null>(null);
+
+
+  // --- HANDLERS ---
+
+  // Handles both manual and auto-played slides
+  const slide = useCallback((direction: 'next' | 'prev') => {
+    if (isSliding || numBaseImages === 0) return; // The Lock: Do nothing if already sliding
+
+    setIsSliding(true); // Engage lock
+    setDisplayIndex(prev => prev + (direction === 'next' ? 1 : -1));
+  }, [isSliding, numBaseImages]);
+
+  // This function is called when the CSS transition ends
+  const handleTransitionEnd = useCallback(() => {
+    setIsSliding(false); // Release lock
+
+    // If we've landed on a clone, jump to the real slide without animation
+    if (displayIndex === 0) { // Landed on the clone of the last image
+      if (carouselRef.current) carouselRef.current.style.transition = 'none';
+      setDisplayIndex(numBaseImages);
+    } else if (displayIndex === numBaseImages + 1) { // Landed on the clone of the first image
+      if (carouselRef.current) carouselRef.current.style.transition = 'none';
+      setDisplayIndex(1);
+    }
+  }, [displayIndex, numBaseImages]);
+
+
+  // --- EFFECTS ---
+
+  // This effect applies the transform and re-enables CSS transitions after a jump
   useEffect(() => {
-    if (carouselRef.current && numRenderedSlides > 0) {
-      carouselRef.current.style.transition = transitionEnabled ? 'transform 0.6s ease-in-out' : 'none';
+    if (carouselRef.current) {
+      // If we are on a real slide, ensure the transition animation is active.
+      // This is also crucial for re-enabling transitions after a jump.
+      if (displayIndex > 0 && displayIndex <= numBaseImages) {
+        carouselRef.current.style.transition = 'transform 0.6s ease-in-out';
+      }
+      
       const percentageToShiftPerSlide = 100 / numRenderedSlides;
       const offsetPercentage = displayIndex * percentageToShiftPerSlide;
       carouselRef.current.style.transform = `translateX(-${offsetPercentage}%)`;
     }
-  }, [displayIndex, transitionEnabled, numRenderedSlides]);
+  }, [displayIndex, numRenderedSlides]);
 
+  // Effect for auto-sliding
   useEffect(() => {
-    if (isJumpingLock.current && !transitionEnabled) {
-      // This block executes after a jump has occurred (displayIndex changed with transitionEnabled=false)
-      // Now, re-enable transitions and release the lock for the next frame.
-      requestAnimationFrame(() => {
-        setTransitionEnabled(true);
-        isJumpingLock.current = false;
-      });
-      return; // Early exit, no further jump logic needed in this render cycle
-    }
-
-    // Only proceed with jump scheduling if not currently processing a jump
-    if (isJumpingLock.current || !transitionEnabled) {
-        return;
-    }
-
-    let jumpTimeoutId: NodeJS.Timeout | null = null;
-
-    if (displayIndex === numBaseImages) {
-      jumpTimeoutId = setTimeout(() => {
-        // Check lock again in case of race conditions, though primary lock check is outside
-        if (isJumpingLock.current) return;
-        isJumpingLock.current = true;
-        setTransitionEnabled(false);
-        setDisplayIndex(0);
-      }, 600); // Must match CSS transition duration
-    } else if (displayIndex === -1) {
-      jumpTimeoutId = setTimeout(() => {
-        if (isJumpingLock.current) return;
-        isJumpingLock.current = true;
-        setTransitionEnabled(false);
-        setDisplayIndex(numBaseImages - 1);
-      }, 600); // Must match CSS transition duration
-    }
-
-    return () => {
-      if (jumpTimeoutId) clearTimeout(jumpTimeoutId);
-    };
-    // isJumpingLock.current is a ref, so it's not included in dependencies to prevent re-running the effect on its change.
-    // The effect re-runs on displayIndex or transitionEnabled changes.
-  }, [displayIndex, numBaseImages, transitionEnabled]);
-
-  useEffect(() => {
-    if (isPaused) {
-      if (autoSlideTimerRef.current) {
-        clearInterval(autoSlideTimerRef.current);
-        autoSlideTimerRef.current = null;
-      }
-      if (pauseTimerRef.current) {
-        clearTimeout(pauseTimerRef.current);
-      }
-      pauseTimerRef.current = setTimeout(() => {
-        setIsPaused(false);
-      }, 5000);
-    } else if (!isJumpingLock.current) { // Only restart autoslide if not in a jump and not paused
-      if (!autoSlideTimerRef.current && numBaseImages > 0) {
-          startAutoSlide();
-      }
-    }
-    return () => {
-      if (pauseTimerRef.current) {
-        clearTimeout(pauseTimerRef.current);
-      }
-    };
-  }, [isPaused, startAutoSlide, numBaseImages]);
-
-  const handleNavClick = (direction: number) => {
-    if (numBaseImages === 0) return;
-    if (isJumpingLock.current) {
+    if (isPaused || isSliding || numBaseImages === 0) {
+      if (autoSlideTimerRef.current) clearInterval(autoSlideTimerRef.current);
       return;
     }
-    setTransitionEnabled(true);
-    setDisplayIndex(prevDisplayIndex => prevDisplayIndex + direction);
-    setIsPaused(true);
-  };
 
-  const handleCarouselMouseEnter = () => {
-    if (autoSlideTimerRef.current) {
-      clearInterval(autoSlideTimerRef.current);
-      autoSlideTimerRef.current = null;
-    }
-  };
+    autoSlideTimerRef.current = setInterval(() => slide('next'), 3000);
 
-  const handleCarouselMouseLeave = () => {
-    if (!isPaused && !isJumpingLock.current) { // Only restart if not paused and not jumping
-      startAutoSlide();
+    return () => {
+      if (autoSlideTimerRef.current) clearInterval(autoSlideTimerRef.current);
+    };
+  }, [isPaused, isSliding, numBaseImages, slide]);
+
+  // Effect to handle the 5-second pause after manual navigation
+  useEffect(() => {
+    if (isPaused) {
+      if (pauseTimerRef.current) clearTimeout(pauseTimerRef.current);
+      pauseTimerRef.current = setTimeout(() => setIsPaused(false), 5000);
     }
+    return () => {
+      if (pauseTimerRef.current) clearTimeout(pauseTimerRef.current);
+    };
+  }, [isPaused]);
+
+
+  // Navigation handlers for buttons and keyboard
+  const handleNavClick = (direction: 'next' | 'prev') => {
+    setIsPaused(true); // Pause auto-play on manual click
+    slide(direction);
   };
+  
+  const handleMouseEnter = () => setIsPaused(true);
+  const handleMouseLeave = () => setIsPaused(false);
+  
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowRight') handleNavClick('next');
+      else if (e.key === 'ArrowLeft') handleNavClick('prev');
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []); // Empty dependency array is fine as handleNavClick is stable
+
 
   if (numRenderedSlides === 0) {
     return <div style={{ textAlign: 'center', padding: '50px' }}>Loading carousel...</div>;
@@ -177,18 +139,19 @@ export default function Home() {
       <div className="container">
         <div
           className="carousel-container"
-          onMouseEnter={handleCarouselMouseEnter}
-          onMouseLeave={handleCarouselMouseLeave}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
         >
           <div
             className="carousel"
             ref={carouselRef}
             style={{ width: `${trackWidthPercentage}%` }}
+            onTransitionEnd={handleTransitionEnd}
           >
             {renderedSlides.map((imageSrc, index) => (
               <div
                 className="carousel-slide"
-                key={`slide-${index}-${imageSrc}`} // Stable key is important
+                key={`slide-${index}-${imageSrc}`}
                 style={{ width: `${100 / numRenderedSlides}%` }}
               >
                 <div className="image-container">
@@ -196,11 +159,8 @@ export default function Home() {
                     src={imageSrc}
                     alt={`Performance image ${index + 1}`}
                     fill
-                    style={{
-                      objectFit: 'cover',
-                      objectPosition: 'center center'
-                    }}
-                    priority={index >= displayIndex && index < displayIndex + 3}
+                    style={{ objectFit: 'cover', objectPosition: 'center center' }}
+                    priority={index >= 1 && index <= 3}
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     quality={80}
                   />
@@ -211,19 +171,14 @@ export default function Home() {
 
           <button
             className="carousel-arrow carousel-arrow-left"
-            onClick={() => handleNavClick(-1)}
+            onClick={() => handleNavClick('prev')}
             aria-label="Previous slide"
-          >
-            {/* Chevron via CSS */}
-          </button>
-
+          />
           <button
             className="carousel-arrow carousel-arrow-right"
-            onClick={() => handleNavClick(1)}
+            onClick={() => handleNavClick('next')}
             aria-label="Next slide"
-          >
-            {/* Chevron via CSS */}
-          </button>
+          />
         </div>
       </div>
 
@@ -232,23 +187,22 @@ export default function Home() {
           position: relative;
           width: 100%;
           overflow: hidden;
-          height: 500px; 
-          margin-top: 20px;
+          height: 450px;
+          margin-top: 40px;
           margin-bottom: 20px;
         }
         
-        .carousel { /* The track */
+        .carousel {
           display: flex;
-          will-change: transform; /* Hint for browser optimization */
           height: 100%;
-          /* transition is now handled by inline style for dynamic disabling */
+          will-change: transform;
         }
         
-        .carousel-slide { /* Each individual slide item on the track */
+        .carousel-slide {
           flex-shrink: 0;
           height: 100%;
           box-sizing: border-box;
-          padding: 0 8px; /* gutter: 8px on each side means 16px between images */
+          padding: 0 8px;
         }
         
         .image-container {
@@ -258,7 +212,6 @@ export default function Home() {
           overflow: hidden; 
         }
         
-        /* ... rest of your existing styles ... */
         .carousel-arrow {
           position: absolute;
           top: 50%;
@@ -307,27 +260,14 @@ export default function Home() {
         }
 
         @media (max-width: 768px) {
-          .carousel-container {
-            height: 350px;
-          }
-          .carousel-arrow {
-            width: 38px;
-            height: 38px;
-          }
-          .carousel-arrow::before {
-            padding: 5px;
-          }
-           .carousel-arrow-left {
-            left: 10px;
-          }
-          .carousel-arrow-right {
-            right: 10px;
-          }
+          .carousel-container { height: 300px; }
+          .carousel-arrow { width: 38px; height: 38px; }
+          .carousel-arrow::before { padding: 5px; }
+          .carousel-arrow-left { left: 10px; }
+          .carousel-arrow-right { right: 10px; }
         }
         @media (max-width: 480px) {
-          .carousel-container {
-            height: 250px;
-          }
+          .carousel-container { height: 220px; }
         }
       `}</style>
     </div>

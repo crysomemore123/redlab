@@ -5,7 +5,7 @@ import Link from 'next/link';
 export default function Footer() {
   return (
     <footer className="bg-neutral-100 text-center text-sm py-6 mt-16 px-4">
-      <p className="text-[#C43800]">© Red Lab Productions {new Date().getFullYear()} | ALL RIGHTS RESERVED</p>
+      <p className="text-[#C43800]">© Red Lab Productions | ALL RIGHTS RESERVED</p>
       
       {/* --- THIS IS THE UPDATED LINE --- */}
       {/* We removed the responsive prefixes (sm:) and flex-col to make it always a horizontal row */}

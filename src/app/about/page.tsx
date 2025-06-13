@@ -26,7 +26,7 @@ export default function About() {
       <div className={styles.teamMember}>
         <div className={styles.profileImage}>
           <Image
-            src="/images/irina-gachechiladze.avif"
+            src="/images/irina-gachechiladzeNEW.jpg"
             alt="Irina Gachechiladze"
             width={400} // This is used for the aspect ratio
             height={400} // This is used for the aspect ratio

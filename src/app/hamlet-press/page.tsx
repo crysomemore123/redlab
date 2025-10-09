@@ -27,19 +27,19 @@ export default function Page() {
           <div className={styles.reviewsContainer}>
             <div className={styles.review}>
               <p className={styles.quote}>
-                &quot;Full of intrigue... lush and fantastical.&quot; - <a href="https://www.nytimes.com" className={styles.source} target="_blank" rel="noopener noreferrer">The New York Times</a>
+                &quot;Full of intrigue... lush and fantastical.&quot; - <a href="https://www.nytimes.com/2017/04/26/theater/review-to-be-or-not-to-be-oh-who-cares-a-different-hamlet.html" className={styles.source} target="_blank" rel="noopener noreferrer">The New York Times</a>
               </p>
             </div>
 
             <div className={styles.review}>
               <p className={styles.quote}>
-                &quot;Probably the most intriguing version of Hamlet I have ever seen!&quot; - <a href="https://www.timessquarechronicles.com" className={styles.source} target="_blank" rel="noopener noreferrer">Times Square Chronicles</a>
+                &quot;Probably the most intriguing version of Hamlet I have ever seen!&quot; - <a href="https://t2conline.com/hamlet-a-version-should-be-the-only-version-of-hamlet/" className={styles.source} target="_blank" rel="noopener noreferrer">Times Square Chronicles</a>
               </p>
             </div>
 
             <div className={styles.review}>
               <p className={styles.quote}>
-                &quot;Akunin&apos;s script is dazzling, and his new (or should we say alternate) Hamlet is a breathtaking journey: full of wit, humor, tragedy, and twists.&quot; - <a href="https://www.stagebuddy.com" className={styles.source} target="_blank" rel="noopener noreferrer">Stage Buddy</a>
+                &quot;Akunin&apos;s script is dazzling, and his new (or should we say alternate) Hamlet is a breathtaking journey: full of wit, humor, tragedy, and twists.&quot; - <a href="https://stagebuddy.com/theater/theater-review/review-hamlet-version" className={styles.source} target="_blank" rel="noopener noreferrer">Stage Buddy</a>
               </p>
             </div>
 

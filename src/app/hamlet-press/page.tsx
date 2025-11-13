@@ -45,49 +45,49 @@ export default function Page() {
 
             <div className={styles.review}>
               <p className={styles.quote}>
-                &quot;A fresh interpretation of Hamlet has hit the NY stage... Solidly directed with clever stylistic choices by Irina Gachechiladze and led by a powerhouse cast&quot; - <a href="https://www.viabroadway.com" className={styles.source} target="_blank" rel="noopener noreferrer">Via Broadway</a>
+                &quot;A fresh interpretation of Hamlet has hit the NY stage... Solidly directed with clever stylistic choices by Irina Gachechiladze and led by a powerhouse cast&quot; - Yes Broadway
               </p>
             </div>
 
             <div className={styles.review}>
               <p className={styles.quote}>
-                &quot;Shakespeare&apos;s Hamlet, made into a detective story, investigates international political intrigues and flirts with the dichotomy between fiction and reality&quot; - <a href="https://www.theatreiseasy.com" className={styles.source} target="_blank" rel="noopener noreferrer">Theatre is Easy</a>
+                &quot;Shakespeare&apos;s Hamlet, made into a detective story, investigates international political intrigues and flirts with the dichotomy between fiction and reality&quot; - <a href="https://web.archive.org/web/20230921084302/http://www.theasy.com/Reviews/2017/H/hamletaversion.php" className={styles.source} target="_blank" rel="noopener noreferrer">Theatre is Easy</a>
               </p>
             </div>
 
             <div className={styles.review}>
               <p className={styles.quote}>
-                &quot;Striking presentational elements, terrific direction, fine performances and an interesting concept&quot; - <a href="https://www.theatrescene.com" className={styles.source} target="_blank" rel="noopener noreferrer">Theatrescene</a>
+                &quot;Striking presentational elements, terrific direction, fine performances and an interesting concept&quot; - <a href="https://www.theaterscene.net/plays/offbway-plays/hamlet-version/archive/" className={styles.source} target="_blank" rel="noopener noreferrer">Theatrescene</a>
               </p>
             </div>
 
             <div className={styles.review}>
               <p className={styles.quote}>
-                &quot;Akunin is brilliant&quot; - <a href="https://www.justoffbj.com" className={styles.source} target="_blank" rel="noopener noreferrer">JustOffBj.com</a>
+                &quot;Akunin is brilliant&quot; - <a href="https://web.archive.org/web/20211128093135/https://justcliqit.com/a-new-twist-on-hamlet-a-trusted-friend-could-be-as-lethal/" className={styles.source} target="_blank" rel="noopener noreferrer">justcliqit</a>
               </p>
             </div>
 
             <div className={styles.review}>
               <p className={styles.quote}>
-                &quot;Scenes are made more spectacular by Giya Kancheli&apos;s sound score which feels light, like pinpricks on the skin.&quot; - <a href="https://www.offoffonline.com" className={styles.source} target="_blank" rel="noopener noreferrer">OffOffOnline</a>
+                &quot;Scenes are made more spectacular by Giya Kancheli&apos;s sound score which feels light, like pinpricks on the skin.&quot; - <a href="https://www.offoffonline.com/offoffonline/2017/4/24/hamlet-a-version" className={styles.source} target="_blank" rel="noopener noreferrer">OffOffOnline</a>
               </p>
             </div>
 
             <div className={styles.review}>
               <p className={styles.quote}>
-                &quot;Witty and sharp language... from a writer particularly sensitive to political upheavals and crime&quot; - <a href="https://www.theknockturnal.com" className={styles.source} target="_blank" rel="noopener noreferrer">The Knockturnal</a>
+                &quot;Witty and sharp language... from a writer particularly sensitive to political upheavals and crime&quot; - <a href="https://theknockturnal.com/review-akunins-hamlet-a-version-now-playing-at-theatre-at-st-clements/" className={styles.source} target="_blank" rel="noopener noreferrer">The Knockturnal</a>
               </p>
             </div>
 
             <div className={styles.review}>
               <p className={styles.quote}>
-                &quot;One of &apos;the Best Off-Off Broadway&apos; shows!&quot; - <a href="https://www.timeoutny.com" className={styles.source} target="_blank" rel="noopener noreferrer">TimeOutNY</a>
+                &quot;One of &apos;the Best Off-Off Broadway&apos; shows!&quot; - TimeOutNY
               </p>
             </div>
 
             <div className={styles.review}>
               <p className={styles.quote}>
-                &quot;Not to miss! Akunin&apos;s adaptation illuminates a contemporary international political issue: how to eradicate the old to make way for the new.&quot; - <a href="https://www.playbill.com" className={styles.source} target="_blank" rel="noopener noreferrer">Playbill.com</a>
+                &quot;Not to miss! Akunin&apos;s adaptation illuminates a contemporary international political issue: how to eradicate the old to make way for the new.&quot; - <a href="https://playbill.com/article/15-off-broadway-shows-not-to-miss-april-14may-1" className={styles.source} target="_blank" rel="noopener noreferrer">Playbill.com</a>
               </p>
             </div>
             

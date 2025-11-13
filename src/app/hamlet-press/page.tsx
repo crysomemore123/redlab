@@ -92,7 +92,6 @@ export default function Page() {
             </div>
             
             <div className={styles.callToAction}>
-              <a href="/hamlet-a-version/more-info" className={styles.moreInfoButton}>MORE INFO</a>
             </div>
           </div>
         </div>

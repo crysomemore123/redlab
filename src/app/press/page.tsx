@@ -52,9 +52,7 @@ export default function Page() {
               <p className={styles.reviewTitle}>PRAISE FOR &quot;NAVIGATOR IN LOVE&quot;...</p>
               <p className={styles.quote}>
                 &quot;[T]he story takes place in Georgia—the country, not the state. Not only that, it was written by Lasha Bugadze, a Georgian playwright,
-                so the perspective from which the story is told is really refreshing...&quot; (
-                <a href="https://www.usedyorkcity.com/" className={styles.textLink}>Used New York</a>
-                )
+                so the perspective from which the story is told is really refreshing...&quot; (Used New York)
               </p>
               <p className={styles.quote}>
                 &quot;Adam Knight directs the show with marvelous precision, subtlety and humor...&quot; (

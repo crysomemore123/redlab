@@ -63,7 +63,7 @@ export default function Page() {
               </p>
               <p className={styles.quote}>
                 &quot;There are a lot of comedic moments...counterbalanced with Kafkaesque anxiety.&quot; (
-                <a href="http://www.theasy.com/Reviews/2017/N/navigatorinlove.php" className={styles.textLink}>Theatre Is Easy</a>
+                <a href="https://web.archive.org/web/20210512062305/http://www.theasy.com/Reviews/2017/N/navigatorinlove.php" className={styles.textLink}>Theatre Is Easy</a>
                 )
               </p>
             </div>
@@ -73,7 +73,7 @@ export default function Page() {
               <p className={styles.quote}>
                 &quot;Sometimes you wonder if, at the end of your days, you&apos;ll look back and pin point the moment that altered the entire trajectory
                 of your life...&quot; (
-                <a href="http://www.theasy.com/Reviews/2017/T/atoygun.php" className={styles.textLink}>Theatre Is Easy</a>
+                <a href="https://web.archive.org/web/20210507013055/http://www.theasy.com/Reviews/2017/T/atoygun.php" className={styles.textLink}>Theatre Is Easy</a>
                 )
               </p>
               <p className={styles.quote}>
@@ -92,7 +92,7 @@ export default function Page() {
               <p className={styles.reviewTitle}>OTHER PRESS</p>
               <p className={styles.otherPress}>
                 &quot;New York festival introduces prominent Georgian playwrights to US audience&quot; (
-                <a href="http://agenda.ge/news/83877/eng" className={styles.textLink}>Agenda.ge</a>
+                <a href="https://web.archive.org/web/20171127134317/http://agenda.ge/news/83877/eng" className={styles.textLink}>Agenda.ge</a>
                 )
               </p>
               <p className={styles.otherPress}>
@@ -104,7 +104,7 @@ export default function Page() {
               </p>
               <p className={styles.otherPress}>
                 &quot;Georgian-American Theatrical Feast&quot; (
-                <a href="http://georgiatosee.com/2017/10/georgian-american-theatrical-feast/" className={styles.textLink}>Georgia To See</a>
+                <a href="https://web.archive.org/web/20190626004034/http://georgiatosee.com/2017/10/georgian-american-theatrical-feast/" className={styles.textLink}>Georgia To See</a>
                 )
               </p>
             </div>

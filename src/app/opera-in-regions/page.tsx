@@ -3,27 +3,29 @@ import React from 'react';
 import Image from 'next/image';
 import './opera-in-regions.css';
 
+// Import the image from the assets folder
+// This allows Next.js to calculate dimensions and generate the blur placeholder automatically
+import telephoneBannerImg from '../../assets/telephone-banner.jpg'; 
+
 const OperaInRegions: React.FC = () => {
   return (
     <>
       {/* Banner Section */}
       <section className="banner-section">
         <Image 
-          src="/images/telephone-banner.jpg" 
+          src={telephoneBannerImg} 
           alt="Opera Telephone Banner with Georgian Text" 
           className="banner-image"
-          // 1. PRIORITY: Tells the browser to preload this immediately
-          priority={true} 
-          // 2. SIZES: Tells browser this is a full-width image, preventing large downloads on mobile
+          // "blur" shows a blurred version instantly while the full image loads
+          placeholder="blur" 
+          // "priority" downloads the image immediately (good for top-of-page images)
+          priority 
+          // "sizes" ensures the correct file size is downloaded for mobile vs desktop
           sizes="100vw" 
-          // 3. DIMENSIONS: Ensure these match the Aspect Ratio of your real image
-          width={1200} 
-          height={400} 
-          // Optional: Add this style to ensure it creates space immediately preventing layout shift
           style={{
             width: '100%',
             height: 'auto',
-            objectFit: 'cover' // or 'contain' depending on your design
+            objectFit: 'cover'
           }}
         />
       </section>

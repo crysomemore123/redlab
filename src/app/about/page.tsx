@@ -5,6 +5,10 @@ import React from 'react';
 import Image from 'next/image';
 import styles from './about.module.css';
 
+// 1. Import the image from assets
+// Make sure the file is moved to: src/assets/irina-gachechiladze.jpg
+import irinaImg from '../../assets/irina-gachechiladze.jpg';
+
 export default function About() {
   return (
     <div className={styles.aboutContainer}>
@@ -26,12 +30,18 @@ export default function About() {
       <div className={styles.teamMember}>
         <div className={styles.profileImage}>
           <Image
-            src="/images/irina-gachechiladzeNEW.jpg"
+            // 2. Use the imported object (replaces string path)
+            src={irinaImg}
             alt="Irina Gachechiladze"
-            width={400} // This is used for the aspect ratio
-            height={400} // This is used for the aspect ratio
-            className={styles.profileImageTag} // Class for responsive styling
-            sizes="(max-width: 768px) 90vw, (max-width: 1200px) 33vw, 300px" // Helps Next.js serve the right image size
+            
+            // Note: width={400} and height={400} are removed! 
+            // Next.js now calculates them automatically from the file.
+            
+            className={styles.profileImageTag}
+            sizes="(max-width: 768px) 90vw, (max-width: 1200px) 33vw, 300px"
+            
+            // 3. Add placeholder="blur" for the nice loading effect
+            placeholder="blur" 
           />
         </div>
         <div className={styles.profileInfo}>

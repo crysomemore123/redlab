@@ -2,37 +2,39 @@
 
 .pageContainer {
   width: 100%;
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 20px 15px;
+  max-width: 1100px; /* Matched to About/Playwrights */
+  margin: 60px auto;
+  padding: 60px 80px; /* Generous padding for the boxed feel */
+  background-color: #e6e6e6; /* The gray background */
+  color: #333;
+  box-sizing: border-box;
   font-family: Arial, sans-serif;
 }
 
 .banner {
   width: 100%;
-  padding: 40px 20px;
-  text-align: center;
+  text-align: left; /* Left aligned like other pages */
   margin-bottom: 50px;
 }
 
 .bannerText {
-  display: inline-block;
-  font-family: 'Oswald', sans-serif;
-  font-size: 3em;
-  font-weight: 500;
-  color: #222;
-  margin: 0;
+  background-color: #0f0f0f; /* Black box for title */
+  color: #b62a04; /* Red color */
+  padding: 12px 30px;
+  font-size: 2.2em;
+  font-weight: normal;
   text-transform: uppercase;
-  letter-spacing: 1px;
-  padding-bottom: 15px;
-  border-bottom: 2px solid #333;
+  margin: 0;
+  letter-spacing: 0.5px;
+  display: inline-block;
   line-height: 1.2;
+  font-family: 'Oswald', sans-serif;
 }
 
 .teamList {
   display: flex;
   flex-direction: column;
-  gap: 50px;
+  gap: 60px; /* Increased gap between members */
 }
 
 .teamEntry {
@@ -43,19 +45,20 @@
 }
 
 .teamImageWrapper {
-  /* This wrapper now just defines the size constraints */
   position: relative;
-  flex: 0 0 200px; /* Base width of 200px on desktop */
+  flex: 0 0 200px;
   min-width: 200px;
+  background-color: #ccc; /* Slightly darker gray for image placeholder */
+  border-radius: 2px;
+  overflow: hidden;
 }
 
 .teamImage {
-  /* This is the key change to prevent cropping */
-  object-fit: contain !important; /* Ensures the whole image is visible */
-  
-  /* These ensure it scales correctly within the wrapper */
+  /* Preserving your "prevent cropping" preference */
+  object-fit: contain !important; 
   width: 100%;
   height: auto;
+  display: block;
 }
 
 .teamInfo {
@@ -65,7 +68,7 @@
 }
 
 .teamName {
-  font-size: 1.3em;
+  font-size: 1.2em; /* Matched to Playwrights */
   font-weight: bold;
   color: #000;
   margin: 0 0 5px 0;
@@ -73,18 +76,18 @@
 }
 
 .teamRole {
-  font-size: 1em;
+  font-size: 1.05em;
   font-weight: normal;
-  color: #333;
-  margin: 0 0 10px 0;
+  color: #222;
+  margin: 0 0 12px 0;
   font-style: italic;
 }
 
 .teamBio {
-  font-size: 0.9em;
+  font-size: 0.95em;
   color: #333;
-  line-height: 1.6;
-  margin: 0 0 10px 0;
+  line-height: 1.7; /* Increased for better readability on gray */
+  margin: 0 0 15px 0;
 }
 
 .teamWebsite a {
@@ -100,53 +103,45 @@
 
 /* --- Responsive Adjustments --- */
 @media (max-width: 768px) {
+  .pageContainer {
+    padding: 40px 20px;
+    margin: 20px auto;
+    width: 95%;
+  }
+
+  .banner {
+    text-align: center;
+  }
+
   .teamEntry {
     flex-direction: column;
-    align-items: center; /* Center items when stacked */
+    align-items: center;
   }
 
   .teamImageWrapper {
-    flex-basis: auto; /* Reset flex-basis for vertical layout */
-    width: 100%;
-    max-width: 220px; /* Control max size on mobile */
+    max-width: 250px;
     margin-bottom: 20px;
   }
 
   .teamInfo {
-    text-align: center; /* Center-align text blocks on mobile */
+    text-align: left;
   }
 
-  .teamName,
-  .teamRole,
-  .teamBio,
-  .teamWebsite {
-    text-align: left; /* Keep the text itself left-aligned for readability */
-  }
-  .teamWebsite {
-    text-align: center; /* Except for the website link */
-  }
-
-  .bannerText {
-    font-size: 2.2em;
-    padding-bottom: 10px;
-    letter-spacing: 0.5px;
-  }
-}
-
-@media (max-width: 480px) {
-  .bannerText {
-    font-size: 1.8em;
+  .teamName {
+    text-align: center;
   }
 }
 
 /* --- Skeleton Styles --- */
-/* You had some Tailwind-like classes, I'll define them simply here */
-.skeletonPulse { animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+.skeletonPulse { 
+  animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite; 
+}
+
 @keyframes pulse {
   50% { opacity: .5; }
 }
+
 .skeletonLine {
-  background-color: #e0e0e0;
+  background-color: #ccc;
   border-radius: 4px;
-  height: 1.25rem;
 }

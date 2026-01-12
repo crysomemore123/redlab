@@ -2,23 +2,24 @@
 
 .pageContainer {
   width: 100%;
-  max-width: 1100px; /* Matched to About page */
+  max-width: 1100px;
   margin: 60px auto;
-  padding: 60px 80px; /* Generous padding for the boxed feel */
-  background-color: #e6e6e6; /* The gray background */
+  padding: 60px 80px;
+  background-color: #e6e6e6; /* Main page gray */
   color: #333;
   box-sizing: border-box;
+  font-family: Arial, sans-serif;
 }
 
 .banner {
   width: 100%;
-  text-align: left; /* Aligned left like the About title */
+  text-align: left;
   margin-bottom: 50px;
 }
 
 .bannerText {
-  background-color: #0f0f0f; /* Black box for title */
-  color: #b62a04; /* Red color used in About page */
+  background-color: #0f0f0f;
+  color: #b62a04;
   padding: 12px 30px;
   font-size: 2.2em;
   font-weight: normal;
@@ -28,13 +29,12 @@
   display: inline-block;
   line-height: 1.2;
   font-family: 'Oswald', sans-serif;
-  border-bottom: none; /* Removed the old underline style */
 }
 
 .playwrightsList {
   display: flex;
   flex-direction: column;
-  gap: 50px; /* Slightly more space between entries */
+  gap: 60px;
 }
 
 .playwrightEntry {
@@ -46,12 +46,18 @@
 
 .playwrightImageWrapper {
   position: relative;
+  flex: 0 0 200px;
   width: 200px;
-  height: 280px; /* Adjusted height for better portrait ratio */
-  min-width: 200px;
-  background-color: #ccc;
-  overflow: hidden;
+  height: 313px;
+  /* Background color removed so it matches the pageContainer gray */
   border-radius: 2px;
+  overflow: hidden;
+}
+
+.playwrightImage {
+  /* This ensures the FULL image shows without cropping */
+  object-fit: contain !important; 
+  display: block;
 }
 
 .playwrightInfo {
@@ -61,29 +67,29 @@
 }
 
 .playwrightName {
-  font-size: 1.2em; /* Matched heading size from About page */
+  font-size: 1.3em;
   font-weight: bold;
   color: #000;
-  margin: 0 0 8px 0;
+  margin: 0 0 5px 0;
   text-transform: uppercase;
 }
 
 .playwrightQuote {
-  font-size: 1.05em;
-  font-style: italic;
-  color: #222;
+  font-size: 1.1em;
+  font-weight: normal;
+  color: #b62a04;
   margin: 0 0 12px 0;
-  line-height: 1.4;
+  font-style: italic;
 }
 
 .playwrightBio {
   font-size: 0.95em;
   color: #333;
-  line-height: 1.7; /* Increased line height for readability */
+  line-height: 1.7;
   margin: 0;
 }
 
-/* --- Responsive Adjustments --- */
+/* --- Responsive --- */
 @media (max-width: 768px) {
   .pageContainer {
     padding: 40px 20px;
@@ -101,15 +107,30 @@
   }
 
   .playwrightImageWrapper {
-    width: 100%;
-    max-width: 280px;
+    margin-bottom: 20px;
   }
 
   .playwrightInfo {
     text-align: left;
   }
-  
+
   .playwrightName {
     text-align: center;
   }
+}
+
+/* --- Skeleton Styles --- */
+.skeletonPulse { 
+  animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite; 
+  background-color: #ccc; /* We keep this only for the loading state */
+  border-radius: 4px;
+}
+
+@keyframes pulse {
+  50% { opacity: .5; }
+}
+
+.skeletonLine {
+  height: 1.25rem;
+  margin-bottom: 10px;
 }

@@ -2,9 +2,17 @@
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
-import styles from './playwrights.module.css'; // Ensure this path is correct
+import styles from './playwrights.module.css';
 
-const playwrightsData = [
+interface Playwright {
+  name: string;
+  quote: string;
+  bio: string;
+  imageSrc: string;
+  altText: string;
+}
+
+const playwrightsData: Playwright[] = [
   {
     name: 'LASHA BUGADZE',
     quote: '"Navigator in Love" and "Putin\'s Mother"',
@@ -77,11 +85,6 @@ export default function FestivalPlaywrightsPage() {
     setIsClient(true);
   }, []);
 
-  // Define these once, or get them from your CSS module if possible/preferred
-  // These should match the width/height you set for .playwrightImageWrapper in playwrights.module.css
-  const skeletonImageWidth = '200px'; // Example: Match CSS
-  const skeletonImageHeight = '313px'; // Example: Match CSS
-
   return (
     <div className={styles.pageContainer}>
       <div className={styles.banner}>
@@ -90,54 +93,38 @@ export default function FestivalPlaywrightsPage() {
 
       {isClient ? (
         <div className={styles.playwrightsList}>
-          {playwrightsData.length > 0 ? (
-            playwrightsData.map((playwright, index) => (
-              <div key={playwright.name} className={styles.playwrightEntry}>
-                <div className={styles.playwrightImageWrapper}> {/* This wrapper is styled in CSS */}
-                  <Image
-                    src={playwright.imageSrc}
-                    alt={playwright.altText}
-                    layout="fill"
-                    objectFit="cover" // Or "contain"
-                    className={styles.playwrightImage} // For additional styles like border-radius
-                    priority={index === 0}
-                  />
-                </div>
-                <div className={styles.playwrightInfo}>
-                  <h2 className={styles.playwrightName}>{playwright.name}</h2>
-                  <p className={styles.playwrightQuote}>{playwright.quote}</p>
-                  <p className={styles.playwrightBio}>{playwright.bio}</p>
-                </div>
-              </div>
-            ))
-          ) : (
-            <p>No playwright data to display.</p>
-          )}
-        </div>
-      ) : (
-        // Skeleton Loader
-        <div className={styles.playwrightsList}>
-          {[...Array(3)].map((_, index) => ( // Show 3 skeleton loaders for example
-            <div key={index} className={styles.playwrightEntry} style={{ opacity: 0.5 }}>
-              <div 
-                className={`${styles.playwrightImageWrapper} animate-pulse bg-gray-300 rounded`} // Apply wrapper class and skeleton styles
-                style={{ 
-                  width: skeletonImageWidth, // Use defined width
-                  height: skeletonImageHeight, // Use defined height
-                  // position: 'relative' is already on playwrightImageWrapper via CSS
-                  // backgroundColor is handled by bg-gray-300
-                }}
-              >
-                {/* No actual Image component here, the div itself is the placeholder */}
+          {playwrightsData.map((playwright, index) => (
+            <div key={playwright.name} className={styles.playwrightEntry}>
+              <div className={styles.playwrightImageWrapper}>
+                <Image
+                  src={playwright.imageSrc}
+                  alt={playwright.altText}
+                  fill
+                  sizes="200px"
+                  className={styles.playwrightImage}
+                  priority={index < 2}
+                />
               </div>
               <div className={styles.playwrightInfo}>
-                <div className="animate-pulse bg-gray-300 h-6 w-3/4 rounded mb-2"></div>
-                <div className="animate-pulse bg-gray-300 h-4 w-1/2 rounded mb-4"></div>
-                <div className="space-y-2">
-                  <div className="animate-pulse bg-gray-300 h-4 w-full rounded"></div>
-                  <div className="animate-pulse bg-gray-300 h-4 w-5/6 rounded"></div>
-                  <div className="animate-pulse bg-gray-300 h-4 w-4/5 rounded"></div>
-                </div>
+                <h2 className={styles.playwrightName}>{playwright.name}</h2>
+                <p className={styles.playwrightQuote}>{playwright.quote}</p>
+                <p className={styles.playwrightBio}>{playwright.bio}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : (
+        /* Skeleton Loader for initial SSR state */
+        <div className={styles.playwrightsList}>
+          {[...Array(3)].map((_, index) => (
+            <div key={index} className={styles.playwrightEntry} style={{ opacity: 0.5 }}>
+              <div 
+                className={`${styles.playwrightImageWrapper} ${styles.skeletonPulse}`} 
+              />
+              <div className={styles.playwrightInfo}>
+                <div className={`${styles.skeletonPulse} ${styles.skeletonLine}`} style={{ width: '60%', height: '24px' }}></div>
+                <div className={`${styles.skeletonPulse} ${styles.skeletonLine}`} style={{ width: '40%', height: '18px' }}></div>
+                <div className={`${styles.skeletonPulse} ${styles.skeletonLine}`} style={{ width: '100%', height: '100px' }}></div>
               </div>
             </div>
           ))}

@@ -15,89 +15,77 @@ export default function Home() {
   ], []);
 
   const numBaseImages = baseImages.length;
+  const slidesToPreview = 3; // Number of images visible at once
 
+  // 1. IMPROVED CLONING: Clone 3 images at each end for a seamless 3-up transition
   const renderedSlides = useMemo(() => {
     if (numBaseImages === 0) return [];
-    return [
-      baseImages[numBaseImages - 1], // Clone of the last image
-      ...baseImages,
-      baseImages[0]                 // Clone of the first image
-    ];
+    const lastThree = baseImages.slice(-slidesToPreview);
+    const firstThree = baseImages.slice(0, slidesToPreview);
+    return [...lastThree, ...baseImages, ...firstThree];
   }, [baseImages, numBaseImages]);
 
   const numRenderedSlides = renderedSlides.length;
 
-  // --- REWRITTEN STATE AND LOGIC ---
-
-  // Start at index 1 (the first real image)
-  const [displayIndex, setDisplayIndex] = useState(1);
-  // State to lock interactions during an animation
+  // Start at index 3 (which is the first real image after the 3 clones)
+  const [displayIndex, setDisplayIndex] = useState(slidesToPreview);
   const [isSliding, setIsSliding] = useState(false);
-  // State to manage auto-play pausing
   const [isPaused, setIsPaused] = useState(false);
   
   const carouselRef = useRef<HTMLDivElement>(null);
   const autoSlideTimerRef = useRef<NodeJS.Timeout | null>(null);
   const pauseTimerRef = useRef<NodeJS.Timeout | null>(null);
 
-
-  // --- HANDLERS ---
-
-  // Handles both manual and auto-played slides
+  // 2. STABLE SLIDE FUNCTION
   const slide = useCallback((direction: 'next' | 'prev') => {
-    if (isSliding || numBaseImages === 0) return; // The Lock: Do nothing if already sliding
-
-    setIsSliding(true); // Engage lock
+    if (isSliding || numBaseImages === 0) return;
+    setIsSliding(true);
+    
+    if (carouselRef.current) {
+      carouselRef.current.style.transition = 'transform 0.6s ease-in-out';
+    }
+    
     setDisplayIndex(prev => prev + (direction === 'next' ? 1 : -1));
   }, [isSliding, numBaseImages]);
 
-  // This function is called when the CSS transition ends
+  // 3. THE "INVISIBLE JUMP" LOGIC
   const handleTransitionEnd = useCallback(() => {
-    setIsSliding(false); // Release lock
+    setIsSliding(false);
+    if (!carouselRef.current) return;
 
-    // If we've landed on a clone, jump to the real slide without animation
-    if (displayIndex === 0) { // Landed on the clone of the last image
-      if (carouselRef.current) carouselRef.current.style.transition = 'none';
-      setDisplayIndex(numBaseImages);
-    } else if (displayIndex === numBaseImages + 1) { // Landed on the clone of the first image
-      if (carouselRef.current) carouselRef.current.style.transition = 'none';
-      setDisplayIndex(1);
+    // If we landed on the "right" clones, jump back to the "real" first images
+    if (displayIndex >= numBaseImages + slidesToPreview) {
+      carouselRef.current.style.transition = 'none';
+      setDisplayIndex(slidesToPreview);
+    } 
+    // If we landed on the "left" clones, jump forward to the "real" last images
+    else if (displayIndex < slidesToPreview) {
+      carouselRef.current.style.transition = 'none';
+      setDisplayIndex(numBaseImages + slidesToPreview - 1);
     }
   }, [displayIndex, numBaseImages]);
 
-
-  // --- EFFECTS ---
-
-  // This effect applies the transform and re-enables CSS transitions after a jump
+  // 4. APPLY TRANSFORM
   useEffect(() => {
     if (carouselRef.current) {
-      // If we are on a real slide, ensure the transition animation is active.
-      // This is also crucial for re-enabling transitions after a jump.
-      if (displayIndex > 0 && displayIndex <= numBaseImages) {
-        carouselRef.current.style.transition = 'transform 0.6s ease-in-out';
-      }
-      
       const percentageToShiftPerSlide = 100 / numRenderedSlides;
       const offsetPercentage = displayIndex * percentageToShiftPerSlide;
       carouselRef.current.style.transform = `translateX(-${offsetPercentage}%)`;
     }
   }, [displayIndex, numRenderedSlides]);
 
-  // Effect for auto-sliding
+  // Auto-sliding logic
   useEffect(() => {
     if (isPaused || isSliding || numBaseImages === 0) {
       if (autoSlideTimerRef.current) clearInterval(autoSlideTimerRef.current);
       return;
     }
-
     autoSlideTimerRef.current = setInterval(() => slide('next'), 3000);
-
     return () => {
       if (autoSlideTimerRef.current) clearInterval(autoSlideTimerRef.current);
     };
   }, [isPaused, isSliding, numBaseImages, slide]);
 
-  // Effect to handle the 5-second pause after manual navigation
   useEffect(() => {
     if (isPaused) {
       if (pauseTimerRef.current) clearTimeout(pauseTimerRef.current);
@@ -108,16 +96,11 @@ export default function Home() {
     };
   }, [isPaused]);
 
-
-  // Navigation handlers for buttons and keyboard
-  const handleNavClick = (direction: 'next' | 'prev') => {
-    setIsPaused(true); // Pause auto-play on manual click
+  const handleNavClick = useCallback((direction: 'next' | 'prev') => {
+    setIsPaused(true);
     slide(direction);
-  };
-  
-  const handleMouseEnter = () => setIsPaused(true);
-  const handleMouseLeave = () => setIsPaused(false);
-  
+  }, [slide]);
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'ArrowRight') handleNavClick('next');
@@ -125,42 +108,47 @@ export default function Home() {
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, []); // Empty dependency array is fine as handleNavClick is stable
-
+  }, [handleNavClick]);
 
   if (numRenderedSlides === 0) {
     return <div style={{ textAlign: 'center', padding: '50px' }}>Loading carousel...</div>;
   }
 
-  const trackWidthPercentage = (numRenderedSlides / 3) * 100;
+  // Width is based on the fact that 3 images are visible at once
+  const trackWidthPercentage = (numRenderedSlides / slidesToPreview) * 100;
 
   return (
     <div className="redlab-home">
       <div className="container">
         <div
           className="carousel-container"
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
         >
           <div
             className="carousel"
             ref={carouselRef}
-            style={{ width: `${trackWidthPercentage}%` }}
+            style={{ 
+                width: `${trackWidthPercentage}%`,
+                display: 'flex',
+                height: '100%',
+                willChange: 'transform'
+            }}
             onTransitionEnd={handleTransitionEnd}
           >
             {renderedSlides.map((imageSrc, index) => (
               <div
                 className="carousel-slide"
                 key={`slide-${index}-${imageSrc}`}
-                style={{ width: `${100 / numRenderedSlides}%` }}
+                style={{ width: `${100 / numRenderedSlides}%`, flexShrink: 0, height: '100%', padding: '0 8px', boxSizing: 'border-box' }}
               >
-                <div className="image-container">
+                <div className="image-container" style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden' }}>
                   <Image
                     src={imageSrc}
                     alt={`Performance image ${index + 1}`}
                     fill
                     style={{ objectFit: 'cover', objectPosition: 'center center' }}
-                    priority={index >= 1 && index <= 3}
+                    priority={index >= slidesToPreview && index <= slidesToPreview + 2}
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     quality={80}
                   />
@@ -169,16 +157,8 @@ export default function Home() {
             ))}
           </div>
 
-          <button
-            className="carousel-arrow carousel-arrow-left"
-            onClick={() => handleNavClick('prev')}
-            aria-label="Previous slide"
-          />
-          <button
-            className="carousel-arrow carousel-arrow-right"
-            onClick={() => handleNavClick('next')}
-            aria-label="Next slide"
-          />
+          <button className="carousel-arrow carousel-arrow-left" onClick={() => handleNavClick('prev')} aria-label="Previous slide" />
+          <button className="carousel-arrow carousel-arrow-right" onClick={() => handleNavClick('next')} aria-label="Next slide" />
         </div>
       </div>
 
@@ -192,26 +172,8 @@ export default function Home() {
           margin-bottom: 20px;
         }
         
-        .carousel {
-          display: flex;
-          height: 100%;
-          will-change: transform;
-        }
-        
-        .carousel-slide {
-          flex-shrink: 0;
-          height: 100%;
-          box-sizing: border-box;
-          padding: 0 8px;
-        }
-        
-        .image-container {
-          position: relative;
-          width: 100%;
-          height: 100%;
-          overflow: hidden; 
-        }
-        
+        /* Removed .carousel styles from here to avoid conflicts with inline style logic */
+
         .carousel-arrow {
           position: absolute;
           top: 50%;
@@ -243,28 +205,16 @@ export default function Home() {
           padding: 6px;
         }
 
-        .carousel-arrow-left {
-          left: 20px;
-        }
-        .carousel-arrow-left::before {
-          transform: rotate(-135deg);
-          margin-left: 3px;
-        }
+        .carousel-arrow-left { left: 20px; }
+        .carousel-arrow-left::before { transform: rotate(-135deg); margin-left: 3px; }
         
-        .carousel-arrow-right {
-          right: 20px;
-        }
-        .carousel-arrow-right::before {
-          transform: rotate(45deg);
-          margin-right: 3px;
-        }
+        .carousel-arrow-right { right: 20px; }
+        .carousel-arrow-right::before { transform: rotate(45deg); margin-right: 3px; }
 
         @media (max-width: 768px) {
           .carousel-container { height: 300px; }
           .carousel-arrow { width: 38px; height: 38px; }
           .carousel-arrow::before { padding: 5px; }
-          .carousel-arrow-left { left: 10px; }
-          .carousel-arrow-right { right: 10px; }
         }
         @media (max-width: 480px) {
           .carousel-container { height: 220px; }
